@@ -1,0 +1,36 @@
+.submit-btn {
+	color: white;
+	background-color: #7dd0d3;
+	border: none;
+}
+
+.img-container img {
+	max-width: fit-content;
+	height: 100%;
+}
+
+.reg a {
+	color: #7dd0d3;
+}
+
+.google-facebook {
+	border-radius: 10px;
+	padding: 0.5rem;
+	width: 15rem;
+}
+
+.radio-confirm span {
+	font-size: 1;
+}
+
+.radio-confirm a {
+	font-weight: 600;
+	color: #7dd0d3;
+}
+
+.alert p {
+	color: gray;
+	font-size: small;
+	text-align: center;
+	opacity: 75%;
+}
