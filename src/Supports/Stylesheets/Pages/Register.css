@@ -7,7 +7,31 @@
 } */
 
 .reg-input-form-container {
-	width: 100%;
+	max-width: 50%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.sign-input-form-container {
+	max-width: 50%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.forgot-input-form {
+	max-width: 50%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.reg-form-container {
+	max-width: 1500px;
+}
+
+.form-container {
+	max-width: 1500px;
+}
+
+.forgot-form-container {
+	max-width: 1200px;
 }

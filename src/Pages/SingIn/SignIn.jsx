@@ -10,12 +10,12 @@ import SignInLogo from '../../Supports/Assets/Sign/login-illustration.svg';
 
 const Register = () => {
 	return (
-		<div className='login-container p-5 mx-5'>
-			<div className='form-container shadow row'>
-				<div className='img-container col me-5 p-0'>
+		<div className='login-container p-5 m-5'>
+			<div className='form-container shadow row mx-auto'>
+				<div className='img-container col p-0'>
 					<img src={SignInLogo} alt='Register' />
 				</div>
-				<div className='input-form-container col p-5'>
+				<div className='sign-input-form-container col p-5'>
 					<div className='daftar mb-5'>
 						<h3>Log In</h3>
 					</div>

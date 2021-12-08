@@ -8,7 +8,7 @@ import RegisterImg from '../../Supports/Assets/Sign/register-ilus.svg';
 const ForgotPassword = () => {
 	return (
 		<div className='forgot-container p-5 mx-5'>
-			<div className='forgot-form-container m-5 shadow row'>
+			<div className='forgot-form-container m-5 shadow row mx-auto'>
 				<div className='img-container col p-0'>
 					<img src={RegisterImg} alt='Logo' />
 				</div>
