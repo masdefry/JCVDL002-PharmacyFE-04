@@ -1,0 +1,19 @@
+.profile-card {
+	border-radius: 20px;
+}
+
+.mini-profile img {
+	width: 7rem;
+}
+
+.mini-detail {
+	object-fit: cover;
+}
+
+.tr-wallet {
+	max-width: 3rem;
+}
+
+.tr-arrow {
+	max-width: 2rem;
+}
