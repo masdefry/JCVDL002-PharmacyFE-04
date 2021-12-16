@@ -16,7 +16,7 @@ const Register = () => {
 					<img src={SignInLogo} alt='Register' />
 				</div>
 				<div className='sign-input-form-container col p-5'>
-					<div className='daftar mb-5'>
+					<div className='daftar mb-3'>
 						<h3>Log In</h3>
 					</div>
 					<div className='form'>

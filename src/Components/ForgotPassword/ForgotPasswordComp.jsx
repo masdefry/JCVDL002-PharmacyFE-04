@@ -1,33 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
-import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
-import { InputField } from '../InputField/InputField';
+import { EmailValidator } from '../../Supports/Functions/EmailValidator';
+import { forgotPassword } from '../../Redux/Actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const ForgotPasswordComp = () => {
-	const validation = Yup.object({
-		email: Yup.string()
-			.email(`Email invalid`)
-			.required(`Email tidak boleh kosong`),
-	});
+	const dispatch = useDispatch();
+	const register = useSelector((state) => state.userRegisterReducer);
+
+	const [Email, setEmail] = useState('');
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		dispatch(forgotPassword(Email));
+	};
+
 	return (
-		<Formik
-			initialValues={{
-				email: '',
-			}}
-			validationSchema={validation}
-			onSubmit={(values) => {
-				console.log(values);
-			}}>
-			{(params) => (
-				<div className='form'>
-					<Form className='form-container d-grid gap-2'>
-						<InputField label='Email' name='email' type='text' />
-						<button className='submit-btn btn-lg mt-3'>Lanjut</button>
-					</Form>
+		<form className='form-container d-grid mx-3' onSubmit={submitHandler}>
+			<div className='form-group my-2'>
+				<label className='mb-2' htmlFor='Email'>
+					Email
+				</label>
+				<input
+					type='email'
+					className='form-control'
+					id='Email'
+					aria-describedby='emailHelp'
+					placeholder='Enter email'
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+				<div className='err'>
+					{Email === ''
+						? null
+						: EmailValidator(Email)
+						? null
+						: `Email did not valid!`}
 				</div>
-			)}
-		</Formik>
+			</div>
+			<button
+				disabled={EmailValidator(Email) === false}
+				className='submit-btn btn-lg mt-4'
+				type='submit'>
+				Daftar
+			</button>
+		</form>
 	);
 };

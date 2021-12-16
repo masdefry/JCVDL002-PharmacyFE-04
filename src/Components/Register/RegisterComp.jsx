@@ -1,61 +1,98 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userRegister } from '../../Redux/Actions/userActions';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
-import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
-import { InputField } from '../InputField/InputField';
+import { EmailValidator } from '../../Supports/Functions/EmailValidator';
 
 export const RegisterComp = () => {
-	const validation = Yup.object({
-		name: Yup.string()
-			.max(25, `Nama tidak boleh lebih dari 25 karakter`)
-			.required(`Nama tidak boleh kosong`),
-		email: Yup.string()
-			.email(`Email invalid`)
-			.required(`Email tidak boleh kosong`),
-		password: Yup.string()
-			.min(8, `Password harus lebih dari 8 karakter`)
-			.required(`Password tidak boleh kosong`),
-		confirmPassword: Yup.string()
-			.oneOf([Yup.ref(`password`), null], `Password tidak cocok`)
-			.required(`Ketik ulang password anda`),
-	});
+	const dispatch = useDispatch();
+	const register = useSelector((state) => state.userRegisterReducer);
+
+	const [FullName, setFullName] = useState('');
+	const [Email, setEmail] = useState('');
+	const [Password, setPassword] = useState('');
+	const [ConfirmPassword, setConfirmPassword] = useState('');
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		dispatch(userRegister(FullName, Email, Password));
+	};
 
 	return (
-		<Formik
-			initialValues={{
-				name: '',
-				email: '',
-				password: '',
-				confirmPassword: '',
-			}}
-			validationSchema={validation}
-			onSubmit={(values) => {
-				console.log(values);
-			}}>
-			{(params) => (
-				<div className='form'>
-					<Form className='form-container d-grid'>
-						<InputField label='Nama' name='name' type='text' />
-						<InputField label='Email' name='email' type='text' />
-						<InputField label='Password' name='password' type='password' />
-						<InputField
-							label='Confirm Password'
-							name='password'
-							type='password'
-						/>
-						<div className='radio-confirm'>
-							<input type='checkbox' />
-							<span>
-								{'  '}Saya menyetujui <a href='#'>Ketentuan</a> dan{' '}
-								<a href='#'>Kebijakan Privasi</a> di SehatY.
-							</span>
-						</div>
-						<button className='submit-btn btn-lg mt-3' type='submit'>
-							Daftar
-						</button>
-					</Form>
+		<form className='form-container d-grid mx-3' onSubmit={submitHandler}>
+			<div className='form-group my-2'>
+				<label className='mb-2' htmlFor='Full-Name'>
+					Name
+				</label>
+				<input
+					type='text'
+					className='form-control'
+					id='Full-Name'
+					placeholder='Full Name'
+					onChange={(e) => setFullName(e.target.value)}
+				/>
+			</div>
+			<div className='form-group my-2'>
+				<label className='mb-2' htmlFor='Email'>
+					Email
+				</label>
+				<input
+					type='email'
+					className='form-control'
+					id='Email'
+					aria-describedby='emailHelp'
+					placeholder='Enter email'
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+				<div className='err'>
+					{Email === ''
+						? null
+						: EmailValidator(Email)
+						? null
+						: `Enter a valid email!`}
 				</div>
-			)}
-		</Formik>
+			</div>
+			<div class='form-group my-2'>
+				<label className='mb-2' for='Password'>
+					Password
+				</label>
+				<input
+					type='password'
+					className='form-control'
+					id='Password'
+					placeholder='Password'
+					onChange={(e) => setPassword(e.target.value)}
+				/>
+				<div className='err'>
+					{Password === ''
+						? null
+						: Password.length >= 8
+						? null
+						: `Password can't be less than 8 character`}
+				</div>
+			</div>
+			<div class='form-group my-2'>
+				<label className='mb-2' for='confirmPassword'>
+					Confirm Password
+				</label>
+				<input
+					type='password'
+					className='form-control'
+					id='confirmPassword'
+					placeholder='Confirm Password'
+					onChange={(e) => setConfirmPassword(e.target.value)}
+				/>
+				<div className='err'>
+					{ConfirmPassword === ''
+						? null
+						: Password === ConfirmPassword
+						? null
+						: 'Password Did not Match'}
+				</div>
+			</div>
+			<button className='submit-btn btn-lg mt-4' type='submit'>
+				Daftar
+			</button>
+		</form>
 	);
 };

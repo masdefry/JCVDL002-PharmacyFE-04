@@ -9,27 +9,24 @@
 .reg-input-form-container {
 	max-width: 50%;
 	height: 100%;
-	object-fit: cover;
 }
 
 .sign-input-form-container {
 	max-width: 50%;
 	height: 100%;
-	object-fit: cover;
 }
 
 .forgot-input-form {
 	max-width: 50%;
 	height: 100%;
-	object-fit: cover;
 }
 
 .reg-form-container {
-	max-width: 1500px;
+	max-width: 1355px;
 }
 
 .form-container {
-	max-width: 1500px;
+	max-width: 1355px;
 }
 
 .forgot-form-container {

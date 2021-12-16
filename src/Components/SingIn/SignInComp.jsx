@@ -1,39 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
-import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
-import { InputField } from '../InputField/InputField';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login } from '../../Redux/Actions/userActions';
 
 export const SignInComp = () => {
-	const validation = Yup.object({
-		email: Yup.string()
-			.email(`Email invalid`)
-			.required(`Email tidak boleh kosong`),
-		password: Yup.string().required(`Password tidak boleh kosong`),
-	});
+	let navigate = useNavigate();
+
+	const dispatch = useDispatch();
+	const userLogin = useSelector((state) => state.userLoginReducer);
+	const { userInfo } = userLogin;
+
+	const [Email, setEmail] = useState('');
+	const [Password, setPassword] = useState('');
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate('/');
+		}
+	}, [userInfo]);
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		dispatch(Login(Email, Password));
+	};
 
 	return (
-		<Formik
-			initialValues={{
-				email: '',
-				password: '',
-			}}
-			validationSchema={validation}
-			onSubmit={(values) => {
-				console.log(values);
-			}}>
-			{(params) => (
-				<div className='form'>
-					<Form className='form-container d-grid gap-2'>
-						<InputField label='Email' name='email' type='text' />
-						<InputField label='Password' name='password' type='password' />
-						<button className='submit-btn btn-lg mt-3' type='submit'>
-							Daftar
-						</button>
-					</Form>
-				</div>
-			)}
-		</Formik>
+		<form className='form-container d-grid mx-3' onSubmit={submitHandler}>
+			<div className='form-group my-3'>
+				<label htmlFor='Email'>Email</label>
+				<input
+					type='email'
+					className='form-control'
+					id='Email'
+					aria-describedby='emailHelp'
+					placeholder='Enter email'
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+			</div>
+			<div class='form-group my-3'>
+				<label for='exampleInputPassword1'>Password</label>
+				<input
+					type='password'
+					className='form-control'
+					id='Password'
+					placeholder='Password'
+					onChange={(e) => setPassword(e.target.value)}
+				/>
+			</div>
+			<button className='submit-btn btn-lg mt-5' type='submit'>
+				Daftar
+			</button>
+		</form>
 	);
 };

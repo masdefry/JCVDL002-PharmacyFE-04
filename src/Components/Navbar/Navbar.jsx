@@ -16,11 +16,11 @@ export const Navbar = () => {
 						<img src={SehatY} alt='logo' />
 					</a>
 				</div>
-				<div className='search col-4 offset-md-1'>
+				<div className='search col align-items-center'>
 					<img src={Search} alt='' />
 					<input type='text' placeholder='Search SehatY' />
 				</div>
-				<div className='link col-1'>
+				<div className='link col-sm-2'>
 					<a href='#'>
 						<img src={Cart} alt='Cart' />
 					</a>

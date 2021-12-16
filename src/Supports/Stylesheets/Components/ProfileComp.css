@@ -1,0 +1,111 @@
+.transaction-button button {
+	align-items: center;
+	margin-left: auto;
+	border-style: none;
+	background-color: inherit;
+	font-weight: 600;
+	font-size: 1.1rem;
+	width: 20rem;
+}
+
+.transaction-button button:active {
+	border-bottom: 1px solid #7dd0d3;
+}
+
+.transaction-header {
+	background-color: white;
+}
+
+.transaction-header img {
+	max-width: 25rem;
+}
+
+.admin-header {
+	text-align: center;
+	padding: 1rem;
+	font-weight: 700;
+	font-size: 1.5rem;
+	background-color: white;
+	border-radius: 20px 20px 0 0;
+}
+
+.admin-header p {
+	margin: 0;
+}
+
+.add-submit-btn {
+	border-radius: 5px;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	font-size: 12px;
+	background-color: #3897a0;
+	max-width: 15rem;
+}
+
+.addBtn {
+	width: 100%;
+	margin-left: auto;
+}
+
+.transaction-body button {
+	margin-top: 4rem;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	background-color: #3897a0;
+	max-width: 15rem;
+}
+.transaction-body {
+	padding: 3rem;
+	text-align: center;
+}
+
+.profile-detail-container {
+	margin: 1rem 0;
+	padding: 3rem;
+}
+
+.detail-container {
+	text-align: center;
+}
+
+.detail-container p {
+	margin: 0;
+}
+
+.profile-filler {
+	color: #7dd0d3;
+	text-align: center;
+	font-size: 2.5rem;
+}
+
+.image-name h5 {
+	margin: 2rem 0 0.5rem;
+	text-align: center;
+}
+
+.image-name img {
+	display: block;
+	max-width: 12rem;
+	margin: 0 auto;
+}
+
+.container3 button {
+	margin-top: 4rem;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
+	border: 2px solid #7dd0d3;
+	color: #3897a0;
+	font-weight: 600;
+	background-color: white;
+	transition: all 0.25s ease-in-out;
+}
+
+.container3 button:hover {
+	color: white;
+	border: 2px solid #3897a0;
+	background-color: #3897a0;
+}
