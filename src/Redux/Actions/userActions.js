@@ -53,20 +53,20 @@ export const userRegister = (fullname, email, password) => async (dispatch) => {
             },
         };
 
-        const { payload } = await Axios.post(
+        const payload = await Axios.post(
             `${API_URL}/user/register`, { fullname, email, password }, config
         );
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
-            payload: payload
+            payload: payload.data.data
         });
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
-            payload: payload
+            payload: payload.data.data
         });
-
+        localStorage.setItem('userInfoToken', JSON.stringify(payload.data.data));
     } catch (err) {
         dispatch({
             type: USER_REGISTER_FAIL,

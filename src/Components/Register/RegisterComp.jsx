@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userRegister } from '../../Redux/Actions/userActions';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
 import { EmailValidator } from '../../Supports/Functions/EmailValidator';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterComp = () => {
+	let navigate = useNavigate;
+
 	const dispatch = useDispatch();
 	const register = useSelector((state) => state.userRegisterReducer);
+	const { userInfo } = register;
 
 	const [FullName, setFullName] = useState('');
 	const [Email, setEmail] = useState('');
@@ -17,6 +21,12 @@ export const RegisterComp = () => {
 		e.preventDefault();
 		dispatch(userRegister(FullName, Email, Password));
 	};
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate('/afterRegister');
+		}
+	}, [userInfo]);
 
 	return (
 		<form className='form-container d-grid mx-3' onSubmit={submitHandler}>
@@ -48,8 +58,8 @@ export const RegisterComp = () => {
 					{Email === ''
 						? null
 						: EmailValidator(Email)
-						? null
-						: `Enter a valid email!`}
+							? null
+							: `Enter a valid email!`}
 				</div>
 			</div>
 			<div class='form-group my-2'>
@@ -67,8 +77,8 @@ export const RegisterComp = () => {
 					{Password === ''
 						? null
 						: Password.length >= 8
-						? null
-						: `Password can't be less than 8 character`}
+							? null
+							: `Password can't be less than 8 character`}
 				</div>
 			</div>
 			<div class='form-group my-2'>
@@ -86,8 +96,8 @@ export const RegisterComp = () => {
 					{ConfirmPassword === ''
 						? null
 						: Password === ConfirmPassword
-						? null
-						: 'Password Did not Match'}
+							? null
+							: 'Password Did not Match'}
 				</div>
 			</div>
 			<button className='submit-btn btn-lg mt-4' type='submit'>

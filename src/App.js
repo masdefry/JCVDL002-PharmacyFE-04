@@ -8,6 +8,7 @@ import Register from './Pages/Register/Register';
 import Login from './Pages/SingIn/SignIn';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
 import Profile from './Pages/Profile/Profile';
+import AfterRegister from './Pages/Register/AfterRegister';
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
@@ -25,6 +26,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/login/forgot-password' element={<ForgotPassword />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/afterRegister' element={<AfterRegister />} />
         </Routes>
         <Footer />
       </BrowserRouter>
