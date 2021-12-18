@@ -16,10 +16,26 @@ export const SignInComp = () => {
 	const [Password, setPassword] = useState('');
 
 	useEffect(() => {
+		console.log(userInfo);
 		if (userInfo) {
 			navigate('/');
 		}
 	}, [userInfo]);
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate('/');
+		}
+		console.log(userInfo);
+	}, []);
+
+	let token = localStorage.getItem('userInfoToken');
+	useEffect(() => {
+		if (token) {
+			navigate('/');
+		}
+
+	}, []);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -39,8 +55,8 @@ export const SignInComp = () => {
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 			</div>
-			<div class='form-group my-3'>
-				<label for='exampleInputPassword1'>Password</label>
+			<div className='form-group my-3'>
+				<label htmlFor='exampleInputPassword1'>Password</label>
 				<input
 					type='password'
 					className='form-control'
@@ -50,7 +66,7 @@ export const SignInComp = () => {
 				/>
 			</div>
 			<button className='submit-btn btn-lg mt-5' type='submit'>
-				Daftar
+				Masuk
 			</button>
 		</form>
 	);

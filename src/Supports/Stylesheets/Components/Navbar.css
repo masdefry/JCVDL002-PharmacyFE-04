@@ -3,15 +3,17 @@
 	background-color: #ffffff;
 	position: sticky;
 	top: 0;
+	z-index: 1;
 }
 
 .nav-items {
+	max-width: 1600px;
 	padding: 1rem 5.5rem 2rem;
 }
 
 .link {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	margin-left: auto;
 	min-width: 11%;
 	max-width: 20%;
@@ -32,8 +34,8 @@
 	border-style: none;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
 	border-radius: 10px;
-	max-width: 40rem;
-	min-width: 35rem;
+	max-width: 35rem;
+	min-width: 15rem;
 	max-height: 2.5rem;
 	min-height: 2.4rem;
 	padding: 0 20px;
@@ -57,4 +59,60 @@
 	opacity: 80%;
 	font-size: 12px;
 	letter-spacing: 0.5px;
+}
+
+.dropbtn img {
+	width: 2rem;
+}
+
+.dropdown-profile {
+	margin-top: 0.2rem;
+}
+
+.dropdown-content {
+	background-color: white;
+	border-radius: 10px;
+	display: none;
+	position: absolute;
+	min-width: 5rem;
+	padding: 0.3rem 0.8rem;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	font-size: 0.8rem;
+	color: gray;
+	padding: 0.2rem 0.1rem;
+	text-decoration: none;
+	display: block;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.dropdown-content button {
+	font-size: 0.8rem;
+	font-weight: bolder;
+	padding: 0.2rem 0.1rem;
+	border: none;
+	color: gray;
+	font-size: 12px;
+	background-color: inherit;
+}
+
+.dropdown-content button:hover {
+	color: #3897a0;
+}
+
+.logout-btn {
+	border-top: 0.15rem solid gray;
+	margin-bottom: 0.2rem;
+}
+
+.dropdown-content a:hover {
+	color: #3897a0;
+}
+
+.dropdown-profile:hover .dropdown-content {
+	display: block;
 }

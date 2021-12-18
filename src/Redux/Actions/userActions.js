@@ -7,10 +7,13 @@ import {
     UPDATE_PROFILE_SUCCESS,
     UPDATE_PROFILE_RESET,
     UPDATE_PROFILE_FAIL,
-    UPDATE_PROFILE_REQUEST
+    UPDATE_PROFILE_REQUEST,
+    USER_KEEP_LOGIN_DATA,
+    USER_KEEP_LOGIN_FAIL
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
+import axios from 'axios';
 
 export const Login = (email, password) => async (dispatch) => {
     try {
@@ -117,8 +120,6 @@ export const forgotPassword = (user) => async (dispatch) => {
             payload: data.data,
         });
 
-        localStorage.setItem("userInfo", JSON.stringify(data.data));
-
     } catch (error) {
         dispatch({
             type: UPDATE_PROFILE_FAIL,
@@ -126,6 +127,44 @@ export const forgotPassword = (user) => async (dispatch) => {
                 error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message,
+        });
+    }
+};
+
+export const userLogout = () => async (dispatch) => {
+    localStorage.removeItem('userInfoToken');
+    dispatch({ type: USER_LOGOUT });
+};
+
+export const keepLogin = (user) => async (dispatch, getState) => {
+    try {
+
+        const userdata = localStorage.getItem('userInfoToken');
+        const { token } = userdata.token;
+
+        const config = {
+            headers: {
+                'Content-Type': 'appliaction/json',
+                'token': `${token}`
+            }
+        };
+
+        const payload = await axios.get(`${API_URL}/user/keeplogin`, user, config);
+
+        console.log(payload.data.data);
+
+        dispatch({
+            type: USER_KEEP_LOGIN_DATA,
+            payload: payload.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: USER_KEEP_LOGIN_FAIL,
+            payload:
+                err.response && err.response.data.message ?
+                    err.response.data.message
+                    :
+                    err.message
         });
     }
 };

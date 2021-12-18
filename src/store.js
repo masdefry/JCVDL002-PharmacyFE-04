@@ -4,27 +4,33 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
     userLoginReducer,
     userRegisterReducer,
-    userUpdateReducer
+    userUpdateReducer,
+    userKeepLoginReducer
 } from './Redux/Reducers/userReducer';
 
 const reducer = combineReducers({
     userRegisterReducer,
     userLoginReducer,
     userUpdateReducer,
+    userKeepLoginReducer,
 });
 
 const middleware = [thunk];
 
 const userInfoLocalStorage =
-    localStorage.getItem('userInfo') ?
-        JSON.parse(localStorage.getItem('userInfo'))
+    localStorage.getItem('userInfoToken') ?
+        JSON.parse(localStorage.getItem('userInfoToken'))
         :
         null;
 
 const initialState = {
     userLoginReducer: {
         userInfo: userInfoLocalStorage,
-    }
+        checkStorage: false,
+    },
+    userKeepLoginReducer: {
+        userLoginInfo: userInfoLocalStorage,
+    },
 };
 
 const store = createStore(

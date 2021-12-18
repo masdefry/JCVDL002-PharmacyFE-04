@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import '../../Supports/Stylesheets/Components/ProfileComp.css';
 
+import { connect } from 'react-redux';
+
 export const AdminManage = () => {
+
+    const check =()=> {
+
+    }
+
 	const [addBtn, setAddBtn] = useState('');
 	const [addProduct, setAddProduct] = useState({
 		ProductName: '',
 		ProductQty: 0,
 		ProductPrice: 0,
-		ProductImg: '',
+		ProductImg: null,
 		ProductDesc: '',
 	});
 
@@ -100,7 +107,7 @@ export const AdminManage = () => {
 									</select>
 								</td>
 								<td colSpan='2'>
-									<button className='add-submit-btn'>Add Product</button>
+									<button className='add-submit-btn' onClick={()=>check()}>Add Product</button>
 								</td>
 							</tr>
 						)}

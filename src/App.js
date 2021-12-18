@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 //Pages
 import Home from './Pages/Home/Home';
@@ -14,10 +16,28 @@ import AfterRegister from './Pages/Register/AfterRegister';
 import { Navbar } from './Components/Navbar/Navbar';
 import { Footer } from './Components/Footer/Footer.jsx';
 
+//Redux
+import { keepLogin } from './Redux/Actions/userActions';
+
 
 function App() {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLoginReducer);
+  const { userInfo, checkstorage } = userLogin;
+
+  const token = localStorage.getItem('userInfoToken');
+  useEffect(() => {
+    const userData = JSON.parse(token);
+    console.log(userData);
+    dispatch(keepLogin(userData));
+  }, []);
+
   return (
     <div className="App">
+      <Helmet>
+        <meta charSet='utf-8' />
+        <title>Sehat Y</title>
+      </Helmet>
       <BrowserRouter>
         <Navbar />
         <Routes>

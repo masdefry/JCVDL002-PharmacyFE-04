@@ -6,7 +6,7 @@ import { EmailValidator } from '../../Supports/Functions/EmailValidator';
 import { useNavigate } from 'react-router-dom';
 
 export const RegisterComp = () => {
-	let navigate = useNavigate;
+	let navigate = useNavigate();
 
 	const dispatch = useDispatch();
 	const register = useSelector((state) => state.userRegisterReducer);
@@ -27,6 +27,14 @@ export const RegisterComp = () => {
 			navigate('/afterRegister');
 		}
 	}, [userInfo]);
+
+	let token = localStorage.getItem('userInfoToken');
+	useEffect(() => {
+		if (token) {
+			navigate('/');
+		}
+
+	}, []);
 
 	return (
 		<form className='form-container d-grid mx-3' onSubmit={submitHandler}>
