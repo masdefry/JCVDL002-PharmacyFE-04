@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Pages/Register.css';
+import { useSelector } from 'react-redux';
 import { SignInComp } from '../../Components/SingIn/SignInComp';
 
 import Fb from '../../Supports/Assets/Socmed/cFb.svg';
@@ -9,8 +10,11 @@ import google from '../../Supports/Assets/Socmed/Google.svg';
 import SignInLogo from '../../Supports/Assets/Sign/login-illustration.svg';
 
 const Register = () => {
+	const userLogin = useSelector((state) => state.userLoginReducer);
+	const { error } = userLogin;
 	return (
-		<div className='login-container p-5 m-5'>
+		<div className='container m-auto my-5 px-0 py-4'>
+			{error ? <div className="alert alert-danger text-center mb-4">Wrong Email or Password!</div> : null}
 			<div className='form-container shadow row mx-auto'>
 				<div className='img-container col p-0'>
 					<img src={SignInLogo} alt='Register' />

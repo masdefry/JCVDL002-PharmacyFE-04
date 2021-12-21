@@ -76,10 +76,14 @@
 	margin: 0;
 }
 
-.profile-filler {
+.detail-profile-filler {
 	color: #7dd0d3;
 	text-align: center;
 	font-size: 2.5rem;
+}
+
+.profile-filler p {
+	margin-left: 1rem;
 }
 
 .image-name h5 {
@@ -108,4 +112,8 @@
 	color: white;
 	border: 2px solid #3897a0;
 	background-color: #3897a0;
+}
+
+.profile-img {
+	border-radius: 50%;
 }

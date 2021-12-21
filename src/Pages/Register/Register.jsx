@@ -7,7 +7,7 @@ import RegisterLogo from '../../Supports/Assets/Sign/register-ilus.svg';
 
 const Register = () => {
 	return (
-		<div className='register-container m-5 p-5'>
+		<div className='container m-auto my-5 px-0 py-4'>
 			<div className='reg-form-container shadow row mx-auto'>
 				<div className='img-container col p-0'>
 					<img src={RegisterLogo} alt='Register' />

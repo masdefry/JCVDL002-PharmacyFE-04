@@ -5,7 +5,7 @@ import Family from '../../Supports/Assets/Sign/family.jpg';
 
 const AfterRegister = () => {
     return (
-        <div className='register-container m-5 p-5'>
+        <div className='container m-auto my-5 px-0 py-4'>
             <div className='reg-form-container shadow row mx-auto'>
                 <div className='img-container col p-0'>
                     <img src={Family} alt='Register' />

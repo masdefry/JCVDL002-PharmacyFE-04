@@ -23,13 +23,16 @@ import { keepLogin } from './Redux/Actions/userActions';
 function App() {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLoginReducer);
-  const { userInfo, checkstorage } = userLogin;
+  const { userInfo } = userLogin;
+  const navbar = useSelector((state) => state.userKeepLoginReducer);
+  const { userLoginInfo } = navbar;
 
   const token = localStorage.getItem('userInfoToken');
   useEffect(() => {
     const userData = JSON.parse(token);
     console.log(userData);
-    dispatch(keepLogin(userData));
+    console.log(userInfo);
+    console.log(userLoginInfo);
   }, []);
 
   return (

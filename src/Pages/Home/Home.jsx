@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { keepLogin } from '../../Redux/Actions/userActions';
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Home = () => {
 
 	console.log(userInfo);
 	useEffect(() => {
+		dispatch(keepLogin());
 		if (userInfo) {
 			console.log('landing page' + userInfo);
 		}

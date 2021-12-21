@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Login } from '../../Redux/Actions/userActions';
+import { keepLogin, Login } from '../../Redux/Actions/userActions';
 
 export const SignInComp = () => {
 	let navigate = useNavigate();

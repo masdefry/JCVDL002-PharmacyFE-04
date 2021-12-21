@@ -11,15 +11,13 @@ import PPlaceholder from '../../Supports/Assets/Profile/Profile-placeholder.svg'
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogout } from '../../Redux/Actions/userActions';
+import { keepLogin, userLogout } from '../../Redux/Actions/userActions';
 
 export const Navbar = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const navbar = useSelector((state) => state.userKeepLoginReducer);
 	const { userLoginInfo } = navbar;
-
-	console.log(userLoginInfo);
 
 	const onLogout = (e) => {
 		e.preventDefault();

@@ -5,7 +5,8 @@ import {
     userLoginReducer,
     userRegisterReducer,
     userUpdateReducer,
-    userKeepLoginReducer
+    userKeepLoginReducer,
+    userDetailReducer
 } from './Redux/Reducers/userReducer';
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     userLoginReducer,
     userUpdateReducer,
     userKeepLoginReducer,
+    userDetailReducer,
 });
 
 const middleware = [thunk];
@@ -25,12 +27,14 @@ const userInfoLocalStorage =
 
 const initialState = {
     userLoginReducer: {
-        userInfo: userInfoLocalStorage,
-        checkStorage: false,
+        userInfo: userInfoLocalStorage
     },
     userKeepLoginReducer: {
         userLoginInfo: userInfoLocalStorage,
     },
+    userDetailReducer: {
+        userDetail: userInfoLocalStorage,
+    }
 };
 
 const store = createStore(

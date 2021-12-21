@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 export const AdminManage = () => {
 
-    const check =()=> {
+	const check = () => {
 
-    }
+	};
 
 	const [addBtn, setAddBtn] = useState('');
 	const [addProduct, setAddProduct] = useState({
@@ -42,7 +42,7 @@ export const AdminManage = () => {
 				<p>Manage Products</p>
 			</div>
 			<div className='admin-body'>
-				<table className='table mt-4'>
+				<table className='table table-bordered mt-4'>
 					<thead className='thead-light'>
 						<tr>
 							<th>ID</th>
@@ -55,12 +55,12 @@ export const AdminManage = () => {
 						</tr>
 					</thead>
 					<tbody>Nanti ada disini</tbody>
-					<tfoot className='bg-light'>
-						{addBtn === '' ? (
-							<div className='addbtn'>
-								<button onClick={() => setAddBtn('add')}>+ Add Products</button>
-							</div>
-						) : (
+					{addBtn === '' ? (
+						<div className='addbtn btn btn-large' align='center'>
+							<button onClick={() => setAddBtn('add')}>+ Add Products</button>
+						</div>
+					) : (
+						<tfoot className='bg-light'>
 							<tr>
 								<td></td>
 								<td>
@@ -100,18 +100,21 @@ export const AdminManage = () => {
 										onChange={(e) => this.inputHandler(e)}
 										name='addPrdctCategory'
 										className='form-control'>
-										<option value=''>All Items</option>
-										<option value='kaos'>Kaos</option>
-										<option value='celana'>Celana</option>
-										<option value='aksesoris'>Aksesoris</option>
+										<option value='' hidden>Categories</option>
+										<option value='1'>Tablet</option>
+										<option value='2'>Kapsul</option>
+										<option value='3'>Sirup</option>
+										<option value='4'>Obat Tetes</option>
+										<option value='5'>Salep</option>
+										<option value='6'>Serbuk</option>
 									</select>
 								</td>
 								<td colSpan='2'>
-									<button className='add-submit-btn' onClick={()=>check()}>Add Product</button>
+									<button className='add-submit-btn' onClick={() => check()}>Add Product</button>
 								</td>
 							</tr>
-						)}
-					</tfoot>
+						</tfoot>
+					)}
 				</table>
 			</div>
 		</div>

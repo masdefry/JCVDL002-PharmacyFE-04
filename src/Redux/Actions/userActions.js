@@ -9,11 +9,14 @@ import {
     UPDATE_PROFILE_FAIL,
     UPDATE_PROFILE_REQUEST,
     USER_KEEP_LOGIN_DATA,
-    USER_KEEP_LOGIN_FAIL
+    USER_KEEP_LOGIN_FAIL,
+    USER_KEEP_LOGOUT,
+    USER_PROFILE_DATA,
+    USER_PROFILE_FAIL,
+    USER_PROFILE_DELETE
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
-import axios from 'axios';
 
 export const Login = (email, password) => async (dispatch) => {
     try {
@@ -35,6 +38,8 @@ export const Login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_SUCCESS,
             payload: payload.data.data
         });
+
+        dispatch(keepLogin());
         localStorage.setItem('userInfoToken', JSON.stringify(payload.data.data));
     } catch (err) {
         console.log(err);
@@ -134,22 +139,28 @@ export const forgotPassword = (user) => async (dispatch) => {
 export const userLogout = () => async (dispatch) => {
     localStorage.removeItem('userInfoToken');
     dispatch({ type: USER_LOGOUT });
+    dispatch({ type: USER_KEEP_LOGOUT });
+    dispatch({ type: USER_PROFILE_DELETE });
+    console.log('Jalan nih');
 };
 
-export const keepLogin = (user) => async (dispatch, getState) => {
+export const keepLogin = () => async (dispatch) => {
     try {
+        console.log('Jalan nih action');
 
         const userdata = localStorage.getItem('userInfoToken');
-        const { token } = userdata.token;
+        const userDataParse = JSON.parse(userdata);
+        console.log('ini parse' + userDataParse);
+        console.log(userDataParse.token);
 
         const config = {
             headers: {
-                'Content-Type': 'appliaction/json',
-                'token': `${token}`
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
             }
         };
-
-        const payload = await axios.get(`${API_URL}/user/keeplogin`, user, config);
+        console.log('userkeeplogin action');
+        const payload = await Axios.get(`${API_URL}/user/userkeeplogin`, config);
 
         console.log(payload.data.data);
 
@@ -160,6 +171,38 @@ export const keepLogin = (user) => async (dispatch, getState) => {
     } catch (err) {
         dispatch({
             type: USER_KEEP_LOGIN_FAIL,
+            payload:
+                err.response && err.response.data.message ?
+                    err.response.data.message
+                    :
+                    err.message
+        });
+    }
+};
+
+export const profileDetail = () => async (dispatch) => {
+    try {
+
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.get(`${API_URL}/user/userprofiledetail`, config);
+
+        dispatch({
+            type: USER_PROFILE_DATA,
+            payload: payload.data.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: USER_PROFILE_FAIL,
             payload:
                 err.response && err.response.data.message ?
                     err.response.data.message
