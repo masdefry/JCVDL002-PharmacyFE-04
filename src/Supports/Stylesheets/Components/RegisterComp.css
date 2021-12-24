@@ -1,0 +1,53 @@
+.submit-btn {
+	color: white;
+	background-color: #7dd0d3;
+	border: none;
+}
+
+.submit-btn:disabled {
+	color: white;
+	background-color: gray;
+	opacity: 50%;
+	border: none;
+}
+
+.img-container img {
+	max-width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.reg a {
+	color: #7dd0d3;
+}
+
+.google-facebook {
+	border-radius: 10px;
+	padding: 0.5rem;
+	width: 15rem;
+}
+
+.radio-confirm span {
+	font-size: 1;
+}
+
+.radio-confirm a {
+	font-weight: 600;
+	color: #7dd0d3;
+}
+
+.alert p {
+	color: gray;
+	font-size: small;
+	text-align: center;
+	opacity: 75%;
+}
+
+.err {
+	margin-left: 0.4rem;
+	margin-top: 0.2rem;
+	font-size: 0.8rem;
+	color: red;
+	font-style: italic;
+	opacity: 60%;
+}

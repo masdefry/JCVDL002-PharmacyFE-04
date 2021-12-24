@@ -1,0 +1,61 @@
+.mini-profile-card {
+	border-radius: 20px;
+	min-width: 20%;
+}
+
+.profile-container {
+	max-width: 1355px;
+	margin: 3rem auto;
+	padding: 0 5rem;
+}
+
+.mini-profile img {
+	width: 7rem;
+}
+
+.mini-detail {
+	width: 100%;
+}
+
+.mini-detail p {
+	margin-bottom: 0.3rem;
+	color: gray;
+	opacity: 70%;
+}
+
+.mini-detail button {
+	border: none;
+	text-align: start;
+	background-color: inherit;
+	color: #7dd0d3;
+}
+
+.tr-wallet {
+	max-width: 3rem;
+}
+
+.tr-arrow {
+	max-width: 1.9rem;
+	opacity: 50%;
+}
+
+.button-container button {
+	width: 100%;
+	background-color: inherit;
+	border: none;
+	text-align: start;
+}
+
+.profile-card {
+	background-color: #f0f9fa;
+	border-radius: 20px;
+}
+
+.admin-button {
+	color: black;
+	font-weight: 400;
+}
+
+.admin-button:hover {
+	color: black;
+}

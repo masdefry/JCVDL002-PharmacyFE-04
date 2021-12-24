@@ -1,0 +1,34 @@
+.img-container img {
+	width: 50rem;
+}
+/* 
+.forgot-input-form {
+	width: 40rem;
+} */
+
+.reg-input-form-container {
+	max-width: 50%;
+	height: 100%;
+}
+
+.sign-input-form-container {
+	max-width: 50%;
+	height: 100%;
+}
+
+.forgot-input-form {
+	max-width: 50%;
+	height: 100%;
+}
+
+.reg-form-container {
+	max-width: 1355px;
+}
+
+.form-container {
+	max-width: 1355px;
+}
+
+.forgot-form-container {
+	max-width: 1200px;
+}

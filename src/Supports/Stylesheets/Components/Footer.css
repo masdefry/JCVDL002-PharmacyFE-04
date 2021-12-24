@@ -1,0 +1,73 @@
+a {
+	color: black;
+	text-decoration: none;
+	margin: 2px 0px;
+	font-size: 16px;
+	font-weight: 200;
+}
+
+a:hover {
+	color: #70cbcf;
+}
+
+h4 {
+	font-size: 18px;
+}
+
+.Footer {
+	max-width: 1355px;
+}
+
+.footer-img img {
+	max-width: 10rem;
+}
+
+.email-input {
+	display: flex;
+	justify-content: space-between;
+	max-width: 13rem;
+	border: 1.5px solid rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	padding: 0px 15px 0px 5px;
+}
+
+.email-input img {
+	max-width: 1rem;
+}
+
+.email-input input {
+	border: none;
+	min-height: 1.8rem;
+	max-width: 10rem;
+}
+
+.email-input input:focus {
+	outline: none;
+}
+
+.email-input input::placeholder {
+	color: gray;
+	opacity: 80%;
+	font-size: 12px;
+	letter-spacing: 0.5px;
+}
+
+.payments img {
+	max-width: 20rem;
+}
+
+.Followus-On {
+	max-width: 1rem;
+}
+
+.fItem-5 img {
+	max-width: 10rem;
+}
+
+.socmed img {
+	max-width: 15px;
+}
+
+.socmed img[alt='fb'] {
+	max-width: 8px;
+}
