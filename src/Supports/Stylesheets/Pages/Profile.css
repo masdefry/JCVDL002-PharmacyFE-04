@@ -50,3 +50,12 @@
 	background-color: #f0f9fa;
 	border-radius: 20px;
 }
+
+.admin-button {
+	color: black;
+	font-weight: 400;
+}
+
+.admin-button:hover {
+	color: black;
+}

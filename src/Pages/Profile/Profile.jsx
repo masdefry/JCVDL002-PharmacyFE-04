@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../Supports/Stylesheets/Pages/Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { UserTransaction } from '../../Components/Profile/userTransaction';
+import { UserTransaction } from '../../Components/Profile/userTransaction/userTransaction';
 import { UserProfile } from '../../Components/Profile/userProfile';
 import { AdminManage } from '../../Components/Profile/adminManage';
 import { SettingsComp } from '../../Components/Profile/SettingsComp';
@@ -16,25 +17,20 @@ import Settings from '../../Supports/Assets/Profile/cog.svg';
 import { Route, Routes } from 'react-router-dom';
 
 const Profile = () => {
-	const dispatch = useDispatch();
 
 	const userProfile = useSelector((state) => state.userDetailReducer);
 	const { userDetail } = userProfile;
+	console.log('data user' + JSON.stringify(userDetail));
 
 	const [page, setPage] = useState('profile');
 
-	useEffect(() => {
-		dispatch(profileDetail());
-		console.log('data user' + { userDetail });
-	}, []);
-
 	return (
-		<div className='profile-container'>
+		<div className='profile-container container'>
 			<div className='row'>
 				<div className='mini-profile-card shadow py-3 px-0 col h-100 me-2'>
 					<div className='mini-profile px-2 row m-0'>
-						{userDetail.profileIMG ?
-							<img src={userDetail.profileIMG} alt='' className='col-2' />
+						{userDetail.profileImg ?
+							<img src={userDetail.profileImg} alt='' className='col-2' />
 							:
 							<img src={PPlaceholder} alt='' className='profile-img col-2' />
 						}
@@ -58,16 +54,13 @@ const Profile = () => {
 							<img src={Arrow} className='tr-arrow col my-auto' />
 						</button>
 						{userDetail.role === 'admin' ?
-							<button
-								className='admin-button row px-1 mx-0 mt-3 p-0'
-								align='center'
-								onClick={() => setPage('admin')}>
+							<Link to='/admin' className='admin-button row px-1 mx-0 mt-3 p-0'>
 								<img src={Admin} className='tr-wallet col' />
 								<span className='col ms-auto'>
 									<strong>Admin</strong>
 								</span>
 								<img src={Arrow} className='tr-arrow col my-auto' />
-							</button>
+							</Link>
 							:
 							null
 						}
@@ -91,7 +84,7 @@ const Profile = () => {
 							<h3>Profil Kamu</h3>
 							<p>Profil Lengkap, akses fitur semakin cepat!</p>
 							<div className='profile-card'>
-								<UserProfile />
+								<UserProfile profiledata={{ userDetail }} />
 							</div>
 						</div>
 					) : page === 'transaction' ? (

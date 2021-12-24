@@ -12,16 +12,20 @@ const Home = () => {
 
 	console.log(userInfo);
 	useEffect(() => {
-		dispatch(keepLogin());
+		if (userInfo) {
+			dispatch(keepLogin());
+		}
 		if (userInfo) {
 			console.log('landing page' + userInfo);
 		}
-	}, []);
+	}, [userInfo]);
 
 	const token = localStorage.getItem('userInfoToken');
 	useEffect(() => {
 		if (token) {
 			navigate('/');
+		} else if (!token) {
+			navigate('/login');
 		}
 
 	}, []);

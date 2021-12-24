@@ -9,12 +9,22 @@ import google from '../../Supports/Assets/Socmed/Google.svg';
 
 import SignInLogo from '../../Supports/Assets/Sign/login-illustration.svg';
 
-const Register = () => {
+const SingIn = () => {
 	const userLogin = useSelector((state) => state.userLoginReducer);
 	const { error } = userLogin;
 	return (
 		<div className='container m-auto my-5 px-0 py-4'>
-			{error ? <div className="alert alert-danger text-center mb-4">Wrong Email or Password!</div> : null}
+			{error ?
+				<div className="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+					<div className="d-flex">
+						<div className="toast-body">
+							Hello, world! This is a toast message.
+						</div>
+						<button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+				</div>
+				:
+				null}
 			<div className='form-container shadow row mx-auto'>
 				<div className='img-container col p-0'>
 					<img src={SignInLogo} alt='Register' />
@@ -56,4 +66,4 @@ const Register = () => {
 		</div>
 	);
 };
-export default Register;
+export default SingIn;

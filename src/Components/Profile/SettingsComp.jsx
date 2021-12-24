@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import '../../Supports/Stylesheets/Components/ProfileComp.css';
 
 export const SettingsComp = () => {
+    const dispatch = useDispatch();
+    const userProfile = useSelector((state) => state.userDetailReducer);
+    const { userDetail } = userProfile;
+
     const [oldPass, setOldPass] = useState('');
     const [newPass, setNewPass] = useState('');
     const [confirmNew, setConfirmNew] = useState('');
@@ -76,28 +82,37 @@ export const SettingsComp = () => {
                 </div>
                 <div className="set-username col">
                     <h4 className="px-3 ">Username</h4>
-                    <form className="form-containre d-grid mx-3 mt-3" onSubmit={unameSubmitHandler}>
-                        <div className='form-group my-2'>
-                            <label htmlFor='set-username'>Set Username</label>
-                            <input
-                                type='text'
-                                className='form-control'
-                                id='set-username'
-                                placeholder='Set Username'
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                            <div className="err">
-                                {username === ''
-                                    ? null
-                                    : username <= 8
-                                        ? 'Username has to be 8 character or more'
-                                        : null}
-                            </div>
+                    {userDetail.username ?
+                        <div className="username mx-3 mt-5">
+                            <input type="text"
+                                className="form-control text-center text-uppercase fw-bolder"
+                                placeholder={userDetail.username}
+                                disabled />
                         </div>
-                        <button className='submit-btn btn-lg mt-4' type='submit'>
-                            Set Username
-                        </button>
-                    </form>
+                        :
+                        <form className="form-containre d-grid mx-3 mt-3" onSubmit={unameSubmitHandler}>
+                            <div className='form-group my-2'>
+                                <label htmlFor='set-username'>Set Username</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    id='set-username'
+                                    placeholder='Set Username'
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <div className="err">
+                                    {username === ''
+                                        ? null
+                                        : username <= 8
+                                            ? 'Username has to be 8 character or more'
+                                            : null}
+                                </div>
+                            </div>
+                            <button className='submit-btn btn-lg mt-4' type='submit'>
+                                Set Username
+                            </button>
+                        </form>
+                    }
                 </div>
             </div>
         </div >

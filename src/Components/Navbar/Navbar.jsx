@@ -44,13 +44,13 @@ export const Navbar = () => {
 						<Link to='/'>
 							<img src={Message} alt='Message' />
 						</Link>
-						{userLoginInfo ?
+						{userLoginInfo !== undefined ?
 							<div className="dropdown-profile" >
-								<Link to='/profile' className='dropbtn' >
+								<Link to='profile' className='dropbtn' >
 									<img src={PPlaceholder} alt="" />
 								</Link>
 								<div className="dropdown-content">
-									<Link to='/profile' >Profile</Link>
+									<Link to='profile' >Profile</Link>
 									<Link to='#' className='mb-2' >Setting</Link>
 									<div className="logout-btn ">
 										<button onClick={onLogout}>Logout</button>
@@ -58,7 +58,7 @@ export const Navbar = () => {
 								</div>
 							</div>
 							:
-							<Link to='/login' >
+							<Link to='login' >
 								<img src={Profile} alt="" />
 							</Link>
 						}

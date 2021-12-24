@@ -17,7 +17,7 @@ import { Navbar } from './Components/Navbar/Navbar';
 import { Footer } from './Components/Footer/Footer.jsx';
 
 //Redux
-import { keepLogin } from './Redux/Actions/userActions';
+import { keepLogin, profileDetail } from './Redux/Actions/userActions';
 
 
 function App() {
@@ -29,17 +29,22 @@ function App() {
 
   const token = localStorage.getItem('userInfoToken');
   useEffect(() => {
+    if (token) {
+      dispatch(profileDetail());
+    }
     const userData = JSON.parse(token);
-    console.log(userData);
-    console.log(userInfo);
-    console.log(userLoginInfo);
-  }, []);
+    console.log("appJs" + userData);
+    console.log("appJs" + userInfo);
+    console.log("appJs" + userLoginInfo);
+  }, [token]);
+
+  // console.log(window.location.pathname);
 
   return (
     <div className="App">
       <Helmet>
         <meta charSet='utf-8' />
-        <title>Sehat Y</title>
+        <title>SehatY</title>
       </Helmet>
       <BrowserRouter>
         <Navbar />

@@ -162,7 +162,7 @@ export const keepLogin = () => async (dispatch) => {
         console.log('userkeeplogin action');
         const payload = await Axios.get(`${API_URL}/user/userkeeplogin`, config);
 
-        console.log(payload.data.data);
+        console.log("keeplogin" + payload.data.data);
 
         dispatch({
             type: USER_KEEP_LOGIN_DATA,
@@ -194,6 +194,8 @@ export const profileDetail = () => async (dispatch) => {
         };
 
         const payload = await Axios.get(`${API_URL}/user/userprofiledetail`, config);
+
+        console.log(payload.data.data);
 
         dispatch({
             type: USER_PROFILE_DATA,
