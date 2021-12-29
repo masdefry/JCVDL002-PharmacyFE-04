@@ -19,6 +19,9 @@ export const Navbar = () => {
 	const navbar = useSelector((state) => state.userKeepLoginReducer);
 	const { userLoginInfo } = navbar;
 
+	const userProfile = useSelector((state) => state.userDetailReducer);
+	const { userDetail } = userProfile;
+
 	const onLogout = (e) => {
 		e.preventDefault();
 		dispatch(userLogout());
@@ -44,14 +47,22 @@ export const Navbar = () => {
 						<Link to='/'>
 							<img src={Message} alt='Message' />
 						</Link>
-						{userLoginInfo !== undefined ?
+						{userLoginInfo && userLoginInfo !== undefined ?
 							<div className="dropdown-profile" >
 								<Link to='profile' className='dropbtn' >
-									<img src={PPlaceholder} alt="" />
+									{userDetail && userDetail.profileImg ?
+										<img src={userDetail.profileImg} alt="" />
+										:
+										<img src={PPlaceholder} alt="" />
+									}
 								</Link>
 								<div className="dropdown-content">
 									<Link to='profile' >Profile</Link>
-									<Link to='#' className='mb-2' >Setting</Link>
+									{userLoginInfo && userLoginInfo.role === 'admin' ?
+										<Link to='admin' className='mb-2' >Admin</Link>
+										:
+										null
+									}
 									<div className="logout-btn ">
 										<button onClick={onLogout}>Logout</button>
 									</div>

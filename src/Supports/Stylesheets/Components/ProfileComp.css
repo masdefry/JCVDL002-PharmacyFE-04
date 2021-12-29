@@ -82,8 +82,17 @@
 	font-size: 2.5rem;
 }
 
+.more-container p {
+	font-weight: 200;
+	font-size: 0.8rem;
+	margin-bottom: 0.4rem;
+}
+
 .profile-filler p {
-	margin-left: 1rem;
+	margin-left: 0.1rem;
+	font-weight: 500;
+	font-size: 1.2rem;
+	margin-bottom: 0;
 }
 
 .image-name h5 {
@@ -96,9 +105,11 @@
 	max-width: 12rem;
 	margin: 0 auto;
 }
-
+.container3 {
+	margin-top: 6rem;
+	margin-left: 2rem;
+}
 .container3 button {
-	margin-top: 4rem;
 	padding: 0.5rem 2rem;
 	border-radius: 5px;
 	border: 2px solid #7dd0d3;
@@ -121,4 +132,17 @@
 .settings-header {
 	background-color: white;
 	border-radius: 20px 20px 0 0;
+}
+
+.transaction-header {
+	text-align: center;
+	padding: 1rem;
+	font-weight: 700;
+	font-size: 1.5rem;
+	background-color: white;
+	border-radius: 20px 20px 0 0;
+}
+
+.transaction-header p {
+	margin: 0;
 }

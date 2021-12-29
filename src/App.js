@@ -11,6 +11,7 @@ import Login from './Pages/SingIn/SignIn';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
 import Profile from './Pages/Profile/Profile';
 import AfterRegister from './Pages/Register/AfterRegister';
+import Admin from './Pages/Admin/Admin';
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
@@ -55,6 +56,7 @@ function App() {
           <Route path='/login/forgot-password' element={<ForgotPassword />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/afterRegister' element={<AfterRegister />} />
+          <Route path='/admin' element={<Admin />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -15,13 +15,8 @@ const SingIn = () => {
 	return (
 		<div className='container m-auto my-5 px-0 py-4'>
 			{error ?
-				<div className="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-					<div className="d-flex">
-						<div className="toast-body">
-							Hello, world! This is a toast message.
-						</div>
-						<button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-					</div>
+				<div className="alert alert-danger" role="alert">
+					Email atau Password salah!
 				</div>
 				:
 				null}

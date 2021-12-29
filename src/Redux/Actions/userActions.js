@@ -62,7 +62,7 @@ export const userRegister = (fullname, email, password) => async (dispatch) => {
         };
 
         const payload = await Axios.post(
-            `${API_URL}/user/register`, { fullname, email, password }, config
+            `${API_URL}/user/registerUser`, { fullname, email, password }, config
         );
 
         dispatch({
@@ -86,9 +86,30 @@ export const userRegister = (fullname, email, password) => async (dispatch) => {
     }
 };
 
-export const userProfileUpdate = ({ data }) => async (dispatch, getState) => {
+export const userProfileUpdate = (gender, birthDate, phone, weight, height) => async (dispatch, getState) => {
     try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.patch(
+            `${API_URL}/user/updateprofile`, { gender, birthDate, phone, weight, height }, config
+        );
+
+        console.log(payload.data.data);
+
+        dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: payload.data.data
+        });
+
+        dispatch(profileDetail());
     } catch (err) {
         console.log(err);
         dispatch({
@@ -103,10 +124,6 @@ export const userProfileUpdate = ({ data }) => async (dispatch, getState) => {
 
 export const forgotPassword = (user) => async (dispatch) => {
     try {
-        dispatch({
-            type: UPDATE_PROFILE_REQUEST,
-        });
-
         const config = {
             headers: {
                 "Content-Type": "application/json",
