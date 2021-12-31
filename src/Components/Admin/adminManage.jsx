@@ -1,41 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../../Supports/Stylesheets/Pages/Admin.css';
+import Axios from 'axios';
+import { API_URL } from '../../Supports/Constants/UrlAPI';
+
+import { AddProductModals } from '../Modals/adminAddProduct';
 
 export const AdminManage = () => {
 	const imageInput = useRef();
 
-	const check = () => {
+	useEffect(() => {
+		fetchProduct();
+	}, []);
 
-	};
-
-	const [addBtn, setAddBtn] = useState('unedit');
-	const [addProduct, setAddProduct] = useState({
-		ProductName: '',
-		ProductQty: 0,
-		ProductPrice: 0,
-		ProductImg: null,
-		ProductDesc: '',
-	});
-
+	const [productList, setProductList] = useState([]);
 	const [page, setPage] = useState(0);
 	const [maxPage, setMaxPage] = useState(0);
 
-	const onFill = (val, dataType) => {
-		if (dataType === 'ProductName') {
-			setAddProduct({ ...addProduct, ProductName: val });
-		}
-		if (dataType === 'ProductQty') {
-			setAddProduct({ ...addProduct, ProductQty: val });
-		}
-		if (dataType === 'ProductPrice') {
-			setAddProduct({ ...addProduct, ProductPrice: val });
-		}
-		if (dataType === 'ProductImg') {
-			setAddProduct({ ...addProduct, ProductImg: val });
-		}
-		if (dataType === 'ProductDesc') {
-			setAddProduct({ ...addProduct, ProductDesc: val });
-		}
+	const fetchProduct = () => {
+		Axios.get(`${API_URL}/products`)
+			.then((result) => {
+				setProductList(result.data);
+			})
+			.catch(() => {
+				alert('fetchProduct gagal');
+			});
+	};
+
+	const renderProducts = () => {
+		return productList.map((val) => {
+			<tr>
+				<td>{val.id}</td>
+				<td>{val.productName}</td>
+				<td>{val.price}</td>
+				<td>{val.description}</td>
+				<td>{val.category}</td>
+				<td>
+					<img src={val.productImage} className="admin-product-img" alt="" />
+				</td>
+				<td>
+					<button
+						onClick={() => this.editToggle(val)}
+						className="btn btn-secondary"
+					>
+						Edit
+					</button>
+				</td>
+				<td>
+					<button
+						onClick={() => this.deleteBtnHandler(val.id)}
+						className="btn btn-danger"
+					>
+						Delete
+					</button>
+				</td>
+			</tr>;
+		});
 	};
 
 	return (
@@ -51,94 +70,18 @@ export const AdminManage = () => {
 								<th>ID</th>
 								<th>Name</th>
 								<th>Price</th>
-								<th>Image</th>
 								<th>Description</th>
 								<th>Quantity</th>
 								<th>Category</th>
+								<th>Image</th>
 								<th colSpan='2'>Action</th>
 							</tr>
 						</thead>
-						<tbody>Nanti ada disini</tbody>
-						{addBtn === 'edit' ? (
-							<tfoot className='bg-light'>
-								<tr>
-									<td></td>
-									<td>
-										<input
-											onChange={(val) => onFill(val, 'ProductName')}
-											name='addPrdctName'
-											type='text'
-											className='form-control'
-										/>
-									</td>
-									<td>
-										<input
-											onChange={(val) => onFill(val, 'ProductPrice')}
-											name='addPrdctPrice'
-											type='number'
-											className='form-control'
-										/>
-									</td>
-									<td>
-										<input
-											onChange={(val) => onFill(val, 'ProductImg')}
-											name='addPrdctImage'
-											type='file'
-											className='form-control'
-											ref={imageInput}
-											style={{ display: 'none' }}
-										/>
-										<button
-											onClick={() => imageInput.current.click()}
-											className='add-submit-btn btn-sm'
-										>Add Image</button>
-									</td>
-									<td>
-										<input
-											onChange={(val) => onFill(val, 'ProductDesc')}
-											name='addPrdctDescription'
-											type='text'
-											className='form-control'
-										/>
-									</td>
-									<td>
-										<input
-											onChange={(val) => onFill(val, 'ProductQty')}
-											name='addPrdctQty'
-											type='number'
-											className='form-control'
-										/>
-									</td>
-									<td>
-										<select
-											onChange={(e) => this.inputHandler(e)}
-											name='addPrdctCategory'
-											className='form-control'>
-											<option value='' hidden>Categories</option>
-											<option value='1'>Tablet</option>
-											<option value='2'>Kapsul</option>
-											<option value='3'>Sirup</option>
-											<option value='4'>Obat Tetes</option>
-											<option value='5'>Salep</option>
-											<option value='6'>Serbuk</option>
-										</select>
-									</td>
-									<td colSpan='2'>
-										<button className='add-submit-btn' onClick={() => check()}>Add Product</button>
-									</td>
-								</tr>
-							</tfoot>
-						) : null}
+						<tbody>{renderProducts}</tbody>
 					</table>
-					{addBtn === 'unedit' ?
-						<div className='addbtn d-grid'>
-							<button onClick={() => setAddBtn('edit')}>+ Add Products</button>
-						</div>
-						:
-						<div className="close-btn d-grid">
-							<button onClick={() => setAddBtn('unedit')}>Close</button>
-						</div>
-					}
+					<div className='addmodal d-grid'>
+						<AddProductModals />
+					</div>
 				</div>
 			</div>
 			<div className="d-flex flex-row justify-content-center align-items-center mt-3">

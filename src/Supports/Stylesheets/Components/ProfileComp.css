@@ -43,6 +43,15 @@
 	max-width: 15rem;
 }
 
+.product-submit-btn {
+	border-radius: 5px;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	font-size: 16px;
+	background-color: #3897a0;
+}
+
 .addBtn {
 	width: 100%;
 	margin-left: auto;
@@ -104,6 +113,7 @@
 	display: block;
 	max-width: 12rem;
 	margin: 0 auto;
+	border-radius: 50%;
 }
 .container3 {
 	margin-top: 6rem;

@@ -9,6 +9,7 @@ export const UserProfile = (props) => {
 	const dispatch = useDispatch();
 	const imageInput = useRef();
 
+	const [name, setName] = useState('');
 	const [page, setPage] = useState('profile');
 	const [gender, setGender] = useState('');
 	const [birthDate, setBirthDate] = useState('');
@@ -26,6 +27,7 @@ export const UserProfile = (props) => {
 	const editHandler = (e) => {
 		e.preventDefault();
 		dispatch(userProfileUpdate(
+			name,
 			gender,
 			birthDate,
 			phone,
@@ -162,32 +164,38 @@ export const UserProfile = (props) => {
 						</div>
 						<div className="profile-detail mb-3 ps-5 mx-5 col">
 							<form className='form-container d-grid mx-3' onSubmit={editHandler}  >
-								<div className='form-group my-3'>
-									<label className='mb-2' htmlFor='Gender'>
-										Jenis Kelamin
-									</label>
-									<select
-										onChange={(e) => setGender(e.target.value)}
-										name="addPrdctCategory"
-										className="form-control"
-									>
-										<option value="" hidden>Jenis Kelamin</option>
-										<option value="Laki-laki">Laki laki</option>
-										<option value="Perempuan">Perempuan</option>
-									</select>
-								</div>
-								<div className='form-group my-3'>
-									<label className='mb-2' htmlFor='birthDate'>
-										Birthday
-									</label>
-									<input
-										type='date'
-										className='form-control'
-										id='birthDate'
-										onChange={(e) => dateHandler(e)}
-									/>
-								</div>
-								<label className='form-label mt-2' htmlFor='Phone'>
+								<label className='mb-2' htmlFor='Name'>
+									Nama
+								</label>
+								<input
+									type='text'
+									className='form-control mb-4'
+									id='Name'
+									placeholder='Nama Lengkap'
+									onChange={(e) => setName(e.target.value)}
+								/>
+								<label className='mb-2' htmlFor='Gender'>
+									Jenis Kelamin
+								</label>
+								<select
+									onChange={(e) => setGender(e.target.value)}
+									name="addPrdctCategory"
+									className="form-control mb-3"
+								>
+									<option value="" hidden>Jenis Kelamin</option>
+									<option value="Laki-laki">Laki laki</option>
+									<option value="Perempuan">Perempuan</option>
+								</select>
+								<label className='mb-1 mt-2' htmlFor='birthDate'>
+									Birthday
+								</label>
+								<input
+									type='date'
+									className='form-control mb-3'
+									id='birthDate'
+									onChange={(e) => dateHandler(e)}
+								/>
+								<label className='form-label mt-2 mb-1' htmlFor='Phone'>
 									Phone
 								</label>
 								<div className='input-group mb-3'>

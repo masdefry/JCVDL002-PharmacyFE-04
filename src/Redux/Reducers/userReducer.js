@@ -14,7 +14,11 @@ import {
     USER_KEEP_LOGOUT,
     USER_PROFILE_DATA,
     USER_PROFILE_DELETE,
-    USER_PROFILE_FAIL
+    USER_PROFILE_FAIL,
+    USERNAME_UPDATE_SUCCESS,
+    USERNAME_UPDATE_FAIL,
+    CHANGE_PASSWORD_SUCCESS,
+    CHANGE_PASSWORD_FAIL
 } from '../../Supports/Constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -74,6 +78,28 @@ export const userUpdateReducer = (state = {}, action) => {
         case UPDATE_PROFILE_SUCCESS:
             return { success: true };
         case UPDATE_PROFILE_FAIL:
+            return { error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const usernameUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USERNAME_UPDATE_SUCCESS:
+            return { success: true };
+        case USERNAME_UPDATE_FAIL:
+            return { error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const changePasswordReducer = (state = {}, action) => {
+    switch (action.type) {
+        case CHANGE_PASSWORD_SUCCESS:
+            return { success: true };
+        case CHANGE_PASSWORD_SUCCESS:
             return { error: action.payload };
         default:
             return state;

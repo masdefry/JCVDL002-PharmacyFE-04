@@ -13,7 +13,8 @@
 	font-weight: 400;
 }
 
-.addbtn button {
+.addbtn {
+	font-weight: bolder;
 	border-radius: 0 0 15px 15px;
 	border: none;
 	color: white;

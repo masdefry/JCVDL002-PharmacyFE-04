@@ -13,7 +13,11 @@ import {
     USER_KEEP_LOGOUT,
     USER_PROFILE_DATA,
     USER_PROFILE_FAIL,
-    USER_PROFILE_DELETE
+    USER_PROFILE_DELETE,
+    USERNAME_UPDATE_SUCCESS,
+    USERNAME_UPDATE_FAIL,
+    CHANGE_PASSWORD_SUCCESS,
+    CHANGE_PASSWORD_FAIL
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
@@ -74,6 +78,7 @@ export const userRegister = (fullname, email, password) => async (dispatch) => {
             type: USER_LOGIN_SUCCESS,
             payload: payload.data.data
         });
+        dispatch(keepLogin());
         localStorage.setItem('userInfoToken', JSON.stringify(payload.data.data));
     } catch (err) {
         dispatch({
@@ -86,7 +91,7 @@ export const userRegister = (fullname, email, password) => async (dispatch) => {
     }
 };
 
-export const userProfileUpdate = (gender, birthDate, phone, weight, height) => async (dispatch, getState) => {
+export const userProfileUpdate = (name, gender, birthDate, phone, weight, height) => async (dispatch, getState) => {
     try {
         const userdata = localStorage.getItem('userInfoToken');
         const userDataParse = JSON.parse(userdata);
@@ -99,7 +104,7 @@ export const userProfileUpdate = (gender, birthDate, phone, weight, height) => a
         };
 
         const payload = await Axios.patch(
-            `${API_URL}/user/updateprofile`, { gender, birthDate, phone, weight, height }, config
+            `${API_URL}/user/updateprofile`, { name, gender, birthDate, phone, weight, height }, config
         );
 
         console.log(payload.data.data);
@@ -212,7 +217,7 @@ export const profileDetail = () => async (dispatch) => {
 
         const payload = await Axios.get(`${API_URL}/user/userprofiledetail`, config);
 
-        console.log(payload.data.data);
+        // console.log(payload.data.data);
 
         dispatch({
             type: USER_PROFILE_DATA,
@@ -227,6 +232,71 @@ export const profileDetail = () => async (dispatch) => {
                     err.response.data.message
                     :
                     err.message
+        });
+    }
+};
+
+export const usernameUpdate = (username) => async (dispatch) => {
+    try {
+
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.patch(`${API_URL}/user/usernameUpdate`, { username }, config);
+
+        dispatch({
+            type: USERNAME_UPDATE_SUCCESS,
+            payload: payload.data.data
+        });
+
+        dispatch(profileDetail());
+    } catch (err) {
+        dispatch({
+            type: USERNAME_UPDATE_FAIL,
+            payload:
+                err.response && err.response.data.message ?
+                    err.response.data.message
+                    :
+                    err.messsage
+        });
+    }
+};
+
+export const changePassword = (oldPassword, newPassword) => async (dispatch) => {
+    try {
+
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.patch(`${API_URL}/user/changePassword`, { oldPassword, newPassword }, config);
+
+        dispatch({
+            type: CHANGE_PASSWORD_SUCCESS,
+            payload: payload.data.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: CHANGE_PASSWORD_FAIL,
+            payload:
+                err.response && err.response.data.message ?
+                    err.response.data.message
+                    :
+                    err.messsage
         });
     }
 };

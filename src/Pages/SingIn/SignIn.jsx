@@ -15,7 +15,7 @@ const SingIn = () => {
 	return (
 		<div className='container m-auto my-5 px-0 py-4'>
 			{error ?
-				<div className="alert alert-danger" role="alert">
+				<div className="alert alert-danger text-center my-4 w-50 mx-auto" role="alert">
 					Email atau Password salah!
 				</div>
 				:

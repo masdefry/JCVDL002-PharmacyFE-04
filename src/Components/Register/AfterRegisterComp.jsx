@@ -44,10 +44,10 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setBirthDate(e.target.value)}
                 />
             </div>
-            <label className='form-label mt-2' for='Phone'>
+            <label className='form-label mt-3' for='Phone'>
                 Phone
             </label>
-            <div class='input-group mb-3'>
+            <div class='input-group mb-4'>
                 <span class="input-group-text" id="Phone">+62</span>
                 <input
                     type='text'
@@ -58,10 +58,10 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setPhone(0 + e.target.value)}
                 />
             </div>
-            <label className='mt-2 mb-1' for='Weight'>
+            <label className='form-label mt-3' for='Weight'>
                 Berat
             </label>
-            <div class='input-group mb-3'>
+            <div class='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'
@@ -71,10 +71,10 @@ export const AfterRegisterComp = () => {
                 />
                 <span class="input-group-text" id="Weight">Kg</span>
             </div>
-            <label className='mt-2 mb-1' for='Height'>
+            <label className='form-label mt-3' for='Height'>
                 Tinggi
             </label>
-            <div class='input-group mb-3'>
+            <div class='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'

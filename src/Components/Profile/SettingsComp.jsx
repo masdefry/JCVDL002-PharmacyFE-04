@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { changePassword, usernameUpdate } from "../../Redux/Actions/userActions";
 import '../../Supports/Stylesheets/Components/ProfileComp.css';
 
 export const SettingsComp = () => {
@@ -14,12 +15,12 @@ export const SettingsComp = () => {
 
     const passSubmitHandler = (e) => {
         e.preventDefault();
-
+        dispatch(changePassword(oldPass, newPass));
     };
 
     const unameSubmitHandler = (e) => {
         e.preventDefault();
-
+        dispatch(usernameUpdate(username));
     };
 
     return (
