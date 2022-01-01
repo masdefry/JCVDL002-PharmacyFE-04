@@ -7,6 +7,7 @@ import { UserTransaction } from '../../Components/Profile/userTransaction/userTr
 import { OnGoingTransaction } from '../../Components/Profile/userTransaction/onGoingTransaction';
 import { UserProfile } from '../../Components/Profile/userProfile';
 import { SettingsComp } from '../../Components/Profile/SettingsComp';
+import { AddressComp } from '../../Components/Profile/AddressComp';
 import { keepLogin, profileDetail } from '../../Redux/Actions/userActions';
 
 import PPlaceholder from '../../Supports/Assets/Profile/Profile-placeholder.svg';
@@ -55,6 +56,16 @@ const Profile = () => {
 						</div>
 					</div>
 					<div className='button-container '>
+						<button
+							className={page === 'address' ? 'trans-button row px-1 mx-0 mt-3 mb-2 p-0' : 'trans-button row px-1 mx-0 my-3 p-0'}
+							align='center'
+							onClick={() => setPage('address')}>
+							<img src={Transaction} className='tr-wallet col' />
+							<span className='col'>
+								<strong>Alamat</strong>
+							</span>
+							<img src={Arrow} className='tr-arrow col my-auto' />
+						</button>
 						<button
 							className={page === 'transaction' ? 'trans-button row px-1 mx-0 mt-3 mb-2 p-0' : 'trans-button row px-1 mx-0 my-3 p-0'}
 							align='center'
@@ -136,6 +147,10 @@ const Profile = () => {
 					) : page === 'settings' ? (
 						<div className="profile-card border">
 							<SettingsComp />
+						</div>
+					) : page === 'address' ? (
+						<div className="profile-card border">
+							<AddressComp />
 						</div>
 					)
 						: null}

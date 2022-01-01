@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Components/Navbar.css';
 
+import { PrescriptionModals } from '../Modals/prescriptionModal';
 import SehatY from '../../Supports/Assets/Navbar/SehatY.svg';
 import Cart from '../../Supports/Assets/Navbar/cart.svg';
 import Message from '../../Supports/Assets/Navbar/inbox.svg';
@@ -41,9 +42,23 @@ export const Navbar = () => {
 						<input type='text' placeholder='Search SehatY' />
 					</div>
 					<div className='link col-2'>
-						<Link to='/' >
-							<img src={Cart} alt='Cart' />
-						</Link>
+						{userLoginInfo && userLoginInfo !== undefined ?
+							<div className="dropdown-profile">
+								<Link to='/' >
+									<img src={Cart} alt='Cart' />
+								</Link>
+								<div className="dropdown-content">
+									<Link to='/cart'>
+										Cart
+									</Link>
+									<PrescriptionModals />
+								</div>
+							</div>
+							:
+							<Link to='/' >
+								<img src={Cart} alt='Cart' />
+							</Link>
+						}
 						<Link to='/'>
 							<img src={Message} alt='Message' />
 						</Link>

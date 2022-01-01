@@ -107,7 +107,7 @@ export const UserProfile = (props) => {
 										{props.profiledata.userDetail.birthday ? <p>{props.profiledata.userDetail.birthday}</p> : <p>-</p>}
 									</div>
 								</div>
-								<div className='gender mt-5 row'>
+								<div className='gender pt-4 mt-5 row'>
 									<p>Jenis Kelamin</p>
 									<div className='profile-filler'>
 										{props.profiledata.userDetail.gender ? <p>{props.profiledata.userDetail.gender.toUpperCase()}</p> : <p>-</p>}
@@ -121,22 +121,16 @@ export const UserProfile = (props) => {
 										{props.profiledata.userDetail.email ? <p>{props.profiledata.userDetail.email.toUpperCase()}</p> : <p>-</p>}
 									</div>
 								</div>
-								<div className='phone mt-5 row'>
+								<div className='phone pt-4 mt-5 row'>
 									<p>No. Telepon</p>
 									<div className='profile-filler'>
 										{props.profiledata.userDetail.phone ? <p>+62 {props.profiledata.userDetail.phone}</p> : <p>-</p>}
 									</div>
 								</div>
-								<div className='address mt-5 row'>
-									<p>Alamat</p>
-									<div className='profile-filler'>
-										{props.profiledata.userDetail.fullAddress ? <p>{props.profiledata.userDetail.fullAddress}</p> : <p>-</p>}
-									</div>
-								</div>
 							</div>
-						</div>
-						<div className='container3'>
-							<button onClick={() => setPage('edit')}>edit profile</button>
+							<div className='container3'>
+								<button onClick={() => setPage('edit')}>edit profile</button>
+							</div>
 						</div>
 					</div>
 				</div>

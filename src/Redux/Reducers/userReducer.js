@@ -99,7 +99,7 @@ export const changePasswordReducer = (state = {}, action) => {
     switch (action.type) {
         case CHANGE_PASSWORD_SUCCESS:
             return { success: true };
-        case CHANGE_PASSWORD_SUCCESS:
+        case CHANGE_PASSWORD_FAIL:
             return { error: action.payload };
         default:
             return state;
