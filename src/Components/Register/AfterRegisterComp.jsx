@@ -44,11 +44,11 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setBirthDate(e.target.value)}
                 />
             </div>
-            <label className='form-label mt-3' for='Phone'>
+            <label className='form-label mt-3' htmlFor='Phone'>
                 Phone
             </label>
-            <div class='input-group mb-4'>
-                <span class="input-group-text" id="Phone">+62</span>
+            <div className='input-group mb-4'>
+                <span className="input-group-text" id="Phone">+62</span>
                 <input
                     type='text'
                     className='form-control'
@@ -58,10 +58,10 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setPhone(0 + e.target.value)}
                 />
             </div>
-            <label className='form-label mt-3' for='Weight'>
+            <label className='form-label mt-3' htmlFor='Weight'>
                 Berat
             </label>
-            <div class='input-group mb-4'>
+            <div className='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'
@@ -69,12 +69,12 @@ export const AfterRegisterComp = () => {
                     placeholder='Berat badan'
                     onChange={(e) => setWeight(e.target.value)}
                 />
-                <span class="input-group-text" id="Weight">Kg</span>
+                <span className="input-group-text" id="Weight">Kg</span>
             </div>
-            <label className='form-label mt-3' for='Height'>
+            <label className='form-label mt-3' htmlFor='Height'>
                 Tinggi
             </label>
-            <div class='input-group mb-4'>
+            <div className='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'
@@ -82,7 +82,7 @@ export const AfterRegisterComp = () => {
                     placeholder='Tinggi badan'
                     onChange={(e) => setHeight(e.target.value)}
                 />
-                <span class="input-group-text" id="Height">Cm</span>
+                <span className="input-group-text" id="Height">Cm</span>
             </div>
             <button className='submit-btn btn-lg mt-5' type='submit'>
                 Tambah Data

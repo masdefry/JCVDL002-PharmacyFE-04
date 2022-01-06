@@ -17,7 +17,9 @@ import {
     USERNAME_UPDATE_SUCCESS,
     USERNAME_UPDATE_FAIL,
     CHANGE_PASSWORD_SUCCESS,
-    CHANGE_PASSWORD_FAIL
+    CHANGE_PASSWORD_FAIL,
+    RESET_PASSWORD_FAIL,
+    RESET_PASSWORD_SUCCESS
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
@@ -123,37 +125,6 @@ export const userProfileUpdate = (name, gender, birthDate, phone, weight, height
                 err.response.data.message
                 :
                 err.message,
-        });
-    }
-};
-
-export const forgotPassword = (user) => async (dispatch) => {
-    try {
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        };
-
-        const { data } = await Axios.patch(`${API_URL}/user/forgotPassword`, user, config);
-
-        dispatch({
-            type: UPDATE_PROFILE_SUCCESS,
-            payload: data.data,
-        });
-
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data.data,
-        });
-
-    } catch (error) {
-        dispatch({
-            type: UPDATE_PROFILE_FAIL,
-            payload:
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message,
         });
     }
 };
@@ -297,6 +268,21 @@ export const changePassword = (oldPassword, newPassword) => async (dispatch) => 
                     err.response.data.message
                     :
                     err.messsage
+        });
+    }
+};
+
+export const resetPassword = (password, token) => async (dispatch) => {
+    try {
+
+    } catch (err) {
+        dispatch({
+            type: RESET_PASSWORD_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
         });
     }
 };

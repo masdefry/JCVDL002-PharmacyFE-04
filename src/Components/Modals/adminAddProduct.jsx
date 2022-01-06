@@ -7,7 +7,7 @@ export const AddProductModals = () => {
     const imageInput = useRef();
 
     const [openModal, setOpenModal] = useState(false);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [totalFile, setTotalFile] = useState(null);
     const [imagesErrorMessage, setImagesErrorMessage] = useState('');
 
@@ -26,11 +26,9 @@ export const AddProductModals = () => {
         try {
             if (files.length > 1) throw { message: 'Select 1 Images Only!' };
 
-            for (let i = 0; i < files.length; i++) {
-                if (files[i].size > 1000000) throw { message: `${files[i].name} More Than 1Mb` };
-            }
+            if (files[0].size > 1000000) throw { message: `${files[0].name} More Than 1Mb` };
 
-            setImages(files);
+            setImages([...files]);
             setImagesErrorMessage('');
             setTotalFile(files.length);
 
@@ -40,31 +38,34 @@ export const AddProductModals = () => {
     };
 
     const onFill = (val, dataType) => {
+        console.log(val.target.value);
         if (dataType === 'ProductName') {
-            setAddProduct({ ...addProduct, ProductName: val });
+            setAddProduct({ ...addProduct, ProductName: val.target.value });
         }
         if (dataType === 'ProductQty') {
-            setAddProduct({ ...addProduct, ProductQty: val });
+            setAddProduct({ ...addProduct, ProductQty: val.target.value });
         }
         if (dataType === 'ProductPrice') {
-            setAddProduct({ ...addProduct, ProductPrice: val });
+            setAddProduct({ ...addProduct, ProductPrice: val.target.value });
         }
         if (dataType === 'ProductDesc') {
-            setAddProduct({ ...addProduct, ProductDesc: val });
+            setAddProduct({ ...addProduct, ProductDesc: val.target.value });
         }
         if (dataType === 'ProductCategory') {
-            setAddProduct({ ...addProduct, ProductCategory: val });
+            setAddProduct({ ...addProduct, ProductCategory: val.target.value });
         }
     };
 
 
     const onSubmitData = () => {
-        console.log(images);
+        console.log(images[0]);
         let Name = addProduct.ProductName;
         let Price = addProduct.ProductPrice;
         let Description = addProduct.ProductDesc;
         let Qty = addProduct.ProductQty;
         let Category_ID = addProduct.ProductCategory;
+
+        console.log(addProduct);
 
         try {
             if (!Name || !Price || !Description || !Qty || !Category_ID) throw { message: 'Data Must Be Filled' };
@@ -83,7 +84,7 @@ export const AddProductModals = () => {
 
             let fd = new FormData();
             fd.append('data', dataToSend);
-            fd.append('Image', images);
+            fd.append('Image', images[0]);
 
             console.log([...fd]);
             Axios.post('http://localhost:2004/admin/addProduct', fd)
@@ -206,14 +207,18 @@ export const AddProductModals = () => {
                         <h6>
                             {
                                 imagesErrorMessage ?
-                                    imagesErrorMessage
+                                    <>
+                                        <p>Errornya di images</p>
+                                        {imagesErrorMessage}
+                                    </>
                                     :
                                     null
                             }
                         </h6>
                     </div>
                     <div className="my-4 mx-3">
-                        <input type="button" value="Submit Data" onClick={() => onSubmitData()} className="product-submit-btn py-1 w-100" />
+                        {/* <input type="button" value="Submit Data" onClick={onSubmitData} className="product-submit-btn py-1 w-100" /> */}
+                        <button className="product-submit-btn py-1 w-100" onClick={onSubmitData}>Submit Data</button>
                     </div>
                 </ModalBody>
             </Modal>

@@ -15,6 +15,7 @@ import Transaction from '../../Supports/Assets/Profile/transaction-profile.svg';
 import Arrow from '../../Supports/Assets/Profile/arrow.svg';
 import Admin from '../../Supports/Assets/Profile/activity-profile.svg';
 import Settings from '../../Supports/Assets/Profile/cog.svg';
+import address from '../../Supports/Assets/Profile/address-slim.svg';
 
 const Profile = () => {
 	const navigate = useNavigate();
@@ -60,7 +61,7 @@ const Profile = () => {
 							className={page === 'address' ? 'trans-button row px-1 mx-0 mt-3 mb-2 p-0' : 'trans-button row px-1 mx-0 my-3 p-0'}
 							align='center'
 							onClick={() => setPage('address')}>
-							<img src={Transaction} className='tr-wallet col' />
+							<img src={address} className='tr-wallet col' />
 							<span className='col'>
 								<strong>Alamat</strong>
 							</span>
@@ -84,7 +85,7 @@ const Profile = () => {
 									align='center'
 									onClick={() => setTransactionPage('ongoing')}>
 									<span className='col'>
-										<p>On Going</p>
+										<p>Berlangsung</p>
 									</span>
 									<img src={Arrow} className='tr-arrow col my-auto' />
 								</button>

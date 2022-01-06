@@ -1,0 +1,162 @@
+.address-card-body {
+	border-radius: 10px;
+	background-color: white;
+}
+
+.address-action button {
+	border-radius: 6px;
+	padding: 0.2rem 2rem;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	background-color: #3897a0;
+	margin-top: 3.5rem;
+}
+
+.transaction-card-body {
+	border-radius: 10px;
+	background-color: white;
+	text-align: start;
+}
+
+.tr-detail img {
+	border-radius: 10px;
+	padding: 0;
+	width: 6rem;
+	height: 6rem;
+	object-fit: cover;
+}
+
+#tr-detail-btn {
+	color: #7dd0d3;
+	background-color: white;
+	border: none;
+	padding: 0.5rem;
+	margin-right: 0.5rem;
+	font-size: 0.9rem;
+}
+
+#tr-repeat-btn {
+	border-radius: 5px;
+	background-color: #7dd0d3;
+	border: none;
+	padding: 0.5rem 1.3rem;
+	margin-right: 0.5rem;
+	font-weight: 700;
+	color: white;
+	font-size: 0.9rem;
+	transition: ease-in-out all 0.25s;
+}
+
+#tr-repeat-btn:hover {
+	background-color: #3897a0;
+}
+
+#tr-reject-btn {
+	border-radius: 5px;
+	background-color: #d37d7d;
+	border: none;
+	padding: 0.5rem 1.3rem;
+	margin-right: 0.5rem;
+	font-weight: 700;
+	color: white;
+	font-size: 0.9rem;
+	transition: ease-in-out all 0.25s;
+}
+
+#tr-reject-btn:hover {
+	background-color: #a03838;
+}
+
+.tr-status {
+	color: #7dd0d3;
+}
+
+#detail-modal {
+	background-color: #f0f9fa;
+	border-radius: 0 0 10px 10px;
+}
+
+.trans-status-status {
+	border-bottom: 0.15rem dashed gray;
+	padding-bottom: 0.8rem;
+	font-size: 1rem;
+}
+
+.trans-status-card p {
+	margin-bottom: 0;
+}
+
+.trans-status-card {
+	background-color: white;
+	padding: 1rem 3rem;
+}
+
+.trans-product-detail-card {
+	background-color: white;
+	padding: 1rem 1.5rem;
+}
+
+.trans-product-shipping {
+	background-color: white;
+	padding: 1.5rem 1.5rem;
+}
+
+.trans-payment-card {
+	background-color: white;
+	padding: 2rem 1.5rem;
+}
+
+.trans-date p {
+	font-size: 0.8rem;
+}
+
+.detail-produk-repeat-btn button {
+	background-color: white;
+	border-radius: 8px;
+	font-size: 0.8rem;
+	font-weight: bolder;
+	color: #3897a0;
+	padding: 0.2rem 3rem;
+	border: 0.15rem solid #3897a0;
+}
+
+.detail-produk-card {
+	border: 0.1rem solid gray;
+	padding: 1.5rem;
+	border-radius: 10px;
+	margin: 0 1.2rem;
+}
+
+.detail-produk-card-img img {
+	border-radius: 10px;
+	padding: 0;
+	width: 6rem;
+	height: 6rem;
+	object-fit: cover;
+}
+
+.detail-produk-total {
+	border-left: 0.15rem dashed gray;
+	padding-left: 3rem;
+}
+
+.item-shipment-title {
+	width: 10rem;
+}
+
+.trans-payment-title {
+	border-bottom: 0.15rem dashed gray;
+	padding-bottom: 0.8rem;
+	font-size: 1rem;
+}
+
+.trans-payment-item-card {
+	font-size: 0.8rem;
+	border-bottom: 0.15rem dashed gray;
+	padding: 0.8rem 0.5rem;
+}
+
+.trans-payment-total {
+	font-size: 1.1rem;
+}

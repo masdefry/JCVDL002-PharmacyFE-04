@@ -21,6 +21,7 @@ const AdminPages = () => {
     console.log('data user' + JSON.stringify(userDetail));
 
     const [page, setPage] = useState('product');
+    const [transactionPage, setTransactionPage] = useState('uncomplete');
 
     return (
         <div className='profile-container container'>
@@ -102,6 +103,42 @@ const AdminPages = () => {
                             </span>
                             <img src={Arrow} className='tr-arrow col my-auto' />
                         </button>
+                        {page === 'transaction' ?
+                            <div className="inner-transaction" id='inner-trans'>
+                                <button
+                                    className='inner-trans-button row pt-2 ps-4 pe-3 mx-0 my-2 p-0'
+                                    id='inner-trans-btn'
+                                    align='center'
+                                    onClick={() => setTransactionPage('uncomplete')}>
+                                    <span className='col'>
+                                        <p>Uncomplete</p>
+                                    </span>
+                                    <img src={Arrow} className='tr-arrow col my-auto' />
+                                </button>
+                                <button
+                                    className='inner-trans-button row ps-4 pe-3 mx-0 my-2 p-0'
+                                    id='inner-trans-btn'
+                                    align='center'
+                                    onClick={() => setTransactionPage('all')}>
+                                    <span className='col'>
+                                        <p>All Transaction</p>
+                                    </span>
+                                    <img src={Arrow} className='tr-arrow col my-auto' />
+                                </button>
+                                <button
+                                    className='inner-trans-button row pb-2 ps-4 pe-3 mx-0 my-2 p-0'
+                                    id='inner-trans-btn'
+                                    align='center'
+                                    onClick={() => setTransactionPage('request')}>
+                                    <span className='col'>
+                                        <p>Request</p>
+                                    </span>
+                                    <img src={Arrow} className='tr-arrow col my-auto' />
+                                </button>
+                            </div>
+                            :
+                            null
+                        }
                         <div className='button-container '>
                             <button
                                 className='trans-button row px-1 mx-0 my-3 p-0'
@@ -123,7 +160,7 @@ const AdminPages = () => {
                             <AdminManage />
                         </div>
                         :
-                        page === 'transaction' ?
+                        page === 'transaction' && transactionPage === 'uncomplete' ?
                             <div className="admin-selection-card">
                                 <AdminUTransaction />
                             </div>

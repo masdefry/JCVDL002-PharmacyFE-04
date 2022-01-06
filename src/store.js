@@ -7,7 +7,8 @@ import {
     userUpdateReducer,
     userKeepLoginReducer,
     userDetailReducer,
-    usernameUpdateReducer
+    usernameUpdateReducer,
+    forgotPasswordReducer
 } from './Redux/Reducers/userReducer';
 
 const reducer = combineReducers({
@@ -17,6 +18,7 @@ const reducer = combineReducers({
     userKeepLoginReducer,
     userDetailReducer,
     usernameUpdateReducer,
+    forgotPasswordReducer
 });
 
 const middleware = [thunk];

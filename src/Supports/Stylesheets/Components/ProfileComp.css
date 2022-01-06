@@ -57,19 +57,13 @@
 	margin-left: auto;
 }
 
-.transaction-body button {
-	margin-top: 4rem;
-	padding: 0.5rem 2rem;
+.dy button {
 	border-radius: 5px;
 	border: 2px solid #3897a0;
 	color: white;
 	font-weight: 600;
 	background-color: #3897a0;
 	max-width: 15rem;
-}
-.transaction-body {
-	padding: 3rem;
-	text-align: center;
 }
 
 .profile-detail-container {
@@ -154,4 +148,26 @@
 
 .transaction-header p {
 	margin: 0;
+}
+
+.address-header {
+	text-align: center;
+	padding: 0.8rem 1rem;
+	font-weight: 700;
+	font-size: 1.5rem;
+	background-color: white;
+	border-radius: 20px 20px 0 0;
+}
+
+.address-header p {
+	margin: 0;
+}
+
+.add-address-btn {
+	border-radius: 6px;
+	padding: 0.4rem 0.8rem;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	background-color: #3897a0;
 }

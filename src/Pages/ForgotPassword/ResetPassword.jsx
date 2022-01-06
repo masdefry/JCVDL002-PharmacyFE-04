@@ -1,17 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Pages/Register.css';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { Footer } from '../../Components/Footer/Footer';
-import { ForgotPasswordComp } from '../../Components/ForgotPassword/ForgotPasswordComp';
+import { ResetPasswordComp } from '../../Components/ForgotPassword/ResetPasswordComp';
 
 import RegisterImg from '../../Supports/Assets/Sign/register-ilus.svg';
 
-const ForgotPassword = () => {
-
-	const resetState = useSelector((state) => state.forgotPasswordReducer);
-	console.log({ resetState });
+const ResetPassword = (props) => {
+	const params = useParams();
+	let dataToken = params.token;
+	console.log(dataToken);
 
 	return (
 		<div className="forgot-outer">
@@ -21,16 +21,11 @@ const ForgotPassword = () => {
 						<img src={RegisterImg} alt='Logo' />
 					</div>
 					<div className='forgot-input-form col p-5'>
-						<div className='lupa mb-5'>
-							<h3>Lupa Password</h3>
+						<div className='lupa ms-3 mb-5'>
+							<h3>Reset Password</h3>
 						</div>
 						<div className='form mb-1'>
-							<ForgotPasswordComp />
-						</div>
-						<div className='alert'>
-							<p>
-								<b>Ikuti petunjuk pada email untuk aktivasi password baru.</b>
-							</p>
+							<ResetPasswordComp userData={dataToken} />
 						</div>
 					</div>
 				</div>
@@ -39,4 +34,4 @@ const ForgotPassword = () => {
 		</div>
 	);
 };
-export default ForgotPassword;
+export default ResetPassword;

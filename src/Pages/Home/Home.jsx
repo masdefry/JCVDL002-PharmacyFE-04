@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { keepLogin } from '../../Redux/Actions/userActions';
 
+import { Footer } from '../../Components/Footer/Footer';
+
 const Home = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -33,6 +35,7 @@ const Home = () => {
 	return (
 		<div>
 			<h4>Home</h4>
+			<Footer />
 		</div>
 	);
 };

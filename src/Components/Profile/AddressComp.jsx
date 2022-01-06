@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import '../../Supports/Stylesheets/Components/ProfileComp.css';
 
+import { AddressCard } from '../Card/AddressCard';
+import { AddAddressModal } from '../Modals/addAddress';
+
 import noOrder from '../../Supports/Assets/Profile/no-order.svg';
 
 export const AddressComp = () => {
 
     return (
-        <div className='transaction-container col'>
-            <div className='transaction-header mx-auto row'>
+        <div className='address-container col'>
+            <div className='address-header mx-auto row'>
                 <p>Alamat</p>
             </div>
-            <div className='transaction-body'>
-                <img src={noOrder} />
-                <h4>
-                    <strong>Belum ada transaksi</strong>
-                </h4>
-                <button>Belanja Sekarang</button>
+            <div className='address-body'>
+                <AddAddressModal />
+                <AddressCard />
             </div>
         </div>
     );
-};
+};;

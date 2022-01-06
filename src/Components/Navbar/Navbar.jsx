@@ -59,7 +59,7 @@ export const Navbar = () => {
 								<img src={Cart} alt='Cart' />
 							</Link>
 						}
-						<Link to='/'>
+						<Link to='/notification'>
 							<img src={Message} alt='Message' />
 						</Link>
 						{userLoginInfo && userLoginInfo !== undefined ?

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { AdminTransactionCard } from "../Card/adminTransactionCard";
+import { AdminCompleteTRCard } from "../Card/adminCompleteTransactionCard";
 
-export const AdminUTransaction = () => {
+export const AdminAllTransaction = () => {
 
     const [page, setPage] = useState(0);
     const [maxPage, setMaxPage] = useState(0);
@@ -14,7 +14,7 @@ export const AdminUTransaction = () => {
                     <p>Manage User Transaction</p>
                 </div>
                 <div className="admin-body py-1">
-                    <AdminTransactionCard />
+                    <AdminCompleteTRCard />
                 </div>
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center mt-3">

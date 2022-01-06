@@ -12,6 +12,9 @@ import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
 import Profile from './Pages/Profile/Profile';
 import AfterRegister from './Pages/Register/AfterRegister';
 import Admin from './Pages/Admin/Admin';
+import Notification from './Pages/Notification/Notification';
+import VerificationPage from './Pages/Verification/Verification';
+import ResetPassword from './Pages/ForgotPassword/ResetPassword';
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
@@ -57,8 +60,10 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/afterRegister' element={<AfterRegister />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path='/verif/:token' element={<VerificationPage />} />
+          <Route path='/resetPassword/:token' element={<ResetPassword />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );

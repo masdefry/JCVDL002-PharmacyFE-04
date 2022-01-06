@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../Supports/Stylesheets/Components/RegisterComp.css';
 import { EmailValidator } from '../../Supports/Functions/EmailValidator';
-import { forgotPassword } from '../../Redux/Actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
+import Axios from 'axios';
+import { API_URL } from '../../Supports/Constants/UrlAPI';
+import { RESET_PASSWORD_REQUEST } from '../../Supports/Constants/userConstants';
 
 export const ForgotPasswordComp = () => {
 	const dispatch = useDispatch();
@@ -13,7 +15,23 @@ export const ForgotPasswordComp = () => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		dispatch(forgotPassword(Email));
+
+		const config = {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		Axios.post(`${API_URL}/user/forgotpassword`, { Email }, config)
+			.then((result) => {
+				dispatch({
+					type: RESET_PASSWORD_REQUEST,
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+				throw err;
+			});
+
 	};
 
 	return (
@@ -34,15 +52,15 @@ export const ForgotPasswordComp = () => {
 					{Email === ''
 						? null
 						: EmailValidator(Email)
-						? null
-						: `Email did not valid!`}
+							? null
+							: `Email did not valid!`}
 				</div>
 			</div>
 			<button
 				disabled={EmailValidator(Email) === false}
 				className='submit-btn btn-lg mt-4'
 				type='submit'>
-				Daftar
+				Reset Password
 			</button>
 		</form>
 	);

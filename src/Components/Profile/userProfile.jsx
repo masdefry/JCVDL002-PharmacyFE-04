@@ -118,7 +118,7 @@ export const UserProfile = (props) => {
 								<div className='email row'>
 									<p>Email</p>
 									<div className='profile-filler'>
-										{props.profiledata.userDetail.email ? <p>{props.profiledata.userDetail.email.toUpperCase()}</p> : <p>-</p>}
+										{props.profiledata.userDetail.email ? <p>{props.profiledata.userDetail.email}</p> : <p>-</p>}
 									</div>
 								</div>
 								<div className='phone pt-4 mt-5 row'>

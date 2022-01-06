@@ -92,9 +92,9 @@ export const PrescriptionModals = () => {
         <>
             <button id='prescription-btn' className='prescription-btn' onClick={() => setOpenModal(true)}>Upload Resep</button>
             {/* <input type="button" value="Add Product" onClick={() => setOpenModal(true)} className='prescription-btn' /> */}
-            <Modal toggle={() => setOpenModal(false)} isOpen={openModal}>
+            <Modal toggle={() => setOpenModal(false)} isOpen={openModal} centered>
                 <ModalBody>
-                    <div className="text-center mt-2 border-bottom opacity-75 border-dark border-2">
+                    <div className="text-center mt-2 opacity-75 border-dark border-2">
                         <h3>
                             Upload Resep Dokter
                         </h3>
@@ -124,10 +124,10 @@ export const PrescriptionModals = () => {
                             className="form-control"
                             placeholder="Keterangan"
                             id="prescriptionDesc"
-                            style={{ height: '75px' }}
+                            style={{ height: '125px' }}
                             onChange={(val) => onFill(val, 'Description')}
                         ></textarea>
-                        <label className='px-4 py-1' htmlFor="prescriptionDesc">Keterangan</label>
+                        <label className='px-4 py-auto' htmlFor="prescriptionDesc">Keterangan</label>
                     </div>
                     <div className='ms-3'>
                         <h6>Foto Resep :</h6>
