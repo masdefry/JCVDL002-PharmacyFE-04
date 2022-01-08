@@ -19,7 +19,13 @@ import {
     CHANGE_PASSWORD_SUCCESS,
     CHANGE_PASSWORD_FAIL,
     RESET_PASSWORD_FAIL,
-    RESET_PASSWORD_SUCCESS
+    RESET_PASSWORD_SUCCESS,
+    USER_FETCH_ADDRESS,
+    USER_FETCH_ADDRESS_FAIL,
+    USER_ADDRESS_DELETE,
+    USER_PAYMENT_ORDER_ID,
+    USER_ACTIVE_ADDRESS,
+    USER_ACTIVE_ADDRESS_FAIL
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
@@ -134,6 +140,7 @@ export const userLogout = () => async (dispatch) => {
     dispatch({ type: USER_LOGOUT });
     dispatch({ type: USER_KEEP_LOGOUT });
     dispatch({ type: USER_PROFILE_DELETE });
+    dispatch({ type: USER_ADDRESS_DELETE });
     console.log('Jalan nih');
 };
 
@@ -285,4 +292,71 @@ export const resetPassword = (password, token) => async (dispatch) => {
                     err.message
         });
     }
+};
+
+export const fetchAddress = () => async (dispatch) => {
+    try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.get(`${API_URL}/user/fetchAddress`, config);
+
+        dispatch({
+            type: USER_FETCH_ADDRESS,
+            payload: payload.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: USER_FETCH_ADDRESS_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
+        });
+    }
+};
+
+export const fetchActiveAddress = () => async (dispatch) => {
+    try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.get(`${API_URL}/user//fetchActiveAddress`, config);
+
+        dispatch({
+            type: USER_ACTIVE_ADDRESS,
+            payload: payload.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: USER_ACTIVE_ADDRESS_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
+        });
+    }
+};
+
+export const userPaymentID = (ID) => async (dispatch) => {
+    dispatch({
+        type: USER_PAYMENT_ORDER_ID,
+        payload: ID
+    });
 };

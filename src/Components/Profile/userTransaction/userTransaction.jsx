@@ -11,7 +11,7 @@ export const UserTransaction = () => {
 	return (
 		<div className='transaction-container col'>
 			<div className='transaction-header mx-auto row'>
-				<p>Semua Transaksi</p>
+				<p>Resep Dokter</p>
 			</div>
 			<div className='transaction-body'>
 				{/* <img src={noOrder} />

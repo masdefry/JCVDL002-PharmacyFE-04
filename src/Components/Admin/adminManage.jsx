@@ -4,58 +4,60 @@ import Axios from 'axios';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 
 import { AddProductModals } from '../Modals/adminAddProduct';
+import { AdminBodyCard } from './AdminBodyCard';
 
 export const AdminManage = () => {
 	const imageInput = useRef();
 
-	useEffect(() => {
-		fetchProduct();
-	}, []);
+	// useEffect(() => {
+	// 	fetchProduct();
+	// }, []);
 
-	const [productList, setProductList] = useState([]);
+	// const [productList, setProductList] = useState([]);
 	const [page, setPage] = useState(0);
 	const [maxPage, setMaxPage] = useState(0);
 
-	const fetchProduct = () => {
-		Axios.get(`${API_URL}/products`)
-			.then((result) => {
-				setProductList(result.data);
-			})
-			.catch(() => {
-				alert('fetchProduct gagal');
-			});
-	};
+	// const fetchProduct = () => {
+	// 	Axios.get(`${API_URL}/admin/fetchProduct`)
+	// 		.then((result) => {
+	// 			setProductList(result.data.data);
+	// 			// console.table(result.data.data);
+	// 		})
+	// 		.catch(() => {
+	// 			alert('fetchProduct gagal');
+	// 		});
+	// };
 
-	const renderProducts = () => {
-		return productList.map((val) => {
-			<tr>
-				<td>{val.id}</td>
-				<td>{val.productName}</td>
-				<td>{val.price}</td>
-				<td>{val.description}</td>
-				<td>{val.category}</td>
-				<td>
-					<img src={val.productImage} className="admin-product-img" alt="" />
-				</td>
-				<td>
-					<button
-						onClick={() => this.editToggle(val)}
-						className="btn btn-secondary"
-					>
-						Edit
-					</button>
-				</td>
-				<td>
-					<button
-						onClick={() => this.deleteBtnHandler(val.id)}
-						className="btn btn-danger"
-					>
-						Delete
-					</button>
-				</td>
-			</tr>;
-		});
-	};
+	// const renderProducts = () => {
+	// 	return productList.map((val) => {
+	// 		<tr>
+	// 			<td>{val.SKU}</td>
+	// 			<td>{val.Name}</td>
+	// 			<td>{val.Price}</td>
+	// 			<td>{val.Description}</td>
+	// 			<td>{val.Category_ID}</td>
+	// 			<td>
+	// 				<img src={val.Image} className="admin-product-img" alt="" />
+	// 			</td>
+	// 			<td>
+	// 				<button
+	// 					onClick={() => this.editToggle(val)}
+	// 					className="btn btn-secondary"
+	// 				>
+	// 					Edit
+	// 				</button>
+	// 			</td>
+	// 			<td>
+	// 				<button
+	// 					onClick={() => this.deleteBtnHandler(val.id)}
+	// 					className="btn btn-danger"
+	// 				>
+	// 					Delete
+	// 				</button>
+	// 			</td>
+	// 		</tr>;
+	// 	});
+	// };
 
 	return (
 		<div className='admin-container container p-0'>
@@ -77,7 +79,7 @@ export const AdminManage = () => {
 								<th colSpan='2'>Action</th>
 							</tr>
 						</thead>
-						<tbody>{renderProducts}</tbody>
+						<tbody><AdminBodyCard /></tbody>
 					</table>
 					<div className='addmodal d-grid'>
 						<AddProductModals />

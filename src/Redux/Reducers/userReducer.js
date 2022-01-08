@@ -21,7 +21,13 @@ import {
     CHANGE_PASSWORD_FAIL,
     RESET_PASSWORD_FAIL,
     RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_REQUEST
+    RESET_PASSWORD_REQUEST,
+    USER_FETCH_ADDRESS,
+    USER_FETCH_ADDRESS_FAIL,
+    USER_ADDRESS_DELETE,
+    USER_PAYMENT_ORDER_ID,
+    USER_ACTIVE_ADDRESS,
+    USER_ACTIVE_ADDRESS_FAIL
 } from '../../Supports/Constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -112,11 +118,44 @@ export const changePasswordReducer = (state = {}, action) => {
 export const forgotPasswordReducer = (state = {}, action) => {
     switch (action.type) {
         case RESET_PASSWORD_REQUEST:
-            return {resetReq : true};
+            return { resetReq: true };
         case RESET_PASSWORD_SUCCESS:
             return { success: true };
         case RESET_PASSWORD_FAIL:
             return { error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const fetchAddressReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_FETCH_ADDRESS:
+            return { userAddress: action.payload };
+        case USER_FETCH_ADDRESS_FAIL:
+            return { error: action.payload };
+        case USER_ADDRESS_DELETE:
+            return {};
+        default:
+            return state;
+    }
+};
+
+export const activeAddressReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_ACTIVE_ADDRESS:
+            return { activeAddress: action.payload };
+        case USER_ACTIVE_ADDRESS_FAIL:
+            return { error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const paymentIDReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_PAYMENT_ORDER_ID:
+            return { userPaymentID: action.payload };
         default:
             return state;
     }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const AfterRegisterComp = () => {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export const AfterRegisterComp = () => {
             </div>
             <div className='form-group my-3'>
                 <label className='mb-2' htmlFor='birthDate'>
-                    Birthday
+                    Tanggal Lahir
                 </label>
                 <input
                     type='date'
@@ -45,7 +46,7 @@ export const AfterRegisterComp = () => {
                 />
             </div>
             <label className='form-label mt-3' htmlFor='Phone'>
-                Phone
+                No Telp
             </label>
             <div className='input-group mb-4'>
                 <span className="input-group-text" id="Phone">+62</span>

@@ -9,7 +9,7 @@ export const OnGoingTransaction = () => {
     return (
         <div className='transaction-container col'>
             <div className='transaction-header mx-auto row'>
-                <p>Transaksi Berlangsung</p>
+                <p>Transaksi Produk</p>
             </div>
             <div className='transaction-body'>
                 {/* <img src={noOrder} />

@@ -8,7 +8,10 @@ import {
     userKeepLoginReducer,
     userDetailReducer,
     usernameUpdateReducer,
-    forgotPasswordReducer
+    forgotPasswordReducer,
+    fetchAddressReducer,
+    paymentIDReducer,
+    activeAddressReducer
 } from './Redux/Reducers/userReducer';
 
 const reducer = combineReducers({
@@ -18,7 +21,10 @@ const reducer = combineReducers({
     userKeepLoginReducer,
     userDetailReducer,
     usernameUpdateReducer,
-    forgotPasswordReducer
+    forgotPasswordReducer,
+    fetchAddressReducer,
+    paymentIDReducer,
+    activeAddressReducer
 });
 
 const middleware = [thunk];
@@ -38,6 +44,15 @@ const initialState = {
     },
     userDetailReducer: {
         userDetail: userInfoLocalStorage,
+    },
+    fetchAddressReducer: {
+        userAddress: userInfoLocalStorage,
+    },
+    activeAddressReducer: {
+        activeAddress: userInfoLocalStorage,
+    },
+    paymentIDReducer: {
+        userPaymentID: 0,
     }
 };
 

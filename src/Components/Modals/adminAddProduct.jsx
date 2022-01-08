@@ -105,7 +105,7 @@ export const AddProductModals = () => {
             <input type="button" value="Add Product" onClick={() => setOpenModal(true)} className='addbtn' />
             <Modal toggle={() => setOpenModal(false)} isOpen={openModal}>
                 <ModalBody>
-                    <div className="text-center mt-2 border-bottom border-dark border-2">
+                    <div className="text-center mt-2 border-bottom border-dark border-1">
                         <h3>
                             Add Data Product
                         </h3>
@@ -131,7 +131,7 @@ export const AddProductModals = () => {
                         />
                     </div>
                     <div className="pb-3 px-3">
-                        <h6>Description (max 200 character) :</h6>
+                        <h6>Description (max 250 character) :</h6>
                         {/* <input
                             onChange={(val) => onFill(val, 'ProductDesc')}
                             name='addPrdctDescription'
@@ -143,7 +143,7 @@ export const AddProductModals = () => {
                             className="form-control"
                             placeholder="Description"
                             id="description"
-                            maxLength='200'
+                            maxLength='250'
                             style={{ height: '75px' }}
                             onChange={(val) => onFill(val, 'ProductDesc')}
                         ></textarea>

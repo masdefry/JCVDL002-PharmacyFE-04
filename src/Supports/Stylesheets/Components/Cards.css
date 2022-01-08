@@ -3,6 +3,26 @@
 	background-color: white;
 }
 
+.address-card-active-body {
+	border-radius: 10px;
+	background-color: #c6f6f7;
+	border: 3px solid #7dd0d3;
+}
+
+.address-card-active-body img {
+	max-width: 1.5rem;
+	margin-top: 6rem;
+	margin-right: 2rem;
+}
+
+.edit-address button {
+	background-color: inherit;
+	border: none;
+	color: #3897a0;
+	font-weight: bolder;
+	padding: 0.3rem 1.2rem;
+}
+
 .address-action button {
 	border-radius: 6px;
 	padding: 0.2rem 2rem;
@@ -10,7 +30,7 @@
 	color: white;
 	font-weight: 600;
 	background-color: #3897a0;
-	margin-top: 3.5rem;
+	margin-top: 5rem;
 }
 
 .transaction-card-body {
@@ -159,4 +179,32 @@
 
 .trans-payment-total {
 	font-size: 1.1rem;
+}
+
+.delete-header p {
+	font-size: 1.8rem;
+}
+
+.delete-body p {
+	font-size: 1.2rem;
+}
+
+.batal-del-btn {
+	border-radius: 5px;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	color: #3897a0;
+	padding: 0.6rem 2rem;
+	background-color: inherit;
+	border: 2px solid #3897a0;
+}
+
+.jadi-del-btn {
+	border-radius: 5px;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	color: white;
+	padding: 0.6rem 2rem;
+	background-color: #3897a0;
+	border: 2px solid #3897a0;
 }

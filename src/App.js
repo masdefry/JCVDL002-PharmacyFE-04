@@ -15,13 +15,14 @@ import Admin from './Pages/Admin/Admin';
 import Notification from './Pages/Notification/Notification';
 import VerificationPage from './Pages/Verification/Verification';
 import ResetPassword from './Pages/ForgotPassword/ResetPassword';
+import PaymentPage from './Pages/Payment/Payment';
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
 import { Footer } from './Components/Footer/Footer.jsx';
 
 //Redux
-import { keepLogin, profileDetail } from './Redux/Actions/userActions';
+import { fetchActiveAddress, fetchAddress, keepLogin, profileDetail } from './Redux/Actions/userActions';
 
 
 function App() {
@@ -35,12 +36,14 @@ function App() {
   useEffect(() => {
     if (token) {
       dispatch(profileDetail());
+      dispatch(fetchAddress());
+      dispatch(fetchActiveAddress());
     }
     const userData = JSON.parse(token);
     console.log("appJs" + userData);
     console.log("appJs" + userInfo);
     console.log("appJs" + userLoginInfo);
-  }, [token]);
+  }, []);
 
   // console.log(window.location.pathname);
 
@@ -63,6 +66,7 @@ function App() {
           <Route path='/notification' element={<Notification />} />
           <Route path='/verif/:token' element={<VerificationPage />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
+          <Route path='/payments' element={<PaymentPage />} />
         </Routes>
       </BrowserRouter>
     </div>

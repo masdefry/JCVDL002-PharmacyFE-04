@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { profileDetail, userProfileUpdate } from '../../Redux/Actions/userActions';
+import { CropImageModal } from '../Modals/cropModal';
 
 import PProfile from '../../Supports/Assets/Profile/Profile-placeholder.svg';
 
@@ -16,7 +17,7 @@ export const UserProfile = (props) => {
 	const [phone, setPhone] = useState(0);
 	const [weight, setWeight] = useState(0);
 	const [height, setHeight] = useState(0);
-	const [image, setImage] = useState();
+	const [image, setImage] = useState(null);
 
 	console.log(props.profiledata.userDetail);
 
@@ -145,15 +146,16 @@ export const UserProfile = (props) => {
 									<img src={PProfile} />
 								}
 							</div>
-							<div className="upload-buttton d-flex">
-								<input
+							<div className="upload-button d-flex">
+								<CropImageModal />
+								{/* <input
 									style={{ display: 'none' }}
 									type="file"
 									ref={imageInput} />
 								<button
 									onClick={() => imageInput.current.click()}
 									className='submit-btn btn-lg mx-auto mt-4'
-								>Upload Image</button>
+								>Upload Image</button> */}
 							</div>
 						</div>
 						<div className="profile-detail mb-3 ps-5 mx-5 col">

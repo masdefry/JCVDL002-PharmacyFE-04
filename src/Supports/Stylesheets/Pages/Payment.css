@@ -1,0 +1,36 @@
+.payment-container {
+	max-width: 1250px;
+}
+
+.payment-details-card {
+	border-radius: 10px;
+}
+
+.payment-content {
+	background-color: #f0f9fa;
+}
+
+.payment-content-container h3,
+.payment-content-container h4,
+.user-payment-address,
+.user-payment-content,
+.subtotal-content {
+	background-color: white;
+	padding: 0.5rem 1rem;
+}
+
+.content-product img {
+	width: 5rem;
+	height: 5rem;
+	margin-right: 1.5rem;
+	border-radius: 5px;
+}
+
+.pay-button button {
+	border-radius: 5px;
+	background-color: #3897a0;
+	color: white;
+	border: none;
+	padding: 0.6rem;
+	font-weight: bolder;
+}

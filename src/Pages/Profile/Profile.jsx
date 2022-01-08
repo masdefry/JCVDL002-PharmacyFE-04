@@ -85,7 +85,7 @@ const Profile = () => {
 									align='center'
 									onClick={() => setTransactionPage('ongoing')}>
 									<span className='col'>
-										<p>Berlangsung</p>
+										<p>Produk</p>
 									</span>
 									<img src={Arrow} className='tr-arrow col my-auto' />
 								</button>
@@ -95,7 +95,7 @@ const Profile = () => {
 									align='center'
 									onClick={() => setTransactionPage('all')}>
 									<span className='col'>
-										<p>Semua Transaksi</p>
+										<p>Resep Dokter</p>
 									</span>
 									<img src={Arrow} className='tr-arrow col my-auto' />
 								</button>

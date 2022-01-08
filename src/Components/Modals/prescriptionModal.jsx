@@ -1,15 +1,23 @@
 import React, { useState, useRef } from 'react';
 import { Modal, ModalBody } from 'reactstrap';
 import Axios from 'axios';
+import { useSelector } from 'react-redux';
+import { API_URL } from '../../Supports/Constants/UrlAPI';
 
 export const PrescriptionModals = () => {
+    const address = useSelector((state) => state.fetchAddressReducer);
+    const { userAddress } = address;
+    const selectedAddress = useSelector((state) => state.activeAddressReducer);
+    const { activeAddress } = selectedAddress;
 
     const imageInput = useRef();
 
     const [openModal, setOpenModal] = useState(false);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [totalFile, setTotalFile] = useState(null);
     const [imagesErrorMessage, setImagesErrorMessage] = useState('');
+
+    console.log(images);
 
     const [addPrescription, setAddPrescription] = useState({
         DoctorName: '',
@@ -25,11 +33,9 @@ export const PrescriptionModals = () => {
         try {
             if (files.length > 1) throw { message: 'Select 1 Images Only!' };
 
-            for (let i = 0; i < files.length; i++) {
-                if (files[i].size > 1000000) throw { message: `${files[i].name} More Than 1Mb` };
-            }
+            if (files[0].size > 100000000) throw { message: `${files[0].name} More Than 1Mb` };
 
-            setImages(files);
+            setImages([...files]);
             setImagesErrorMessage('');
             setTotalFile(files.length);
 
@@ -52,30 +58,46 @@ export const PrescriptionModals = () => {
 
 
     const onSubmitData = () => {
-        console.log(images);
-        let Doctor_Name = addPrescription.DoctorName;
-        let Desease_Type = addPrescription.DeseaseType;
-        let Description = addPrescription.Description;
+        console.log(images[0]);
+        let doctor = addPrescription.DoctorName;
+        let deseaseType = addPrescription.DeseaseType;
+        let description = addPrescription.Description;
+        let addressID = activeAddress.ID;
+        console.log(addressID);
+
 
         try {
-            if (!Doctor_Name || !Desease_Type || !Description) throw { message: 'Data Must Be Filled' };
+            if (!doctor || !deseaseType || !description) throw { message: 'Data Must Be Filled' };
             if (!images) throw { message: 'Select Images First!' };
+            if (!addressID) throw { message: 'Address not found, Please fill address in your profile first' };
 
             let data = {
-                Doctor_Name,
-                Desease_Type,
-                Description,
+                doctor,
+                deseaseType,
+                description,
+                addressID
             };
+            console.log(typeof ({ data }));
 
-            let dataToSend = JSON.stringify(data);
+            let dataToSend = JSON.stringify({ ...data });
             console.log(dataToSend);
 
             let fd = new FormData();
             fd.append('data', dataToSend);
-            fd.append('Image', images);
+            fd.append('Image', images[0]);
+
+            const userdata = localStorage.getItem('userInfoToken');
+            const userDataParse = JSON.parse(userdata);
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': `${userDataParse.token}`
+                }
+            };
 
             console.log([...fd]);
-            Axios.post('http://localhost:2004/admin/addProduct', fd)
+            Axios.post(`${API_URL}/admin/orderPresription`, fd, config)
                 .then((res) => {
                     alert('Add Data Success!');
                     setOpenModal(false);
@@ -84,7 +106,9 @@ export const PrescriptionModals = () => {
                     console.log(err);
                 });
         } catch (error) {
-            setImagesErrorMessage(error.message);
+            setImagesErrorMessage(`Ini pas mau post ${error.message}`);
+            console.log(error);
+            console.log(error.message);
         }
     };
 
@@ -170,7 +194,7 @@ export const PrescriptionModals = () => {
                         </h6>
                     </div>
                     <div className="my-4 mx-3">
-                        <input type="button" value="Submit Data" onClick={() => onSubmitData()} className="product-submit-btn py-1 w-100" />
+                        <input type="button" value="Submit Data" onClick={onSubmitData} className="product-submit-btn py-1 w-100" />
                     </div>
                 </ModalBody>
             </Modal>
