@@ -1,0 +1,225 @@
+.carousel-container {
+  background-color: rgb(240, 249, 250);
+  width: 100%;
+  min-height: 15rem;
+  padding-top: 3rem;
+}
+
+img {
+  margin: auto;
+}
+
+/* 
+////////////////////// REACT SLICK */
+
+.slick-next {
+  right: 3% !important;
+  /* z-index: 1; */
+}
+
+/* .slick-prev {
+  left: 3% !important;
+} */
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
+/* /////////////////////// */
+
+/* ///////////////////// MAIN PAGE */
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  padding-top: 1rem;
+}
+
+/* /// Menu Item */
+.menu-items {
+  background-color: rgba(0, 0, 0, 0);
+  width: 50rem;
+  display: flex;
+  justify-content: space-around;
+  /* border: 4px solid rgba(158, 154, 154, 0.3); */
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+}
+.menu-items h3 {
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: rgb(54, 69, 79);
+}
+.menu-items:hover {
+  cursor: pointer;
+}
+
+.menu-items img:hover {
+  height: 65px;
+}
+.menu-items h3:hover {
+  color: rgb(70, 175, 187);
+}
+/* ///////////////////////// CARD SERVICE */
+/* ///// COVID CARD */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(240, 249, 250);
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 2rem 1rem;
+}
+.white-card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 2rem 1rem;
+}
+
+.card-description h1 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+}
+
+.card-description p {
+  font-size: 1rem;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  width: 50%;
+}
+
+.covid-services {
+  display: flex;
+}
+
+.covid-service {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  padding: 0.75rem 1rem;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.covid-service h3 {
+  font-size: 0.875rem;
+  font-weight: 630;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  margin: 0;
+}
+.covid-service img {
+  margin-right: 1rem;
+}
+
+/* ////////// Articles */
+.article-services {
+  display: flex;
+}
+
+.article-service {
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+  margin: 2rem 1rem;
+  background-color: #fff;
+  max-width: 266.48px;
+  min-height: 280px;
+}
+
+.article-service img {
+  width: 266.48px;
+  height: 170px;
+}
+.article-service h3 {
+  padding: 1rem 0.75rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 650;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  margin: 0;
+}
+
+.article-service p {
+  font-size: 0.8rem;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  padding: 0.75rem;
+}
+/* //////////// Doctor */
+.doctor-services {
+  display: flex;
+}
+
+.doctor-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.doctor-service {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 1rem 0.5rem 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  border-radius: 10px;
+  background-color: #fff;
+  max-width: 350px;
+}
+.doctor-service h3 {
+  font-size: 0.875rem;
+  font-weight: 630;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  margin: 0;
+}
+.doctor-service img {
+  margin-right: 1rem;
+  border-radius: 50%;
+}
+
+/* //////////////////////////////////////////// MEDIA QUERY */
+@media (max-width: 870px) {
+  html {
+    font-size: 14px;
+  }
+  .article-services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
+  .article-services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
