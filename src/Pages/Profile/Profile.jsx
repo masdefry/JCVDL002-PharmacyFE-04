@@ -9,6 +9,7 @@ import { UserProfile } from '../../Components/Profile/userProfile';
 import { SettingsComp } from '../../Components/Profile/SettingsComp';
 import { AddressComp } from '../../Components/Profile/AddressComp';
 import { keepLogin, profileDetail } from '../../Redux/Actions/userActions';
+import { fetchUserPrescriptionOrder } from '../../Redux/Actions/userActions';
 
 import PPlaceholder from '../../Supports/Assets/Profile/Profile-placeholder.svg';
 import Transaction from '../../Supports/Assets/Profile/transaction-profile.svg';
@@ -19,6 +20,7 @@ import address from '../../Supports/Assets/Profile/address-slim.svg';
 
 const Profile = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const userProfile = useSelector((state) => state.userDetailReducer);
 	const { userDetail } = userProfile;
@@ -35,6 +37,9 @@ const Profile = () => {
 		} else if (!token && userDetail === undefined) {
 			navigate('/login');
 		}
+		dispatch(fetchUserPrescriptionOrder());
+		dispatch(profileDetail());
+		dispatch(keepLogin);
 
 	}, []);
 

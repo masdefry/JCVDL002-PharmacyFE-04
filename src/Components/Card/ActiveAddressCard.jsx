@@ -40,6 +40,16 @@ export const ActiveAddressCard = () => {
         }
     };
 
+    const userInfoLocalStorage =
+        localStorage.getItem('userInfoToken') ?
+            JSON.parse(localStorage.getItem('userInfoToken'))
+            :
+            null;
+
+    if (!activeAddress || activeAddress === undefined || activeAddress === userInfoLocalStorage) {
+        return null;
+    }
+
     return (
         <div className="address-card-container mx-3 my-3">
             <div className="address-card-active-body mx-1 py-3 px-4 shadow-sm row">

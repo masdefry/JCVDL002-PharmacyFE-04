@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Axios from 'axios';
+import { API_URL } from '../../Supports/Constants/UrlAPI';
+import '../../Supports/Stylesheets/Components/ProfileComp.css';
 
 import { profileDetail, userProfileUpdate } from '../../Redux/Actions/userActions';
 import { CropImageModal } from '../Modals/cropModal';
@@ -17,7 +20,9 @@ export const UserProfile = (props) => {
 	const [phone, setPhone] = useState(0);
 	const [weight, setWeight] = useState(0);
 	const [height, setHeight] = useState(0);
-	const [image, setImage] = useState(null);
+	const [image, setImage] = useState([]);
+	const [imagesErrorMessage, setImagesErrorMessage] = useState('');
+	const [imageStatus, setImageStatus] = useState('');
 
 	console.log(props.profiledata.userDetail);
 
@@ -35,6 +40,57 @@ export const UserProfile = (props) => {
 			weight,
 			height
 		));
+	};
+
+	const onImagesValidation = (e) => {
+		const files = e.target.files;
+		console.log(files);
+		try {
+			if (files.length > 1) throw { message: 'Select 1 Images Only!' };
+
+			if (files[0].size > 100000000) throw { message: `${files[0].name} More Than 1Mb` };
+
+			setImage([...files]);
+			setImagesErrorMessage('');
+			setImageStatus('ada');
+
+		} catch (error) {
+			setImagesErrorMessage(error.message);
+		}
+	};
+
+	const onImageUpload = () => {
+		try {
+			if (!image) throw { message: 'Select Images First!' };
+
+			let fd = new FormData();
+			fd.append('Image', image[0]);
+
+			const userdata = localStorage.getItem('userInfoToken');
+			const userDataParse = JSON.parse(userdata);
+
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'token': `${userDataParse.token}`
+				}
+			};
+
+			console.log([...fd]);
+			Axios.post(`${API_URL}/user/updateProfileImg`, fd, config)
+				.then((res) => {
+					alert('Profile Updated');
+					setPage('profile');
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} catch (error) {
+			setImagesErrorMessage(`Ini pas mau post ${error.message}`);
+			console.log(error);
+			console.log(error.message);
+		}
+
 	};
 
 	let age = 0;
@@ -147,15 +203,26 @@ export const UserProfile = (props) => {
 								}
 							</div>
 							<div className="upload-button d-flex">
-								<CropImageModal />
-								{/* <input
-									style={{ display: 'none' }}
-									type="file"
-									ref={imageInput} />
-								<button
-									onClick={() => imageInput.current.click()}
-									className='submit-btn btn-lg mx-auto mt-4'
-								>Upload Image</button> */}
+								{/* <CropImageModal /> */}
+								{imageStatus === '' ?
+									<>
+										<input
+											style={{ display: 'none' }}
+											type="file"
+											ref={imageInput}
+											onChange={(e) => onImagesValidation(e)} />
+										<button
+											onClick={() => imageInput.current.click()}
+											className='select-img-btn btn-lg mx-auto mt-4'
+										>Select Image</button>
+									</>
+									:
+									<button
+										onClick={() => onImageUpload()}
+										className='submit-btn btn-lg mx-auto mt-4'
+									>Upload Image</button>
+
+								}
 							</div>
 						</div>
 						<div className="profile-detail mb-3 ps-5 mx-5 col">

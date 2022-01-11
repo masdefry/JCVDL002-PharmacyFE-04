@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import '../../Supports/Stylesheets/Pages/Admin.css';
 
 import { AdminManage } from '../../Components/Admin/adminManage';
 import { AdminUTransaction } from '../../Components/Admin/AdminUTransaction';
 import { keepLogin, profileDetail } from '../../Redux/Actions/userActions';
+import { fetchUserPrescriptionAdmin } from '../../Redux/Actions/userActions';
+import { AdminAllTransaction } from '../../Components/Admin/AdminAllTrans';
+import { AdminPresTransaction } from '../../Components/Admin/adminPresTransaction';
 
 import PPlaceholder from '../../Supports/Assets/Profile/Profile-placeholder.svg';
 import Transaction from '../../Supports/Assets/Profile/transaction-profile.svg';
@@ -15,13 +18,23 @@ import Settings from '../../Supports/Assets/Profile/cog.svg';
 
 
 const AdminPages = () => {
-
+    const dispatch = useDispatch();
     const userProfile = useSelector((state) => state.userDetailReducer);
     const { userDetail } = userProfile;
     console.log('data user' + JSON.stringify(userDetail));
 
     const [page, setPage] = useState('product');
     const [transactionPage, setTransactionPage] = useState('uncomplete');
+    const [userEmail, setUserEmail] = useState('');
+    const [toProps, setToProps] = useState('');
+    const [productToProps, setProductToProps] = useState('');
+    const [categoryToProps, setCategoryToProps] = useState('');
+
+    const TransUserSearch = (e) => {
+        e.preventDefault();
+        dispatch(fetchUserPrescriptionAdmin(userEmail));
+        setToProps('render');
+    };
 
     return (
         <div className='profile-container container'>
@@ -41,29 +54,31 @@ const AdminPages = () => {
                                         name="searchProductName"
                                         type="text"
                                         className="form-control mb-3"
+                                        onChange={(e) => setProductToProps(e.target.value)}
                                     />
                                     <label
                                         className='mb-2'
                                         htmlFor="searchCategory">Product Category</label>
                                     <select
                                         name="searchCategory"
-                                        className="form-control"
+                                        className="form-control mb-4"
+                                        onChange={(e) => setCategoryToProps(e.target.value)}
                                     >
                                         <option value='' hidden>Categories</option>
-                                        <option value='1'>Tablet</option>
-                                        <option value='2'>Kapsul</option>
-                                        <option value='3'>Sirup</option>
-                                        <option value='4'>Obat Tetes</option>
-                                        <option value='5'>Salep</option>
-                                        <option value='6'>Serbuk</option>
+                                        <option value='Tablet'>Tablet</option>
+                                        <option value='Kapsul'>Kapsul</option>
+                                        <option value='Sirup'>Sirup</option>
+                                        <option value='Obat Tetes'>Obat Tetes</option>
+                                        <option value='Salep'>Salep</option>
+                                        <option value='Serbuk'>Serbuk</option>
                                     </select>
-                                    <div className="d-grid">
+                                    {/* <div className="d-grid">
                                         <button
                                             className="submit-btn btn-sm d-grid mt-4"
                                         >
                                             Search
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             :
@@ -74,6 +89,7 @@ const AdminPages = () => {
                                     </div>
                                     <div className="product-card-body mt-3 mb-1">
                                         <input
+                                            onChange={(e) => setUserEmail(e.target.value)}
                                             name="searchProductName"
                                             type="text"
                                             className="form-control mb-3"
@@ -81,6 +97,7 @@ const AdminPages = () => {
                                         <div className="d-grid">
                                             <button
                                                 className="submit-btn btn-sm d-grid mt-1"
+                                                onClick={(e) => TransUserSearch(e)}
                                             >
                                                 Search
                                             </button>
@@ -103,7 +120,7 @@ const AdminPages = () => {
                             </span>
                             <img src={Arrow} className='tr-arrow col my-auto' />
                         </button>
-                        {page === 'transaction' ?
+                        {/* {page === 'transaction' ?
                             <div className="inner-transaction" id='inner-trans'>
                                 <button
                                     className='inner-trans-button row pt-2 ps-4 pe-3 mx-0 my-2 p-0'
@@ -138,7 +155,7 @@ const AdminPages = () => {
                             </div>
                             :
                             null
-                        }
+                        } */}
                         <div className='button-container '>
                             <button
                                 className='trans-button row px-1 mx-0 my-3 p-0'
@@ -157,13 +174,11 @@ const AdminPages = () => {
                 <div className='admin-selection p-0 col-9 ms-5'>
                     {page === 'product' ?
                         <div className="admin-selection-card">
-                            <AdminManage />
+                            <AdminManage product={productToProps.toLocaleLowerCase()} category={categoryToProps.toLocaleLowerCase()} />
                         </div>
                         :
-                        page === 'transaction' && transactionPage === 'uncomplete' ?
-                            <div className="admin-selection-card">
-                                <AdminUTransaction />
-                            </div>
+                        page === 'transaction' ?
+                            <AdminAllTransaction state={toProps} />
                             :
                             null
                     }

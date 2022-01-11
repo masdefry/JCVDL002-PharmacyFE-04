@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Modal, ModalBody } from 'reactstrap';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
@@ -9,6 +9,8 @@ export const PrescriptionModals = () => {
     const { userAddress } = address;
     const selectedAddress = useSelector((state) => state.activeAddressReducer);
     const { activeAddress } = selectedAddress;
+    const navbar = useSelector((state) => state.userKeepLoginReducer);
+    const { userLoginInfo } = navbar;
 
     const imageInput = useRef();
 
@@ -46,13 +48,13 @@ export const PrescriptionModals = () => {
 
     const onFill = (val, dataType) => {
         if (dataType === 'DoctorName') {
-            setAddPrescription({ ...addPrescription, DoctorName: val });
+            setAddPrescription({ ...addPrescription, DoctorName: val.target.value });
         }
         if (dataType === 'DeseaseType') {
-            setAddPrescription({ ...addPrescription, DeseaseType: val });
+            setAddPrescription({ ...addPrescription, DeseaseType: val.target.value });
         }
         if (dataType === 'Description') {
-            setAddPrescription({ ...addPrescription, Description: val });
+            setAddPrescription({ ...addPrescription, Description: val.target.value });
         }
     };
 
@@ -79,7 +81,7 @@ export const PrescriptionModals = () => {
             };
             console.log(typeof ({ data }));
 
-            let dataToSend = JSON.stringify({ ...data });
+            let dataToSend = JSON.stringify(data);
             console.log(dataToSend);
 
             let fd = new FormData();
@@ -99,7 +101,7 @@ export const PrescriptionModals = () => {
             console.log([...fd]);
             Axios.post(`${API_URL}/admin/orderPresription`, fd, config)
                 .then((res) => {
-                    alert('Add Data Success!');
+                    alert('Request resep dokter terkirim!');
                     setOpenModal(false);
                 })
                 .catch((err) => {
@@ -112,17 +114,27 @@ export const PrescriptionModals = () => {
         }
     };
 
+    const OnOpenModal = () => {
+        if (userLoginInfo && userLoginInfo.status === 'verified') {
+            setOpenModal(true);
+        } else {
+            alert("Akun anda belum terverifikasi!s");
+        }
+    };
+
     return (
         <>
-            <button id='prescription-btn' className='prescription-btn' onClick={() => setOpenModal(true)}>Upload Resep</button>
+            <button id='prescription-btn' className='prescription-btn' onClick={OnOpenModal}>Upload Resep</button>
             {/* <input type="button" value="Add Product" onClick={() => setOpenModal(true)} className='prescription-btn' /> */}
             <Modal toggle={() => setOpenModal(false)} isOpen={openModal} centered>
-                <ModalBody>
+                <ModalHeader style={{ justifyContent: 'center' }}>
                     <div className="text-center mt-2 opacity-75 border-dark border-2">
                         <h3>
                             Upload Resep Dokter
                         </h3>
                     </div>
+                </ModalHeader>
+                <ModalBody>
                     <div className="form-floating mt-4 pb-3 px-3">
                         <input
                             placeholder="Nama Dokter"

@@ -1,65 +1,149 @@
 import React, { useState, useEffect } from "react";
 import '../../Supports/Stylesheets/Pages/Payment.css';
 import { useSelector, useDispatch } from "react-redux";
+import Axios from "axios";
+import { API_URL } from "../../Supports/Constants/UrlAPI";
 
-import { fetchActiveAddress } from "../../Redux/Actions/userActions";
+import { fetchActiveAddress, userPaymentID, userPaymentDetail } from "../../Redux/Actions/userActions";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Masker from '../../Supports/Assets/download.jpg';
 
 const PaymentPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { userPaymentID } = useSelector((state) => state.paymentIDReducer);
     const address = useSelector((state) => state.fetchAddressReducer);
     const { userAddress } = address;
     const selectedAddress = useSelector((state) => state.activeAddressReducer);
     const { activeAddress } = selectedAddress;
+    const { paymentDetails } = useSelector((state) => state.paymentDetailReducer);
 
+    console.log(userPaymentID);
     console.log(activeAddress);
+    console.log(paymentDetails);
 
     const [duration, setDuration] = useState('');
     const [courier, setCourier] = useState('');
     const [payment, setPayment] = useState(0);
+    const [shippingMethod, setShippingMethod] = useState(0);
+    const [shippingCost, setShippingCost] = useState(0);
+    const [pageMessage, setPageMessage] = useState('Loading');
+    const [totalShop, setTotalShop] = useState(0);
+    const [totalTax, setTotalTax] = useState(0);
 
-    const Shipping = () => {
+    const userInfoLocalStorage =
+        localStorage.getItem('userInfoToken') ?
+            JSON.parse(localStorage.getItem('userInfoToken'))
+            :
+            null;
+
+    useEffect(() => {
+        dispatch(userPaymentDetail());
+    }, []);
+
+    useEffect(() => {
         if (duration === 'Reguler' && courier === 'JNE') {
-            return 10000;
+            setShippingMethod(1);
+            setShippingCost(10000);
+            setTotalTax((paymentDetails.Total_Price + 10000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'Reguler' && courier === 'JNT') {
-            return 9000;
+            setShippingMethod(2);
+            setShippingCost(9000);
+            setTotalTax((paymentDetails.Total_Price + 9000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'Reguler' && courier === 'SiCepat') {
-            return 8000;
+            setShippingMethod(3);
+            setShippingCost(8000);
+            setTotalTax((paymentDetails.Total_Price + 8000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'SameDay' && courier === 'JNE') {
-            return 15000;
+            setShippingMethod(4);
+            setShippingCost(15000);
+            setTotalTax((paymentDetails.Total_Price + 15000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'SameDay' && courier === 'JNT') {
-            return 14000;
+            setShippingMethod(5);
+            setShippingCost(14000);
+            setTotalTax((paymentDetails.Total_Price + 14000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'SameDay' && courier === 'SiCepat') {
-            return 13000;
+            setShippingMethod(6);
+            setShippingCost(13000);
+            setTotalTax((paymentDetails.Total_Price + 13000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'SameDay' && courier === 'Grab') {
-            return 14000;
+            setShippingMethod(8);
+            setShippingCost(14000);
+            setTotalTax((paymentDetails.Total_Price + 14000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'SameDay' && courier === 'Gojek') {
-            return 15000;
+            setShippingMethod(7);
+            setShippingCost(15000);
+            setTotalTax((paymentDetails.Total_Price + 15000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'Instant' && courier === 'Grab') {
-            return 26000;
+            setShippingMethod(10);
+            setShippingCost(26000);
+            setTotalTax((paymentDetails.Total_Price + 26000) + (paymentDetails.Total_Price * 10 / 100));
         }
         if (duration === 'Instant' && courier === 'Gojek') {
-            return 25000;
+            setShippingMethod(9);
+            setShippingCost(25000);
+            setTotalTax((paymentDetails.Total_Price + 25000) + (paymentDetails.Total_Price * 10 / 100));
         }
-    };
+    }, [courier, duration]);
 
-    let totalShipping = Shipping();
-    let totalShopping = 999999 + totalShipping;
+
+    // let totalPrice = paymentDetails.Total_Price;
+    // let totalShipping = Shipping();
+    // let totalShopping = totalPrice + totalShipping;
 
     const format = (money) => {
         let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
         return formatMoney;
     };
 
+    const OnPay = (ID) => {
+        try {
+            if (!shippingMethod || !totalTax || !payment) throw { message: 'Pilih payment method / shipping method!' };
+            const userdata = localStorage.getItem('userInfoToken');
+            const userDataParse = JSON.parse(userdata);
+            console.log(userDataParse);
+            console.log(userDataParse.token);
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': `${userDataParse.token}`
+                }
+            };
+
+            console.log(config);
+            Axios.patch(`${API_URL}/user/userPays`, { shippingMethod, totalTax, payment, ID }, config)
+                .then((res) => {
+                    navigate('/profile');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } catch (error) {
+            console(error.message);
+        }
+    };
+
+    if (paymentDetails === undefined || paymentDetails === userInfoLocalStorage) {
+        return (
+            <div className="outer-verif">
+                <div className="verif-container d-flex my-5 justify-content-lg-center">
+                    <div className="verify-content d-flex flex-column ">
+                        <h1>Loading . . .</h1>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="payment-outer-container px-5 py-4 mx-5 my-3">
             <div className="payment-container mx-auto row">
@@ -78,11 +162,11 @@ const PaymentPage = () => {
                         </div>
                         <div className="user-payment-content mt-3 row py-4">
                             <div className="content-product col d-flex">
-                                <img src={Masker} className="border" />
+                                <img src={paymentDetails.Image} className="border" />
                                 <span>
-                                    <p className="m-0">Nama Barang</p>
-                                    <p className="text-muted m-0">(Jumlah) barang</p>
-                                    <p className="text-muted pt-2 m-0">Rp. Harga Satuan</p>
+                                    <p className="m-0">Resep Dokter</p>
+                                    <p className="text-muted m-0">({paymentDetails.Order_Qty}) barang</p>
+                                    <p className="text-muted pt-2 m-0">{format(paymentDetails.Total_Price)}</p>
                                 </span>
                             </div>
                             <div className="shipment-content col px-4">
@@ -156,7 +240,7 @@ const PaymentPage = () => {
                         </div>
                         <div className="subtotal-content border-top d-flex px-2 pt-1 mb-3" style={{ fontWeight: 'bolder' }}>
                             <p>Subtotal</p>
-                            <p className="ms-auto">Rp 999.999</p>
+                            <p className="ms-auto">{format(paymentDetails.Total_Price)}</p>
                         </div>
                     </div>
                 </div>
@@ -166,16 +250,20 @@ const PaymentPage = () => {
                         <div className="shopping-detail border-bottom pb-3">
                             <div className="shopping-detail-content d-flex">
                                 <p className="mb-0">Total Harga</p>
-                                <p className="ms-auto mb-0">Rp. 999.999</p>
+                                <p className="ms-auto mb-0">{format(paymentDetails.Total_Price)}</p>
+                            </div>
+                            <div className="shopping-detail-content d-flex">
+                                <p className="mb-0">Pajak (10%)</p>
+                                <p className="ms-auto mb-0">{format(paymentDetails.Total_Price * (10 / 100))}</p>
                             </div>
                             <div className="shopping-detail-content d-flex">
                                 <p className="mb-0">Total Ongkos Kirim</p>
-                                <p className="ms-auto mb-0">{duration !== '' && courier !== '' ? format(totalShipping) : 'Rp. 0'}</p>
+                                <p className="ms-auto mb-0">{duration !== '' && courier !== '' ? format(shippingCost) : 'Rp. 0'}</p>
                             </div>
                         </div>
                         <div className="total-subtotal d-flex mt-2" style={{ fontSize: '1.2rem', fontWeight: 'bolder' }}>
                             <p>Total Belanja</p>
-                            <p className="ms-auto" style={{ color: '#3897a0' }}>{duration !== '' && courier !== '' ? format(totalShopping) : 'Rp. 0'}</p>
+                            <p className="ms-auto" style={{ color: '#3897a0' }}>{duration !== '' && courier !== '' ? format(totalTax) : 'Rp. 0'}</p>
                         </div>
                         <div className="courier-select">
                             <p style={{ fontSize: '0.8rem', marginBottom: '0.3rem' }}
@@ -196,7 +284,7 @@ const PaymentPage = () => {
                             </select>
                         </div>
                         <div className="pay-button d-grid">
-                            <button>Bayar</button>
+                            <button onClick={() => OnPay(paymentDetails.ID)}>Bayar</button>
                         </div>
                     </div>
                 </div>

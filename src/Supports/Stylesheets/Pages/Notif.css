@@ -3,6 +3,37 @@
 }
 
 .mini-notification-card {
-	margin: 2rem;
 	border-radius: 10px;
+	margin-bottom: 2rem;
+}
+
+.notification-container {
+	border-radius: 20px;
+}
+
+.notification-header {
+	background-color: white;
+	padding: 2rem;
+	border-radius: 20px 20px 0 0;
+	font-weight: bolder;
+	font-size: 1.5rem;
+}
+
+.notification-header p {
+	margin: 0;
+}
+
+.notification-body {
+	background-color: #f0f9fa;
+	border-radius: 0 0 20px 20px;
+	font-size: 1.5rem;
+}
+
+.notification-body img {
+	justify-content: center;
+	max-width: 15rem;
+}
+
+.img-right img {
+	border-radius: 15px;
 }

@@ -25,7 +25,13 @@ import {
     USER_ADDRESS_DELETE,
     USER_PAYMENT_ORDER_ID,
     USER_ACTIVE_ADDRESS,
-    USER_ACTIVE_ADDRESS_FAIL
+    USER_ACTIVE_ADDRESS_FAIL,
+    USER_PRESRIPTION_ORDER,
+    USER_PRESRIPTION_ORDER_FAIL,
+    USER_PAYMENT_DETAILS_FAIL,
+    USER_PAYMENT_DETAILS,
+    ADMIN_PRESCRIPTION_ORDER,
+    ADMIN_PRESCRIPTION_ORDER_FAIL
 } from '../../Supports/Constants/userConstants';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 import Axios from 'axios';
@@ -52,6 +58,9 @@ export const Login = (email, password) => async (dispatch) => {
         });
 
         dispatch(keepLogin());
+        dispatch(profileDetail());
+        dispatch(fetchAddress());
+        dispatch(fetchActiveAddress());
         localStorage.setItem('userInfoToken', JSON.stringify(payload.data.data));
     } catch (err) {
         console.log(err);
@@ -359,4 +368,96 @@ export const userPaymentID = (ID) => async (dispatch) => {
         type: USER_PAYMENT_ORDER_ID,
         payload: ID
     });
+};
+
+export const fetchUserPrescriptionOrder = () => async (dispatch) => {
+    try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.get(`${API_URL}/admin/fetchPrescription`, config);
+
+        dispatch({
+            type: USER_PRESRIPTION_ORDER,
+            payload: payload.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: USER_PRESRIPTION_ORDER_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
+        });
+    }
+};
+
+export const userPaymentDetail = () => async (dispatch) => {
+    try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`,
+            },
+        };
+
+        const payload = await Axios.get(`${API_URL}/user/transactionDetails`, config);
+
+        dispatch({
+            type: USER_PAYMENT_DETAILS,
+            payload: payload.data.data
+        });
+        localStorage.setItem('userPaymentDetails', JSON.stringify(payload.data.data));
+    } catch (err) {
+        dispatch({
+            type: USER_PAYMENT_DETAILS_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
+        });
+    }
+};
+
+export const fetchUserPrescriptionAdmin = (email) => async (dispatch) => {
+    try {
+        const userdata = localStorage.getItem('userInfoToken');
+        const userDataParse = JSON.parse(userdata);
+        console.log('Jalan fetch Admin');
+        console.log('ini email di dispatch' + email);
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': `${userDataParse.token}`
+            }
+        };
+
+        const payload = await Axios.post(`${API_URL}/admin/fetchUserPrescription`, { email }, config);
+
+        dispatch({
+            type: ADMIN_PRESCRIPTION_ORDER,
+            payload: payload.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: ADMIN_PRESCRIPTION_ORDER_FAIL,
+            payload:
+                err.response && err.response.message ?
+                    err.response.message
+                    :
+                    err.message
+        });
+    }
 };

@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { Modal, ModalBody } from 'reactstrap';
 import Axios from 'axios';
+import '../../Supports/Stylesheets/Components/AdminComp.css';
 
 export const EditProductModals = (props) => {
 
     const imageInput = useRef();
 
     const [openModal, setOpenModal] = useState(false);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [totalFile, setTotalFile] = useState(null);
     const [imagesErrorMessage, setImagesErrorMessage] = useState('');
 
@@ -26,11 +27,9 @@ export const EditProductModals = (props) => {
         try {
             if (files.length > 1) throw { message: 'Select 1 Images Only!' };
 
-            for (let i = 0; i < files.length; i++) {
-                if (files[i].size > 1000000) throw { message: `${files[i].name} More Than 1Mb` };
-            }
+            if (files[0].size > 1000000) throw { message: `${files[0].name} More Than 1Mb` };
 
-            setImages(files);
+            setImages([...files]);
             setImagesErrorMessage('');
             setTotalFile(files.length);
 
@@ -39,43 +38,46 @@ export const EditProductModals = (props) => {
         }
     };
 
-    const onFill = (val, dataType) => {
+    const onFill = (e, dataType) => {
+        console.log(e.target.value);
         if (dataType === 'ProductName') {
-            setAddProduct({ ...addProduct, ProductName: val });
+            setAddProduct({ ...addProduct, ProductName: e.target.value });
         }
         if (dataType === 'ProductQty') {
-            setAddProduct({ ...addProduct, ProductQty: val });
+            setAddProduct({ ...addProduct, ProductQty: e.target.value });
         }
         if (dataType === 'ProductPrice') {
-            setAddProduct({ ...addProduct, ProductPrice: val });
+            setAddProduct({ ...addProduct, ProductPrice: e.target.value });
         }
         if (dataType === 'ProductDesc') {
-            setAddProduct({ ...addProduct, ProductDesc: val });
+            setAddProduct({ ...addProduct, ProductDesc: e.target.value });
         }
         if (dataType === 'ProductCategory') {
-            setAddProduct({ ...addProduct, ProductCategory: val });
+            setAddProduct({ ...addProduct, ProductCategory: e.target.value });
         }
     };
 
 
     const onSubmitData = () => {
-        console.log(images);
-        let productName = addProduct.ProductName;
-        let price = addProduct.ProductPrice;
-        let description = addProduct.ProductDesc;
-        let quantity = addProduct.ProductQty;
-        let category = addProduct.ProductCategory;
+        console.log(images[0]);
+        let Name = addProduct.ProductName;
+        let Price = addProduct.ProductPrice;
+        let Description = addProduct.ProductDesc;
+        let Qty = addProduct.ProductQty;
+        let Category_ID = addProduct.ProductCategory;
+
+        console.log(addProduct);
 
         try {
-            if (!productName || !price || !description || !quantity || !category) throw { message: 'Data Must Be Filled' };
+            if (!Name || !Price || !Description || !Qty || !Category_ID) throw { message: 'Data Must Be Filled' };
             if (!images) throw { message: 'Select Images First!' };
 
             let data = {
-                productName,
-                price,
-                description,
-                quantity,
-                category
+                Name,
+                Price,
+                Description,
+                Qty,
+                Category_ID
             };
 
             let dataToSend = JSON.stringify(data);
@@ -83,37 +85,39 @@ export const EditProductModals = (props) => {
 
             let fd = new FormData();
             fd.append('data', dataToSend);
-            fd.append('images', images);
+            fd.append('Image', images[0]);
 
             console.log([...fd]);
-            Axios.post('http://localhost:2004/uploadProduct', fd)
+            Axios.patch('http://localhost:2004/admin/editProduct', fd)
                 .then((res) => {
                     alert('Add Data Success!');
                     setOpenModal(false);
+                    window.location.reload();
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         } catch (error) {
-            this.setState({ imagesErrorMessage: error.message });
+            setImagesErrorMessage(error.message);
         }
     };
 
     return (
         <>
-            <input type="button" value="Add Data" onClick={() => setOpenModal(true)} className='addbtn' />
+            <input type="button" value="Edit" onClick={() => setOpenModal(true)} className='editbtn' />
             <Modal toggle={() => setOpenModal(false)} isOpen={openModal}>
                 <ModalBody>
-                    <div className="text-center mt-2 border-bottom border-dark border-2">
+                    <div className="text-center mt-2 border-bottom border-dark border-1">
                         <h3>
-                            Add Data Product
+                            Edit Data Product
                         </h3>
                     </div>
                     <div className="mt-4 pb-3 px-3">
                         <h6>Product Name :</h6>
                         <input
+                            defaultValue={props.product.Name}
                             placeholder="Product Name"
-                            onChange={(val) => onFill(val, 'ProductName')}
+                            onChange={(e) => onFill(e, 'ProductName')}
                             name='addPrdctName'
                             type='text'
                             className='form-control'
@@ -122,15 +126,16 @@ export const EditProductModals = (props) => {
                     <div className="pb-3 px-3">
                         <h6>Price :</h6>
                         <input
+                            defaultValue={props.product.Price}
                             placeholder="Price"
-                            onChange={(val) => onFill(val, 'ProductPrice')}
+                            onChange={(e) => onFill(e, 'ProductPrice')}
                             name='addPrdctPrice'
                             type='number'
                             className='form-control'
                         />
                     </div>
                     <div className="pb-3 px-3">
-                        <h6>Description :</h6>
+                        <h6>Description (max 500 character) :</h6>
                         {/* <input
                             onChange={(val) => onFill(val, 'ProductDesc')}
                             name='addPrdctDescription'
@@ -139,27 +144,30 @@ export const EditProductModals = (props) => {
                             style={{ height: '100px' }}
                         /> */}
                         <textarea
-                            class="form-control"
+                            className="form-control"
                             placeholder="Description"
                             id="description"
+                            maxLength='500'
                             style={{ height: '75px' }}
-                            onChange={(val) => onFill(val, 'ProductDesc')}
+                            onChange={(e) => onFill(e, 'ProductDesc')}
+                            defaultValue={props.product.Description}
                         ></textarea>
                     </div>
                     <div className="pb-3 px-3">
                         <h6>Quantity :</h6>
                         <input
                             placeholder="Quantity"
-                            onChange={(val) => onFill(val, 'ProductQty')}
+                            onChange={(e) => onFill(e, 'ProductQty')}
                             name='addPrdctQty'
                             type='number'
                             className='form-control'
+                            defaultValue={props.product.Qty}
                         />
                     </div>
                     <div className="pb-3 px-3">
                         <h6>Category :</h6>
                         <select
-                            onChange={(val) => onFill(val, 'ProductCategory')}
+                            onChange={(e) => onFill(e, 'ProductCategory')}
                             name='addPrdctCategory'
                             className='form-control'>
                             <option value='' hidden>Categories</option>
@@ -205,14 +213,18 @@ export const EditProductModals = (props) => {
                         <h6>
                             {
                                 imagesErrorMessage ?
-                                    imagesErrorMessage
+                                    <>
+                                        <p>Errornya di images</p>
+                                        {imagesErrorMessage}
+                                    </>
                                     :
                                     null
                             }
                         </h6>
                     </div>
                     <div className="my-4 mx-3">
-                        <input type="button" value="Submit Data" onClick={() => onSubmitData()} className="product-submit-btn py-1 w-100" />
+                        {/* <input type="button" value="Submit Data" onClick={onSubmitData} className="product-submit-btn py-1 w-100" /> */}
+                        <button className="product-submit-btn py-1 w-100" onClick={onSubmitData}>Submit Data</button>
                     </div>
                 </ModalBody>
             </Modal>

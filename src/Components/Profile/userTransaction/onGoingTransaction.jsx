@@ -12,12 +12,13 @@ export const OnGoingTransaction = () => {
                 <p>Transaksi Produk</p>
             </div>
             <div className='transaction-body'>
-                {/* <img src={noOrder} />
-                <h4>
-                    <strong>Belum ada transaksi</strong>
-                </h4>
-                <button>Belanja Sekarang</button> */}
-                <TransactionCard />
+                <div className="no-transaction-product d-flex w-25 flex-column mx-auto text-center my-5">
+                    <img src={noOrder} />
+                    <h4>
+                        <strong>Belum ada transaksi</strong>
+                    </h4>
+                </div>
+                {/* <TransactionCard /> */}
             </div>
         </div>
     );

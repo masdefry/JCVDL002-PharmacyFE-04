@@ -5,6 +5,7 @@ import { API_URL } from '../../Supports/Constants/UrlAPI';
 import '../../Supports/Stylesheets/Components/Cropper.css';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../React-Crop/cropImage';
+import { dataURLtoFile } from '../React-Crop/dataUrlToFile';
 
 export const CropImageModal = () => {
     const imageInput = useRef();
@@ -17,6 +18,8 @@ export const CropImageModal = () => {
     const [croppedImage, setCroppedImage] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const [imageErrorMessage, setImageErrorMessage] = useState('');
+
+    console.log(croppedImage);
 
     const onCropChange = (crop) => {
         setCrop(crop);
@@ -44,19 +47,46 @@ export const CropImageModal = () => {
         }
     };
 
-    const showCroppedImage = useCallback(async () => {
+    // const showCroppedImage = useCallback(async () => {
+    //     try {
+    //         const croppedImage = await getCroppedImg(
+    //             imageSrc,
+    //             croppedAreaPixels,
+    //             rotation
+    //         );
+    //         console.log('donee', { croppedImage });
+    //         setCroppedImage(croppedImage);
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }, [imageSrc, croppedAreaPixels, rotation]);
+
+    const onUpload = async () => {
+        const canvas = await getCroppedImg(
+            imageSrc,
+            croppedAreaPixels,
+            rotation
+        );
+        const canvasDataUrl = await canvas.toDataURL('image/jpeg');
+        const convertUrlToFile = dataURLtoFile(canvasDataUrl, 'cropped-image.jpeg');
+
         try {
-            const croppedImage = await getCroppedImg(
-                imageSrc,
-                croppedAreaPixels,
-                rotation
-            );
-            console.log('donee', { croppedImage });
-            setCroppedImage(croppedImage);
-        } catch (e) {
-            console.error(e);
+            const fd = new FormData();
+            fd.append("croppedImage", convertUrlToFile);
+            Axios.post('http://localhost:2004/user/updateProfileImg', fd)
+                .then((res) => {
+                    alert('Add Profile Image Success!');
+                    setOpenModal(false);
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } catch (err) {
+            console.log(err);
         }
-    }, [imageSrc, croppedAreaPixels, rotation]);
+
+    };
 
     return (
         <>
@@ -89,12 +119,13 @@ export const CropImageModal = () => {
                             </div>
                             <div className="controls">
                                 <div className="button-area">
-                                    <button onClick={showCroppedImage}>Crop</button>
+                                    <button onClick={onUpload}>Crop</button>
                                 </div>
                             </div>
                         </div>
                         :
-                        <div className="input-imgSrc">
+                        <div className="input-imgSrc d-flex pb-5"
+                            style={{ justifyContent: 'center' }}>
                             <input
                                 style={{ display: 'none' }}
                                 type="file"

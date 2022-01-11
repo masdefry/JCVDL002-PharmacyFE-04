@@ -2,22 +2,35 @@ import React, { useState, useEffect } from 'react';
 import '../../Supports/Stylesheets/Components/NotifComp.css';
 
 import noNotif from '../../Supports/Assets/Profile/no-notification.svg';
+import { useNavigate } from 'react-router-dom';
 
 export const NotificationComp = () => {
+    const navigate = useNavigate();
     const [page, setPage] = useState('');
 
+    const token = localStorage.getItem('userInfoToken');
+    useEffect(() => {
+        if (token) {
+            navigate('/notification');
+        }
+        if (!token) {
+            navigate('/login');
+        }
+    }, []);
+
     return (
-        <div className='notification-container col'>
-            <div className='notification-header mx-auto row'>
+        <div className='notification-container col border'>
+            <div className='notification-header mx-auto row text-center'>
                 <p>Notifikasi</p>
             </div>
             <div className='notification-body'>
-                <img src={noNotif} />
-                <h4>
-                    <strong>Belum ada transaksi</strong>
-                </h4>
-                <button>Belanja Sekarang</button>
-                {/* <TransactionCard /> */}
+                <div className="no-notif d-flex flex-column align-items-center text-center py-5">
+                    <img src={noNotif} />
+                    <p>
+                        <strong>Belum ada notifikasi</strong>
+                    </p>
+                </div>
+
             </div>
         </div>
     );

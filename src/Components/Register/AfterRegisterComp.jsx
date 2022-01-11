@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { userProfileUpdate } from '../../Redux/Actions/userActions';
+
 export const AfterRegisterComp = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const CompleteData = useSelector;
 
@@ -12,10 +15,12 @@ export const AfterRegisterComp = () => {
     const [phone, setPhone] = useState('');
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
+    const [name, setName] = useState('');
 
     const submitHandler = (e) => {
         e.preventDefault();
-
+        dispatch(userProfileUpdate(name, gender, birthDate, phone, weight, height));
+        navigate('/');
     };
 
     return (
@@ -30,8 +35,8 @@ export const AfterRegisterComp = () => {
                     className="form-control"
                 >
                     <option value="" hidden>Jenis Kelamin</option>
-                    <option value="man">Laki laki</option>
-                    <option value="woman">Perempuan</option>
+                    <option value="Laki-Laki">Laki laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </select>
             </div>
             <div className='form-group my-3'>
@@ -85,7 +90,7 @@ export const AfterRegisterComp = () => {
                 />
                 <span className="input-group-text" id="Height">Cm</span>
             </div>
-            <button className='submit-btn btn-lg mt-5' type='submit'>
+            <button onClick={submitHandler} className='submit-btn btn-lg mt-5' type='submit'>
                 Tambah Data
             </button>
         </form>

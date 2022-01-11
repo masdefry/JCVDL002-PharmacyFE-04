@@ -27,7 +27,13 @@ import {
     USER_ADDRESS_DELETE,
     USER_PAYMENT_ORDER_ID,
     USER_ACTIVE_ADDRESS,
-    USER_ACTIVE_ADDRESS_FAIL
+    USER_ACTIVE_ADDRESS_FAIL,
+    USER_PRESRIPTION_ORDER,
+    USER_PRESRIPTION_ORDER_FAIL,
+    USER_PAYMENT_DETAILS,
+    USER_PAYMENT_DETAILS_FAIL,
+    ADMIN_PRESCRIPTION_ORDER,
+    ADMIN_PRESCRIPTION_ORDER_FAIL
 } from '../../Supports/Constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -158,5 +164,38 @@ export const paymentIDReducer = (state = {}, action) => {
             return { userPaymentID: action.payload };
         default:
             return state;
+    }
+};
+
+export const userPrescriptionTransReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_PRESRIPTION_ORDER:
+            return { presOrderUser: action.payload };
+        case USER_PRESRIPTION_ORDER_FAIL:
+            return { error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const paymentDetailReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_PAYMENT_DETAILS:
+            return { paymentDetails: action.payload };
+        case USER_PAYMENT_DETAILS_FAIL:
+            return { error: action.payload };
+        default:
+            return {};
+    }
+};
+
+export const adminPresTransReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_PRESCRIPTION_ORDER:
+            return { adminPresOrder: action.payload };
+        case ADMIN_PRESCRIPTION_ORDER_FAIL:
+            return { error: action.payload };
+        default:
+            return {};
     }
 };

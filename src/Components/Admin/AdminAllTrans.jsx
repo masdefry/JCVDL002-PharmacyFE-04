@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import '../../Supports/Stylesheets/Components/AdminComp.css';
 
-import { AdminCompleteTRCard } from "../Card/adminCompleteTransactionCard";
+import { AdminTransactionCard } from "../Card/adminTransactionCard";
 
-export const AdminAllTransaction = () => {
+import Search from '../../Supports/Assets/Profile/searchuser.svg';
+
+export const AdminAllTransaction = (props) => {
+    const adminPresriptionOrder = useSelector((state) => state.adminPresTransReducer);
+    const { adminPresOrder } = adminPresriptionOrder;
+    console.log(adminPresOrder);
 
     const [page, setPage] = useState(0);
     const [maxPage, setMaxPage] = useState(0);
@@ -13,11 +20,19 @@ export const AdminAllTransaction = () => {
                 <div className='admin-header'>
                     <p>Manage User Transaction</p>
                 </div>
-                <div className="admin-body py-1">
-                    <AdminCompleteTRCard />
-                </div>
+                {props.state === 'render' ?
+                    <div className="admin-body py-1">
+                        <AdminTransactionCard />
+                    </div>
+                    :
+
+                    <div className="search-user col text-center mx-auto">
+                        <img src={Search} alt="" />
+                        <p className="mb-0">Search User First</p>
+                    </div>
+                }
             </div>
-            <div className="d-flex flex-row justify-content-center align-items-center mt-3">
+            {/* <div className="d-flex flex-row justify-content-center align-items-center mt-3">
                 <button
                     className="page-btn"
                 >
@@ -31,7 +46,7 @@ export const AdminAllTransaction = () => {
                 >
                     {'>'}
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -6,7 +6,7 @@ import { API_URL } from '../../Supports/Constants/UrlAPI';
 import { AddProductModals } from '../Modals/adminAddProduct';
 import { AdminBodyCard } from './AdminBodyCard';
 
-export const AdminManage = () => {
+export const AdminManage = (props) => {
 	const imageInput = useRef();
 
 	// useEffect(() => {
@@ -66,27 +66,24 @@ export const AdminManage = () => {
 					<p>Manage Products</p>
 				</div>
 				<div className='admin-body'>
-					<table className='table table-bordered m-0'>
+					<div className='addmodal d-flex'>
+						<AddProductModals />
+					</div>
+					<table className='table m-0'>
 						<thead className='thead-light text-center'>
 							<tr>
-								<th>ID</th>
+								<th>SKU</th>
 								<th>Name</th>
 								<th>Price</th>
-								<th>Description</th>
-								<th>Quantity</th>
 								<th>Category</th>
-								<th>Image</th>
 								<th colSpan='2'>Action</th>
 							</tr>
 						</thead>
-						<tbody><AdminBodyCard /></tbody>
+						<tbody><AdminBodyCard product={props.product} category={props.category} /></tbody>
 					</table>
-					<div className='addmodal d-grid'>
-						<AddProductModals />
-					</div>
 				</div>
 			</div>
-			<div className="d-flex flex-row justify-content-center align-items-center mt-3">
+			{/* <div className="d-flex flex-row justify-content-center align-items-center mt-3">
 				<button
 					className="page-btn"
 				>
@@ -100,7 +97,7 @@ export const AdminManage = () => {
 				>
 					{'>'}
 				</button>
-			</div>
+			</div> */}
 		</div>
 	);
 };

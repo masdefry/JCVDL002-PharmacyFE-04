@@ -130,3 +130,7 @@
 #prescription-btn:hover {
 	color: #3897a0;
 }
+
+.dropdown-profile img {
+	border-radius: 50%;
+}

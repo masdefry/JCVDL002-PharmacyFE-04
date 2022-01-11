@@ -8,6 +8,7 @@ import { EditAddressModal } from '../Modals/editAddress';
 import { DeleteAddressModal } from '../Modals/DeleteAddress';
 
 import Check from '../../Supports/Assets/Check.svg';
+import noAddress from '../../Supports/Assets/Profile/alamat-null.svg';
 
 export const AddressCard = () => {
     const address = useSelector((state) => state.fetchAddressReducer);
@@ -40,6 +41,25 @@ export const AddressCard = () => {
             setErrorMessage(err);
         }
     };
+
+    const userInfoLocalStorage =
+        localStorage.getItem('userInfoToken') ?
+            JSON.parse(localStorage.getItem('userInfoToken'))
+            :
+            null;
+
+    if (!userAddress[0] || userAddress === undefined || userAddress === userInfoLocalStorage) {
+        return (
+            <div className="no-address col mx-auto my-5 text-center">
+                <img src={noAddress} />
+                <p>
+                    <strong>Belum ada alamat! <br />
+                        Yuk tambahkan alamatmu untuk melakukan transaksi. </strong>
+                </p>
+            </div>
+        );
+    }
+
     return (
         userAddress.map((val) => {
             if (val.Status === 'Inactive') {

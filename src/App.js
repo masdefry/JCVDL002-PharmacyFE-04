@@ -22,7 +22,7 @@ import { Navbar } from './Components/Navbar/Navbar';
 import { Footer } from './Components/Footer/Footer.jsx';
 
 //Redux
-import { fetchActiveAddress, fetchAddress, keepLogin, profileDetail } from './Redux/Actions/userActions';
+import { fetchActiveAddress, fetchAddress, keepLogin, profileDetail, fetchUserPrescriptionOrder, userPaymentDetail } from './Redux/Actions/userActions';
 
 
 function App() {
@@ -31,20 +31,26 @@ function App() {
   const { userInfo } = userLogin;
   const navbar = useSelector((state) => state.userKeepLoginReducer);
   const { userLoginInfo } = navbar;
+  const { userPaymentID } = useSelector((state) => state.paymentIDReducer);
 
   const token = localStorage.getItem('userInfoToken');
+  const userInfoLocalStorage =
+    localStorage.getItem('userInfoToken') ?
+      JSON.parse(localStorage.getItem('userInfoToken'))
+      :
+      null;
   useEffect(() => {
     if (token) {
       dispatch(profileDetail());
       dispatch(fetchAddress());
       dispatch(fetchActiveAddress());
+      dispatch(fetchUserPrescriptionOrder());
     }
     const userData = JSON.parse(token);
     console.log("appJs" + userData);
     console.log("appJs" + userInfo);
     console.log("appJs" + userLoginInfo);
   }, []);
-
   // console.log(window.location.pathname);
 
   return (
@@ -66,7 +72,7 @@ function App() {
           <Route path='/notification' element={<Notification />} />
           <Route path='/verif/:token' element={<VerificationPage />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
-          <Route path='/payments' element={<PaymentPage />} />
+          <Route path='/payments/' element={<PaymentPage />} />
         </Routes>
       </BrowserRouter>
     </div>

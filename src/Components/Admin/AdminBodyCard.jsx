@@ -3,7 +3,12 @@ import '../../Supports/Stylesheets/Pages/Admin.css';
 import Axios from 'axios';
 import { API_URL } from '../../Supports/Constants/UrlAPI';
 
-export const AdminBodyCard = () => {
+import { EditProductModals } from "../Modals/adminEditProduct";
+import { DeleteProductModal } from "../Modals/deleteProduct";
+import { ProductDetailModal } from "../Modals/productDetail";
+
+export const AdminBodyCard = (props) => {
+    console.log(props.category);
     useEffect(() => {
         fetchProduct();
     }, []);
@@ -23,32 +28,25 @@ export const AdminBodyCard = () => {
             });
     };
 
+    const format = (money) => {
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        return formatMoney;
+    };
+
     return productList.map((val) => {
-        <tr>
-            <td>{val.SKU}</td>
-            <td>{val.Name}</td>
-            <td>{val.Price}</td>
-            <td>{val.Description}</td>
-            <td>{val.Category_ID}</td>
-            <td>
-                <img src={val.Image} className="admin-product-img" alt="" />
-            </td>
-            <td>
-                <button
-                    onClick={() => this.editToggle(val)}
-                    className="btn btn-secondary"
-                >
-                    Edit
-                </button>
-            </td>
-            <td>
-                <button
-                    onClick={() => this.deleteBtnHandler(val.id)}
-                    className="btn btn-danger"
-                >
-                    Delete
-                </button>
-            </td>
-        </tr>;
+        if (val.Category_ID.toLowerCase().includes(props.category) && val.Name.toLowerCase().includes(props.product))
+            return (
+                <tr className="text-center">
+                    <td>{val.SKU}</td>
+                    <td>{val.Name}</td>
+                    <td>{format(val.Price)}</td>
+                    <td><img src={val.Image} alt="" /></td>
+                    <td>
+                        <ProductDetailModal product={val} />
+                        <EditProductModals product={val} />
+                        <DeleteProductModal data={val} />
+                    </td>
+                </tr>
+            );
     });
 };

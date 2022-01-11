@@ -107,6 +107,18 @@
 	margin-bottom: 0;
 }
 
+.cost-input {
+	font-weight: 500;
+	background-color: white;
+	padding: 1rem 3rem;
+}
+
+.trans-unpaid-card {
+	font-weight: 500;
+	background-color: white;
+	padding: 1rem 3rem;
+}
+
 .trans-status-card {
 	background-color: white;
 	padding: 1rem 3rem;
@@ -163,6 +175,11 @@
 
 .item-shipment-title {
 	width: 10rem;
+	font-weight: 300;
+}
+
+.item-unpaid-title {
+	width: 15rem;
 }
 
 .trans-payment-title {
@@ -207,4 +224,36 @@
 	padding: 0.6rem 2rem;
 	background-color: #3897a0;
 	border: 2px solid #3897a0;
+}
+
+.no-address img {
+	max-width: 10rem;
+}
+
+.no-address p {
+	margin-top: 1rem;
+	font-weight: 400;
+	font-size: 1.6rem;
+}
+
+.no-address {
+	width: 50rem;
+}
+
+.admin-total-input {
+	border-radius: 5px;
+	padding: 0.5rem 1.2rem;
+	font-weight: bolder;
+	border-style: none;
+	color: white;
+	background-color: #7dd0d3;
+}
+
+.send-payment-proof button {
+	padding: 0.7rem 1.7rem;
+	font-weight: bolder;
+	border-style: none;
+	border-radius: 10px;
+	color: white;
+	background-color: #7dd0d3;
 }
