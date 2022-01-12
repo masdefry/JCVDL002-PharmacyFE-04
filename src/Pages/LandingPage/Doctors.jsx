@@ -1,6 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
-import { API_URL } from "../../Supports/Constants/UrlAPI";
+import { API_FE } from "../../Supports/Constants/UrlAPI";
 
 const Doctors = () => {
   return (
@@ -13,7 +13,7 @@ const Doctors = () => {
         {/* //////// left */}
         <div className="left-side">
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor1"}>
+            <a href={API_FE + "/doctors/doctor1"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-rovina-sp-pd-1b.jpg"
@@ -25,7 +25,7 @@ const Doctors = () => {
           </div>
 
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor2"}>
+            <a href={API_FE + "/doctors/doctor2"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-idrus-alwi-sp-pd.jpg"
@@ -39,7 +39,7 @@ const Doctors = () => {
             </a>
           </div>
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor3"}>
+            <a href={API_FE + "/doctors/doctor3"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-marcellus-simadibrata-sp-pd.jpg"
@@ -54,7 +54,7 @@ const Doctors = () => {
         {/* ////////// Right */}
         <div className="right-side">
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor4"}>
+            <a href={API_FE + "/doctors/doctor4"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-dr-rusdi-lamsudin-sp-s-m-med-sc-4c.jpg"
@@ -66,7 +66,7 @@ const Doctors = () => {
           </div>
 
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor5"}>
+            <a href={API_FE + "/doctors/doctor5"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-dr-lucky-aziza-bawazier-sp-pd-kgh-1a.jpg"
@@ -77,7 +77,7 @@ const Doctors = () => {
             </a>
           </div>
           <div className="doctor-services">
-            <a href={API_URL + "/doctors/doctor6"}>
+            <a href={API_FE + "/doctors/doctor6"}>
               <div className="doctor-service">
                 <img
                   src="https://cms.sehatq.com/cdn-cgi/image/width=80,height=80,f=auto/public/img/doctor_img/prof-dr-dr-hasan-sjahrir-sp-s.jpg"

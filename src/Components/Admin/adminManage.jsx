@@ -9,55 +9,8 @@ import { AdminBodyCard } from './AdminBodyCard';
 export const AdminManage = (props) => {
 	const imageInput = useRef();
 
-	// useEffect(() => {
-	// 	fetchProduct();
-	// }, []);
-
-	// const [productList, setProductList] = useState([]);
 	const [page, setPage] = useState(0);
 	const [maxPage, setMaxPage] = useState(0);
-
-	// const fetchProduct = () => {
-	// 	Axios.get(`${API_URL}/admin/fetchProduct`)
-	// 		.then((result) => {
-	// 			setProductList(result.data.data);
-	// 			// console.table(result.data.data);
-	// 		})
-	// 		.catch(() => {
-	// 			alert('fetchProduct gagal');
-	// 		});
-	// };
-
-	// const renderProducts = () => {
-	// 	return productList.map((val) => {
-	// 		<tr>
-	// 			<td>{val.SKU}</td>
-	// 			<td>{val.Name}</td>
-	// 			<td>{val.Price}</td>
-	// 			<td>{val.Description}</td>
-	// 			<td>{val.Category_ID}</td>
-	// 			<td>
-	// 				<img src={val.Image} className="admin-product-img" alt="" />
-	// 			</td>
-	// 			<td>
-	// 				<button
-	// 					onClick={() => this.editToggle(val)}
-	// 					className="btn btn-secondary"
-	// 				>
-	// 					Edit
-	// 				</button>
-	// 			</td>
-	// 			<td>
-	// 				<button
-	// 					onClick={() => this.deleteBtnHandler(val.id)}
-	// 					className="btn btn-danger"
-	// 				>
-	// 					Delete
-	// 				</button>
-	// 			</td>
-	// 		</tr>;
-	// 	});
-	// };
 
 	return (
 		<div className='admin-container container p-0'>

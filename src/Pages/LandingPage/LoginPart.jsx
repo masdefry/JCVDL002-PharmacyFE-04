@@ -1,6 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
-import { API_URL } from "../../Supports/Constants/UrlAPI";
+import { API_FE } from "../../Supports/Constants/UrlAPI";
 
 const LoginPart = () => {
   return (
@@ -11,7 +11,7 @@ const LoginPart = () => {
       </div>
 
       <div className="covid-services">
-        <a href={API_URL + "/register"}>
+        <a href={API_FE + "/register"}>
           <div className="covid-service">
             <img
               src="https://www.sehatq.com/public/img/icon/profile.svg"
