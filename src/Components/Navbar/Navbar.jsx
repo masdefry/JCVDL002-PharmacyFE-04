@@ -44,7 +44,7 @@ export const Navbar = () => {
 					<div className='link col-2'>
 						{userLoginInfo && userLoginInfo !== undefined ?
 							<div className="dropdown-profile">
-								<Link to='/' >
+								<Link to='/cart' >
 									<img src={Cart} alt='Cart' />
 								</Link>
 								<div className="dropdown-content">

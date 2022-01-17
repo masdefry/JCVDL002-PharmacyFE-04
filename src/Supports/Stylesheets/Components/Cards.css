@@ -257,3 +257,16 @@
 	color: white;
 	background-color: #7dd0d3;
 }
+
+.req-product-list {
+	background-color: #ccfdff;
+}
+
+.input-req-product {
+	padding: 0.2rem 1rem;
+	border-radius: 5px;
+	border-style: none;
+	color: white;
+	background-color: #3897a0;
+	font-weight: bolder;
+}

@@ -39,7 +39,7 @@ export const PresUserTransactionCard = () => {
             };
 
             console.log(config);
-            Axios.get(`http://localhost:2004/user/setPaymentDetail/1`, config)
+            Axios.get(`http://localhost:2004/user/setPaymentDetail/${ID}`, config)
                 .then((res) => {
                     navigate('/payments');
                 })

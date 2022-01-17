@@ -14,7 +14,7 @@ const CovidService = () => {
       </div>
 
       <div className="covid-services">
-        <a href="">
+        <a href={`${API_FE}/products`}>
           <div className="covid-service">
             <img
               src="https://www.sehatq.com/public/img/corona-helpline/produk-kesehatan.svg"

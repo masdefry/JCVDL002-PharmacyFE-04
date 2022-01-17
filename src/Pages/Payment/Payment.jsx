@@ -105,7 +105,8 @@ const PaymentPage = () => {
         return formatMoney;
     };
 
-    const OnPay = (ID) => {
+    const OnPay = () => {
+        let ID = paymentDetails.ID;
         try {
             if (!shippingMethod || !totalTax || !payment) throw { message: 'Pilih payment method / shipping method!' };
             const userdata = localStorage.getItem('userInfoToken');
@@ -123,7 +124,7 @@ const PaymentPage = () => {
             console.log(config);
             Axios.patch(`${API_URL}/user/userPays`, { shippingMethod, totalTax, payment, ID }, config)
                 .then((res) => {
-                    navigate('/profile');
+                    navigate('/');
                 })
                 .catch((err) => {
                     console.log(err);
@@ -284,7 +285,7 @@ const PaymentPage = () => {
                             </select>
                         </div>
                         <div className="pay-button d-grid">
-                            <button onClick={() => OnPay(paymentDetails.ID)}>Bayar</button>
+                            <button onClick={OnPay}>Bayar</button>
                         </div>
                     </div>
                 </div>

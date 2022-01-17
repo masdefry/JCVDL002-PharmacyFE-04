@@ -1,5 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
+import { API_FE } from "../../Supports/Constants/UrlAPI";
 
 const MenuItem = () => {
   const URL_OBAT =
@@ -15,7 +16,7 @@ const MenuItem = () => {
 
   return (
     <div className="menu-items d-flex mx-auto mt-4">
-      <a href="">
+      <a href={`${API_FE}/products`}>
         <div className="menu-item">
           <img src={URL_OBAT} alt="obat" />
           <h3> Obat</h3>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import Axios from "axios";
@@ -13,16 +13,109 @@ export const AdminReqTransactionDetailModal = (props) => {
 
     const [openModal, setOpenModal] = useState(false);
 
-    const [totalCost, setTotalCost] = useState(0);
-    const [totalProduct, setTotalProduct] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
+    const [productReq, setProductReq] = useState({
+        product_Name: '',
+        product_SKU: 0,
+        reqQty: 0,
+        reqPrice: 0
+    });
+
+    const [reqProduct, setReqProduct] = useState([]);
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    useEffect(() => {
+        productList.map((val) => {
+            if (val.SKU === Number(productReq.product_SKU)) {
+                setProductReq({ ...productReq, product_Name: val.Name });
+            }
+        });
+    }, [productReq.product_SKU]);
+
+    useEffect(() => {
+        if (productReq.product_SKU !== 0) {
+            productList.map((val) => {
+                if (val.SKU === Number(productReq.product_SKU)) {
+                    if (val.Category_ID === 'Tablet') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                    }
+                    if (val.Category_ID === 'Kapsul') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                    }
+                    if (val.Category_ID === 'Sirup') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 200) * val.Price) });
+                    }
+                    if (val.Category_ID === 'Obat tetes') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                    }
+                    if (val.Category_ID === 'Salep') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                    }
+                    if (val.Category_ID === 'Serbuk') {
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                    }
+                }
+            });
+        }
+    }, [productReq.reqQty]);
+
+    console.log(productReq.product_SKU);
+    console.log(reqProduct);
+    console.log(totalPrice);
+
+    const onAddReq = (e) => {
+        e.preventDefault();
+        if (productReq.product_SKU !== 0) {
+            productList.map((val) => {
+                if (val.SKU === Number(productReq.product_SKU)) {
+                    if (val.Category_ID === 'Tablet') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 20) * val.Price));
+                    }
+                    if (val.Category_ID === 'Kapsul') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 20) * val.Price));
+                    }
+                    if (val.Category_ID === 'Sirup') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 200) * val.Price));
+                    }
+                    if (val.Category_ID === 'Obat tetes') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                    }
+                    if (val.Category_ID === 'Salep') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                    }
+                    if (val.Category_ID === 'Serbuk') {
+                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                    }
+                }
+            });
+        }
+        setReqProduct([...reqProduct, productReq]);
+    };
+
+    const fetchProduct = () => {
+        Axios.get(`${API_URL}/admin/fetchProduct`)
+            .then((result) => {
+                setProductList(result.data.data);
+                // console.table(result.data.data);
+            })
+            .catch(() => {
+                alert('fetchProduct gagal');
+            });
+    };
 
     const onSetTotalCost = (orderID) => {
-        let totalPrice = totalCost;
-        let totalPrdct = totalProduct;
+        let totalCost = totalPrice;
+        let totalPrdct = reqProduct.length;
         let ID = orderID;
+        let forUpdate = reqProduct;
         try {
-            if (!totalPrice || !ID || !totalPrdct) throw { message: 'Data Must Be Filled' };
+            if (!totalCost || !ID || !totalPrdct) throw { message: 'Data Must Be Filled' };
 
             const userdata = localStorage.getItem('userInfoToken');
             const userDataParse = JSON.parse(userdata);
@@ -34,7 +127,7 @@ export const AdminReqTransactionDetailModal = (props) => {
                 }
             };
 
-            Axios.post(`${API_URL}/admin/setCost`, { ID, totalPrice, totalPrdct }, config)
+            Axios.post(`${API_URL}/admin/setCost`, { ID, totalCost, totalPrdct, forUpdate }, config)
                 .then((res) => {
                     alert('Add Address Success!');
                     setOpenModal(false);
@@ -53,6 +146,14 @@ export const AdminReqTransactionDetailModal = (props) => {
         return formatMoney;
     };
 
+    const skuQuantity = useMemo(() => {
+        if (productList.length < 1) return 0;
+        console.log(productReq);
+        const selectedSku = productList.find((i) => i.SKU === Number(productReq.product_SKU));
+        console.log('ciaw', selectedSku);
+        return selectedSku ? <p>{selectedSku.Qty} {selectedSku.Category_Value}</p> : 0;
+    }, [productReq.product_SKU, productList]);
+
     console.log('data buat detail modal' + props.data);
 
     if (adminReqOrder === undefined) {
@@ -66,6 +167,7 @@ export const AdminReqTransactionDetailModal = (props) => {
             </div>
         );
     }
+
     return (
         adminReqOrder.map((val) => {
             let imgSrc = `http://localhost:2004/${val.Image}`;
@@ -108,13 +210,44 @@ export const AdminReqTransactionDetailModal = (props) => {
                                 {val.Status_Name === 'Request' ?
                                     <div className="cost-input">
                                         <form>
-                                            <div class="trans-cost-input mb-3">
-                                                <label htmlFor="cost-input" className="form-label">Input total yang harus dibayar</label>
-                                                <input type="text" className="form-control" id="cost-input" onChange={(e) => setTotalCost(e.target.value)} />
-                                                <label htmlFor="cost-input" className="form-label mt-3">Input jumlah barang</label>
-                                                <input type="text" className="form-control" id="cost-input" onChange={(e) => setTotalProduct(e.target.value)} />
+                                            <div class="trans-cost-input d-flex mb-3">
+                                                <div className="addReqProduct w-25">
+                                                    <h6>Select Product</h6>
+                                                    <select className="form-control" onChange={(e) => setProductReq({ ...productReq, product_SKU: e.target.value })} >
+                                                        <option value='' hidden>Select Product</option>
+                                                        {productList.map((val) => <option value={val.SKU}>{val.Name}</option>)}
+                                                    </select>
+                                                </div>
+                                                <div className="qty-req-product ms-4">
+                                                    <h6>Product Qty</h6>
+                                                    {skuQuantity}
+                                                </div>
+                                                <div className="inputReqQty ms-4">
+                                                    <h6>Input Qty</h6>
+                                                    <input type="number" className="form-control" onChange={(e) => setProductReq({ ...productReq, reqQty: e.target.value })} />
+                                                </div>
+                                                <button className="input-req-product mt-4 ms-auto" onClick={onAddReq}>+ Add</button>
                                             </div>
-                                            <button type="submit" className="admin-total-input d-flex ms-auto" onClick={() => onSetTotalCost(val.prescription_ID)}>Input Total</button>
+                                            {
+                                                reqProduct.length > 0 ?
+                                                    <div className="req-product-list px-1 pt-2">
+                                                        {reqProduct.map((val, index) => {
+                                                            return (
+                                                                <div className="inner-req-product-list d-flex pb-2">
+                                                                    <p className="me-4 mb-0">{index + 1}.</p>
+                                                                    <p className="w-25 mb-0">{val.product_Name}</p>
+                                                                    <p className="w-25 mb-0">Quantity: {val.reqQty}</p>
+                                                                    <p className="mb-0">Price: {format(val.reqPrice)}</p>
+                                                                </div>
+
+                                                            );
+                                                        })}
+                                                        <p className="mb-0 d-flex ms-auto">Total Price: {format(totalPrice)}</p>
+                                                    </div>
+                                                    :
+                                                    null
+                                            }
+                                            <button type="submit" className="admin-total-input d-flex ms-auto mt-3" onClick={() => onSetTotalCost(val.prescription_ID)}>Input Total</button>
                                         </form>
                                     </div>
                                     :

@@ -35,6 +35,9 @@ import Doctor4 from "./Pages/LandingPage/Doctors/Doctor4";
 import Doctor5 from "./Pages/LandingPage/Doctors/Doctor5";
 import Doctor6 from "./Pages/LandingPage/Doctors/Doctor6";
 
+import Product from "./Pages/Product/Product";
+import ProductDetail from "./Pages/Product/ProductDetail";
+import CartComp from "./Components/Cart/Cart";
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
@@ -104,6 +107,12 @@ function App() {
           <Route path="/doctors/doctor4" element={<Doctor4 />} />
           <Route path="/doctors/doctor5" element={<Doctor5 />} />
           <Route path="/doctors/doctor6" element={<Doctor6 />} />
+          <Route path="/products" element={<Product />} />
+          <Route
+            path="/products/product-detail/:SKU"
+            element={<ProductDetail />}
+          />
+          <Route path="/cart" element={<CartComp />} />
         </Routes>
       </BrowserRouter>
     </div>

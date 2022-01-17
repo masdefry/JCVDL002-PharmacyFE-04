@@ -1,8 +1,17 @@
 import React from "react";
 import "./LandingPage.css";
 import { API_FE } from "../../Supports/Constants/UrlAPI";
+import { useNavigate } from "react-router-dom";
 
 const LoginPart = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("userInfoToken");
+
+  if (token) {
+    return (
+      <div className="div-kosong"></div>
+    );
+  }
   return (
     <div className="white-card-container">
       <div className="card-description">
