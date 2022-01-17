@@ -195,7 +195,7 @@ export const UserProfile = (props) => {
 				<div className="edit-profile-container">
 					<div className="edit-profile-content row">
 						<div className="profile-img-upload col-4">
-							<div className="edit-profile-img">
+							<div className="edit-profile-img mx-4">
 								{props.profiledata.userDetail.profileImg ?
 									<img src={props.profiledata.userDetail.profileImg} />
 									:

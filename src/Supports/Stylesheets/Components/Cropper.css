@@ -11,9 +11,18 @@
 	position: relative;
 	bottom: 0px;
 	width: 100%;
-	height: 80px;
 }
 
 .slider {
 	width: 100%;
+}
+
+.crop-btns {
+	padding: 0.5rem 1rem;
+	border-style: none;
+	background-color: #7dd0d3;
+	color: white;
+	border-radius: 5px;
+	font-weight: bolder;
+	margin-bottom: 1rem;
 }

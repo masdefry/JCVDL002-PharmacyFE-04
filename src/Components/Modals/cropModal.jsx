@@ -136,8 +136,8 @@ export const CropImageModal = () => {
                                 />
                             </div>
                             <div className="controls">
-                                <div className="button-area">
-                                    <button onClick={onUpload}>Crop</button>
+                                <div className="crop-button">
+                                    <button className='crop-btns d-flex ms-auto mt-4' onClick={onUpload}>Crop & Upload</button>
                                 </div>
                             </div>
                         </div>
