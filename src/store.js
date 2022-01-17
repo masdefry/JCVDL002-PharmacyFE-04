@@ -14,7 +14,8 @@ import {
     activeAddressReducer,
     userPrescriptionTransReducer,
     paymentDetailReducer,
-    adminPresTransReducer
+    adminPresTransReducer,
+    adminReqOrderReducer
 } from './Redux/Reducers/userReducer';
 
 const reducer = combineReducers({
@@ -30,7 +31,8 @@ const reducer = combineReducers({
     activeAddressReducer,
     userPrescriptionTransReducer,
     paymentDetailReducer,
-    adminPresTransReducer
+    adminPresTransReducer,
+    adminReqOrderReducer
 });
 
 const middleware = [thunk];
@@ -68,6 +70,9 @@ const initialState = {
     },
     adminPresTransReducer: {
         adminPresOrder: userInfoLocalStorage
+    },
+    adminReqOrderReducer: {
+        adminReqOrder: userInfoLocalStorage
     }
 };
 

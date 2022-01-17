@@ -6,8 +6,15 @@ import { ActiveAddressCard } from '../Card/ActiveAddressCard';
 import { AddAddressModal } from '../Modals/addAddress';
 
 import noOrder from '../../Supports/Assets/Profile/no-order.svg';
+import { useSelector } from 'react-redux';
 
 export const AddressComp = () => {
+    const address = useSelector((state) => state.fetchAddressReducer);
+    const { userAddress } = address;
+    console.log(userAddress);
+    const selectedAddress = useSelector((state) => state.activeAddressReducer);
+    const { activeAddress } = selectedAddress;
+    console.log(activeAddress);
 
     return (
         <div className='address-container col'>

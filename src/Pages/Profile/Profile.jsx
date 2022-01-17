@@ -43,6 +43,14 @@ const Profile = () => {
 
 	}, []);
 
+	if (!userDetail || userDetail === undefined) {
+		return (
+			<div className="loading d-flex mx-auto my-5">
+				<h1>Loading . . .</h1>
+			</div>
+		);
+	}
+
 	return (
 		<div className='profile-container container'>
 			<div className='row'>

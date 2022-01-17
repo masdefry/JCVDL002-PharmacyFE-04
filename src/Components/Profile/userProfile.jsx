@@ -203,8 +203,8 @@ export const UserProfile = (props) => {
 								}
 							</div>
 							<div className="upload-button d-flex">
-								{/* <CropImageModal /> */}
-								{imageStatus === '' ?
+								<CropImageModal />
+								{/* {imageStatus === '' ?
 									<>
 										<input
 											style={{ display: 'none' }}
@@ -222,7 +222,7 @@ export const UserProfile = (props) => {
 										className='submit-btn btn-lg mx-auto mt-4'
 									>Upload Image</button>
 
-								}
+								} */}
 							</div>
 						</div>
 						<div className="profile-detail mb-3 ps-5 mx-5 col">

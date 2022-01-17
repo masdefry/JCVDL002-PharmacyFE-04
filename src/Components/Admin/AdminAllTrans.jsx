@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import '../../Supports/Stylesheets/Components/AdminComp.css';
 
 import { AdminTransactionCard } from "../Card/adminTransactionCard";
+import { AdminReqTransactionCard } from "../Card/adminReqTransactionCard";
 
 import Search from '../../Supports/Assets/Profile/searchuser.svg';
 
@@ -26,9 +27,8 @@ export const AdminAllTransaction = (props) => {
                     </div>
                     :
 
-                    <div className="search-user col text-center mx-auto">
-                        <img src={Search} alt="" />
-                        <p className="mb-0">Search User First</p>
+                    <div className="admin-body py-1">
+                        <AdminReqTransactionCard />
                     </div>
                 }
             </div>

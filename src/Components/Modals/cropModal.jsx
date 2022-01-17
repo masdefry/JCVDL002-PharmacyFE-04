@@ -11,7 +11,7 @@ export const CropImageModal = () => {
     const imageInput = useRef();
 
     const [imageSrc, setImageSrc] = useState(null);
-    const [zoom, setZoom] = useState(null);
+    const [zoom, setZoom] = useState(1);
     const [rotation, setRotation] = useState(0);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -22,6 +22,7 @@ export const CropImageModal = () => {
     console.log(croppedImage);
 
     const onCropChange = (crop) => {
+        console.log(crop);
         setCrop(crop);
     };
 
@@ -34,6 +35,7 @@ export const CropImageModal = () => {
     };
 
     const onCropComplete = (croppedArea, croppedAreaPixels) => {
+        console.log(croppedAreaPixels);
         setCroppedAreaPixels(croppedAreaPixels);
     };
 
@@ -44,22 +46,27 @@ export const CropImageModal = () => {
             reader.addEventListener('load', () => {
                 setImageSrc(reader.result);
             });
+            e.target.value = '';
         }
     };
 
-    // const showCroppedImage = useCallback(async () => {
-    //     try {
-    //         const croppedImage = await getCroppedImg(
-    //             imageSrc,
-    //             croppedAreaPixels,
-    //             rotation
-    //         );
-    //         console.log('donee', { croppedImage });
-    //         setCroppedImage(croppedImage);
-    //     } catch (e) {
-    //         console.error(e);
-    //     }
-    // }, [imageSrc, croppedAreaPixels, rotation]);
+    const onCroppedAreaPixels = useCallback((croppedArea, croppedAreaPixels) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
+    const showCroppedImage = useCallback(async () => {
+        try {
+            const croppedImage = await getCroppedImg(
+                imageSrc,
+                croppedAreaPixels,
+                rotation
+            );
+            console.log('donee', { croppedImage });
+            setCroppedImage(croppedImage);
+        } catch (e) {
+            console.error(e);
+        }
+    }, [imageSrc, croppedAreaPixels, rotation]);
 
     const onUpload = async () => {
         const canvas = await getCroppedImg(
@@ -67,13 +74,23 @@ export const CropImageModal = () => {
             croppedAreaPixels,
             rotation
         );
-        const canvasDataUrl = await canvas.toDataURL('image/jpeg');
-        const convertUrlToFile = dataURLtoFile(canvasDataUrl, 'cropped-image.jpeg');
+        const canvastoFile = new File([canvas], 'cropped-image.jpeg', { type: "image/jpeg" });
 
         try {
+            const userdata = localStorage.getItem('userInfoToken');
+            const userDataParse = JSON.parse(userdata);
+
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'token': `${userDataParse.token}`
+                }
+            };
+
             const fd = new FormData();
-            fd.append("croppedImage", convertUrlToFile);
-            Axios.post('http://localhost:2004/user/updateProfileImg', fd)
+
+            fd.append("Image", canvastoFile);
+            Axios.post('http://localhost:2004/user/updateProfileImg', fd, config)
                 .then((res) => {
                     alert('Add Profile Image Success!');
                     setOpenModal(false);
@@ -115,6 +132,7 @@ export const CropImageModal = () => {
                                     onZoomChange={onZoomChange}
                                     onRotationChange={setRotation}
                                     onCropComplete={onCropComplete}
+                                    zoomWithScroll
                                 />
                             </div>
                             <div className="controls">

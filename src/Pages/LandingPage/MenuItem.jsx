@@ -14,7 +14,7 @@ const MenuItem = () => {
     "https://cms.sehatq.com/cdn-cgi/image/f=auto,width=54,height=54,fit=pad,quality=100/public/img/revamp_icon/feature_icon_procedure_active.png?v=6";
 
   return (
-    <div className="menu-items">
+    <div className="menu-items d-flex mx-auto mt-4">
       <a href="">
         <div className="menu-item">
           <img src={URL_OBAT} alt="obat" />

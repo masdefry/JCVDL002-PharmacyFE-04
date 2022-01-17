@@ -44,7 +44,7 @@ const Notification = () => {
     return (
         <div className='notification-container container'>
             <div className='row'>
-                <div className='profile-selection col-9 ms-5 mt-5'>
+                <div className='profile-selection col-8 ms-5 mt-5'>
                     {page === 'notification' ? (
                         <NotificationComp />
                     ) : page === 'transaction' && transactionPage === 'ongoing' ? (
@@ -58,7 +58,7 @@ const Notification = () => {
                     )
                         : null}
                 </div>
-                <div className="right-container-notif col">
+                <div className="right-container-notif ms-5 col">
                     <div className='mini-notification-card shadow  px-0 me-2 mt-5 py-1'>
                         <div className='button-container '>
                             <button

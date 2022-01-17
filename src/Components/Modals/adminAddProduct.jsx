@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Modal, ModalBody } from 'reactstrap';
 import Axios from 'axios';
+import { useEffect } from 'react';
 
 export const AddProductModals = () => {
 
@@ -11,6 +12,8 @@ export const AddProductModals = () => {
     const [totalFile, setTotalFile] = useState(null);
     const [imagesErrorMessage, setImagesErrorMessage] = useState('');
 
+
+    const [productQty, setProductQty] = useState(0);
     const [addProduct, setAddProduct] = useState({
         ProductName: '',
         ProductQty: 0,
@@ -18,6 +21,27 @@ export const AddProductModals = () => {
         ProductDesc: '',
         ProductCategory: 0
     });
+
+    useEffect(() => {
+        if (addProduct.ProductCategory === '1') {
+            setProductQty(addProduct.ProductQty * 20);
+        }
+        if (addProduct.ProductCategory === '2') {
+            setProductQty(addProduct.ProductQty * 20);
+        }
+        if (addProduct.ProductCategory === '3') {
+            setProductQty(addProduct.ProductQty * 200);
+        }
+        if (addProduct.ProductCategory === '4') {
+            setProductQty(addProduct.ProductQty * 10);
+        }
+        if (addProduct.ProductCategory === '5') {
+            setProductQty(addProduct.ProductQty * 10);
+        }
+        if (addProduct.ProductCategory === '6') {
+            setProductQty(addProduct.ProductQty * 10);
+        }
+    }, [addProduct.ProductQty]);
 
 
     const onImagesValidation = (e) => {
@@ -62,8 +86,10 @@ export const AddProductModals = () => {
         let Name = addProduct.ProductName;
         let Price = addProduct.ProductPrice;
         let Description = addProduct.ProductDesc;
-        let Qty = addProduct.ProductQty;
+        let Qty = productQty;
         let Category_ID = addProduct.ProductCategory;
+
+        console.log(Name, Price, Description, Qty, Category_ID);
 
         console.log(addProduct);
 
@@ -132,7 +158,7 @@ export const AddProductModals = () => {
                         />
                     </div>
                     <div className="pb-3 px-3">
-                        <h6>Description (max 500 character) :</h6>
+                        <h6>Description (max 1000 character) :</h6>
                         {/* <input
                             onChange={(val) => onFill(val, 'ProductDesc')}
                             name='addPrdctDescription'
@@ -144,20 +170,10 @@ export const AddProductModals = () => {
                             className="form-control"
                             placeholder="Description"
                             id="description"
-                            maxLength='500'
+                            maxLength='1000'
                             style={{ height: '75px' }}
                             onChange={(val) => onFill(val, 'ProductDesc')}
                         ></textarea>
-                    </div>
-                    <div className="pb-3 px-3">
-                        <h6>Quantity :</h6>
-                        <input
-                            placeholder="Quantity"
-                            onChange={(val) => onFill(val, 'ProductQty')}
-                            name='addPrdctQty'
-                            type='number'
-                            className='form-control'
-                        />
                     </div>
                     <div className="pb-3 px-3">
                         <h6>Category :</h6>
@@ -173,6 +189,16 @@ export const AddProductModals = () => {
                             <option value='5'>Salep</option>
                             <option value='6'>Serbuk</option>
                         </select>
+                    </div>
+                    <div className="pb-3 px-3">
+                        <h6>Quantity :</h6>
+                        <input
+                            placeholder="Quantity"
+                            onChange={(val) => onFill(val, 'ProductQty')}
+                            name='addPrdctQty'
+                            type='number'
+                            className='form-control'
+                        />
                     </div>
                     <div>
                         <h6>Select Images :</h6>

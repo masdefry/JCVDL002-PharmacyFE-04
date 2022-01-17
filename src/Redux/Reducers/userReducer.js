@@ -33,7 +33,9 @@ import {
     USER_PAYMENT_DETAILS,
     USER_PAYMENT_DETAILS_FAIL,
     ADMIN_PRESCRIPTION_ORDER,
-    ADMIN_PRESCRIPTION_ORDER_FAIL
+    ADMIN_PRESCRIPTION_ORDER_FAIL,
+    ADMIN_REQ_ORDER,
+    ADMIN_REQ_ORDER_FAIL
 } from '../../Supports/Constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -194,6 +196,17 @@ export const adminPresTransReducer = (state = {}, action) => {
         case ADMIN_PRESCRIPTION_ORDER:
             return { adminPresOrder: action.payload };
         case ADMIN_PRESCRIPTION_ORDER_FAIL:
+            return { error: action.payload };
+        default:
+            return {};
+    }
+};
+
+export const adminReqOrderReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_REQ_ORDER:
+            return { adminReqOrder: action.payload };
+        case ADMIN_REQ_ORDER_FAIL:
             return { error: action.payload };
         default:
             return {};

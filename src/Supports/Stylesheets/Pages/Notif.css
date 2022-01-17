@@ -5,6 +5,7 @@
 .mini-notification-card {
 	border-radius: 10px;
 	margin-bottom: 2rem;
+	max-width: 16rem;
 }
 
 .notification-container {

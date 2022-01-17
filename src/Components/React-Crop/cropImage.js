@@ -18,7 +18,9 @@ function getRadianAngle(degreeValue) {
  * @param {number} rotation - optional rotation parameter
  */
 export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
+    console.log('px', pixelCrop);
     const image = await createImage(imageSrc);
+    console.log('image', image);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
@@ -42,6 +44,7 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
         safeArea / 2 - image.height * 0.5
     );
     const data = ctx.getImageData(0, 0, safeArea, safeArea);
+    console.log(data);
 
     // set canvas width to final desired crop size - this will clear existing context
     canvas.width = pixelCrop.width;
@@ -61,7 +64,7 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     return new Promise((resolve) => {
         canvas.toBlob((file) => {
             console.log(file);
-            resolve(URL.createObjectURL(file));
+            resolve(file);
         }, "image/jpeg");
     });
 }
