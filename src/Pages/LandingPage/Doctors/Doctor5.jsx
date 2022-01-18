@@ -1,6 +1,7 @@
 import React from "react";
 import "./Doctors.css";
 import Hospital3 from "../Hospitals/Hospital3";
+import { Footer } from "../../../Components/Footer/Footer";
 
 const Doctor5 = () => {
   return (
@@ -27,6 +28,7 @@ const Doctor5 = () => {
         <h1>Tempat Bertugas</h1>
       </div>
       <Hospital3 />
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import "./Product.css";
+import { Footer } from "../../Components/Footer/Footer";
 import ProductCard from "./ProductCard";
 import Axios from "axios";
 import { API_URL } from "../../Supports/Constants/UrlAPI";
@@ -114,93 +115,96 @@ class Product extends React.Component {
 
   render() {
     return (
-      <div className="product-page-container container mt-5">
-        <div className="row">
-          <div className="col-3 product-filter-container">
-            <div className="card">
-              <div className="card-header">
-                <strong>Filter Produk</strong>
-              </div>
-              <div className="card-body">
-                <label htmlFor="searchProductName">Nama Produk</label>
-                <input
-                  onChange={this.searchInputHandler}
-                  name="searchProductName"
-                  type="text"
-                  className="form-control mb-3"
-                />
-                <label htmlFor="searchCategory">Kategori Produk</label>
-                <select
-                  onChange={this.searchInputHandler}
-                  name="searchCategory"
-                  className="form-control form-select"
-                >
-                  <option value="">Semua</option>
-                  <option value="Tablet">Tablet</option>
-                  <option value="Kapsul">Kapsul</option>
-                  <option value="Sirup">Sirup</option>
-                  <option value="Obat tetes">Obat Tetes</option>
-                  <option value="Salep">Salep</option>
-                  <option value="Serbuk">Serbuk</option>
-                </select>
-                <button
-                  onClick={this.searchBtnHandler}
-                  className=" btn btn-primary mt-3 product-search-button"
-                >
-                  Cari Produk
-                </button>
-              </div>
-            </div>
-            <div className="card mt-4">
-              <div className="card-header">
-                <strong>Urutkan Produk</strong>
-              </div>
-              <div className="card-body">
-                <label htmlFor="sortBy">Urut Berdasarkan</label>
-                <select
-                  onChange={this.searchInputHandler}
-                  name="sortBy"
-                  className="form-control form-select"
-                >
-                  <option value="">Urutan</option>
-                  <option value="lowPrice">Harga Terendah</option>
-                  <option value="highPrice">Harga Tertinggi</option>
-                  <option value="az">A-Z</option>
-                  <option value="za">Z-A</option>
-                </select>
-              </div>
-            </div>
-            <div className="mt-3 ">
-              <div className="d-flex flex-row justify-content-between align-items-center">
-                <button
-                  disabled={this.state.page === 1}
-                  onClick={this.prevPageHandler}
-                  className="btn btn-dark "
-                >
-                  {"<"}
-                </button>
-                <div className="text-center">
-                  {this.state.page} of {this.state.maxPage}
+      <>
+        <div className="product-page-container container mt-5">
+          <div className="row">
+            <div className="col-3 product-filter-container">
+              <div className="card">
+                <div className="card-header">
+                  <strong>Filter Produk</strong>
                 </div>
-                <button
-                  disabled={this.state.page === this.state.maxPage}
-                  onClick={this.nextPageHandler}
-                  className="btn btn-dark"
-                >
-                  {">"}
-                </button>
+                <div className="card-body">
+                  <label htmlFor="searchProductName">Nama Produk</label>
+                  <input
+                    onChange={this.searchInputHandler}
+                    name="searchProductName"
+                    type="text"
+                    className="form-control mb-3"
+                  />
+                  <label htmlFor="searchCategory">Kategori Produk</label>
+                  <select
+                    onChange={this.searchInputHandler}
+                    name="searchCategory"
+                    className="form-control form-select"
+                  >
+                    <option value="">Semua</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Kapsul">Kapsul</option>
+                    <option value="Sirup">Sirup</option>
+                    <option value="Obat tetes">Obat Tetes</option>
+                    <option value="Salep">Salep</option>
+                    <option value="Serbuk">Serbuk</option>
+                  </select>
+                  <button
+                    onClick={this.searchBtnHandler}
+                    className=" btn btn-primary mt-3 product-search-button"
+                  >
+                    Cari Produk
+                  </button>
+                </div>
+              </div>
+              <div className="card mt-4">
+                <div className="card-header">
+                  <strong>Urutkan Produk</strong>
+                </div>
+                <div className="card-body">
+                  <label htmlFor="sortBy">Urut Berdasarkan</label>
+                  <select
+                    onChange={this.searchInputHandler}
+                    name="sortBy"
+                    className="form-control form-select"
+                  >
+                    <option value="">Urutan</option>
+                    <option value="lowPrice">Harga Terendah</option>
+                    <option value="highPrice">Harga Tertinggi</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mt-3 ">
+                <div className="d-flex flex-row justify-content-between align-items-center">
+                  <button
+                    disabled={this.state.page === 1}
+                    onClick={this.prevPageHandler}
+                    className="btn btn-dark "
+                  >
+                    {"<"}
+                  </button>
+                  <div className="text-center">
+                    {this.state.page} of {this.state.maxPage}
+                  </div>
+                  <button
+                    disabled={this.state.page === this.state.maxPage}
+                    onClick={this.nextPageHandler}
+                    className="btn btn-dark"
+                  >
+                    {">"}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-9">
-            <div className="d-flex flex-wrap flex-row">
-              {/* <ProductCard /> */}
-              {/* //////// render products here */}
-              {this.renderProducts()}
+            <div className="col-9">
+              <div className="d-flex flex-wrap flex-row">
+                {/* <ProductCard /> */}
+                {/* //////// render products here */}
+                {this.renderProducts()}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <Footer />
+      </>
     );
   }
 }
