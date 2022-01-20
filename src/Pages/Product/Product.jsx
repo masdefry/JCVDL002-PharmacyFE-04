@@ -11,7 +11,7 @@ class Product extends React.Component {
     filteredProductList: [],
     page: 1,
     maxPage: 0,
-    itemPerPage: 9,
+    itemPerPage: 8,
     searchProductName: "",
     searchCategory: "",
     sortBy: "",

@@ -6,8 +6,13 @@ import { API_URL } from "../../Supports/Constants/UrlAPI";
 import { Link, useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  const [productData, setProductData] = useState({});
-  const [productNotFound, setProductNotFound] = useState(false);
+  const token = localStorage.getItem("userInfoToken");
+  const userState = JSON.parse(token);
+
+  const [productData, setProductData] = useState([]);
+
+  const [cartData, setCartData] = useState([]);
+  const [productToCart, setProductToCart] = useState(1);
 
   const { SKU } = useParams();
 
@@ -20,16 +25,69 @@ const ProductDetail = () => {
     });
   };
 
+  const fetchCartData = () => {
+    Axios.get(API_URL + "/cart").then((result) => {
+      if (result.data.length) {
+        setCartData(result.data);
+        console.log(cartData);
+      }
+    });
+  };
+
+  const plusToCart = () => {
+    if (productToCart < productData.Qty) setProductToCart(productToCart + 1);
+  };
+
+  const minToCart = () => {
+    if (productToCart > 1) {
+      setProductToCart(productToCart - 1);
+    }
+  };
+
+  const addToCartHandler = () => {
+    if (!token) {
+      alert("silahkan login terlibih dahulu");
+    } else {
+      let cartCheck = cartData.filter((val) => {
+        return val.User_Id == userState.id && val.SKU == productData.SKU;
+      });
+      if (cartCheck.length) {
+        alert("tambah barang ke keranjang berhasil");
+        console.log(cartCheck[0]);
+        Axios.post(`${API_URL}/cart`, {
+          SKU: productData.SKU,
+          User_Id: userState.id,
+          Qty: cartCheck[0].Qty + productToCart,
+        });
+      } else {
+        alert("tambah barang ke keranjang berhasil");
+        Axios.post(`${API_URL}/cart`, {
+          SKU: productData.SKU,
+          User_Id: userState.id,
+          Qty: productToCart,
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     fetchProductData();
   });
+
+  useEffect(() => {
+    fetchCartData();
+  }, []);
 
   return (
     <>
       <div>
         <div className="product-detail-container">
           <div calssName="left-product-detail">
-            <img className="product-detail-img" src={productData.Image} alt="" />
+            <img
+              className="product-detail-img"
+              src={productData.Image}
+              alt=""
+            />
           </div>
           <div className="right-product-detail">
             <div className="product-detail-name bottom-grey-line">
@@ -49,6 +107,16 @@ const ProductDetail = () => {
             <div className="product-detail-description bottom-grey-line">
               <h4>Deskripsi Produk</h4>
               <p>{productData.Description}</p>
+            </div>
+
+            <div class="add-to-cart-container">
+              <div className="button-cart-number">
+                <button onClick={minToCart}> - </button> <p>{productToCart} </p>
+                <button onClick={plusToCart}> + </button>
+              </div>
+              <div className="button-cart-add">
+                <button onClick={addToCartHandler}>+ Keranjang</button>
+              </div>
             </div>
           </div>
         </div>

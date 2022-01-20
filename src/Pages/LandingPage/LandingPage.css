@@ -1,7 +1,7 @@
 .carousel-container {
 	background-color: rgb(240, 249, 250);
 	width: 100%;
-	min-height: 15rem;
+	min-height: 18rem;
 	padding-top: 3rem;
 }
 
@@ -10,7 +10,7 @@
 }
 
 /* 
-////////////////////// REACT SLICK */
+  ////////////////////// REACT SLICK */
 
 .slick-next {
 	right: 3% !important;
@@ -18,8 +18,8 @@
 }
 
 /* .slick-prev {
-  left: 3% !important;
-} */
+	left: 3% !important;
+  } */
 
 .slick-prev:before,
 .slick-next:before {
@@ -173,7 +173,7 @@
 	display: flex;
 }
 
-.doctor-wrapper {
+.doctors-wrapper {
 	display: flex;
 	justify-content: space-around;
 }

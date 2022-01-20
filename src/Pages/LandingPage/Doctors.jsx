@@ -9,7 +9,7 @@ const Doctors = () => {
         <h1> Dokter</h1>
         <p>Lihat Jadwal Praktik Disini!</p>
       </div>
-      <div className="doctor-wrapper">
+      <div className="doctors-wrapper">
         {/* //////// left */}
         <div className="left-side">
           <div className="doctor-services">

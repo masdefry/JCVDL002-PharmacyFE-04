@@ -41,7 +41,7 @@ import ProductDetail from "./Pages/Product/ProductDetail";
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
 import { Footer } from './Components/Footer/Footer.jsx';
-
+import { CartComp } from './Components/Cart/Cart';
 //Redux
 import { fetchActiveAddress, fetchAddress, keepLogin, profileDetail, fetchUserPrescriptionOrder, userPaymentDetail } from './Redux/Actions/userActions';
 
@@ -111,7 +111,7 @@ function App() {
             path="/products/product-detail/:SKU"
             element={<ProductDetail />}
           />
-          {/* <Route path="/cart" element={<CartComp />} /> */}
+          <Route path="/cart" element={<CartComp />} />
         </Routes>
       </BrowserRouter>
     </div>
