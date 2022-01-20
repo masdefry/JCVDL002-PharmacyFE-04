@@ -41,22 +41,22 @@ export const AdminTransactionDetailModal = (props) => {
             productList.map((val) => {
                 if (val.SKU === Number(productReq.product_SKU)) {
                     if (val.Category_ID === 'Tablet') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Kapsul') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Sirup') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 200) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Obat tetes') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Salep') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Serbuk') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                 }
             });
@@ -140,7 +140,7 @@ export const AdminTransactionDetailModal = (props) => {
     };
 
     const format = (money) => {
-        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(money);
         return formatMoney;
     };
 

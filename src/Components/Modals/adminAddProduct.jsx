@@ -19,7 +19,8 @@ export const AddProductModals = () => {
         ProductQty: 0,
         ProductPrice: 0,
         ProductDesc: '',
-        ProductCategory: 0
+        ProductCategory: 0,
+        ProductType: ''
     });
 
     useEffect(() => {
@@ -78,6 +79,9 @@ export const AddProductModals = () => {
         if (dataType === 'ProductCategory') {
             setAddProduct({ ...addProduct, ProductCategory: val.target.value });
         }
+        if (dataType === 'ProductType') {
+            setAddProduct({ ...addProduct, ProductType: val.target.value });
+        }
     };
 
 
@@ -88,13 +92,14 @@ export const AddProductModals = () => {
         let Description = addProduct.ProductDesc;
         let Qty = productQty;
         let Category_ID = addProduct.ProductCategory;
+        let Product_Type = addProduct.ProductType;
 
         console.log(Name, Price, Description, Qty, Category_ID);
 
         console.log(addProduct);
 
         try {
-            if (!Name || !Price || !Description || !Qty || !Category_ID) throw { message: 'Data Must Be Filled' };
+            if (!Name || !Price || !Description || !Qty || !Category_ID || !Product_Type) throw { message: 'Data Must Be Filled' };
             if (!images) throw { message: 'Select Images First!' };
 
             let data = {
@@ -102,7 +107,8 @@ export const AddProductModals = () => {
                 Price,
                 Description,
                 Qty,
-                Category_ID
+                Category_ID,
+                Product_Type
             };
 
             let dataToSend = JSON.stringify(data);
@@ -175,20 +181,33 @@ export const AddProductModals = () => {
                             onChange={(val) => onFill(val, 'ProductDesc')}
                         ></textarea>
                     </div>
-                    <div className="pb-3 px-3">
-                        <h6>Category :</h6>
-                        <select
-                            onChange={(val) => onFill(val, 'ProductCategory')}
-                            name='addPrdctCategory'
-                            className='form-control'>
-                            <option value='' hidden>Categories</option>
-                            <option value='1'>Tablet</option>
-                            <option value='2'>Kapsul</option>
-                            <option value='3'>Sirup</option>
-                            <option value='4'>Obat Tetes</option>
-                            <option value='5'>Salep</option>
-                            <option value='6'>Serbuk</option>
-                        </select>
+                    <div className="category-type row px-3">
+                        <div className="pb-3 col">
+                            <h6>Category :</h6>
+                            <select
+                                onChange={(val) => onFill(val, 'ProductCategory')}
+                                name='addPrdctCategory'
+                                className='form-control'>
+                                <option value='' hidden>Categories</option>
+                                <option value='1'>Tablet</option>
+                                <option value='2'>Kapsul</option>
+                                <option value='3'>Sirup</option>
+                                <option value='4'>Obat Tetes</option>
+                                <option value='5'>Salep</option>
+                                <option value='6'>Serbuk</option>
+                            </select>
+                        </div>
+                        <div className="pb-3 col">
+                            <h6>Product Type :</h6>
+                            <select
+                                onChange={(val) => onFill(val, 'ProductType')}
+                                name='addPrdctCategory'
+                                className='form-control'>
+                                <option value='' hidden>Type</option>
+                                <option value='1'>Raw Material</option>
+                                <option value='2'>Product</option>
+                            </select>
+                        </div>
                     </div>
                     <div className="pb-3 px-3">
                         <h6>Quantity :</h6>
@@ -200,7 +219,7 @@ export const AddProductModals = () => {
                             className='form-control'
                         />
                     </div>
-                    <div>
+                    <div className='ps-3'>
                         <h6>Select Images :</h6>
                     </div>
                     <div className="row border px- py-3 mx-3 rounded">
@@ -235,8 +254,9 @@ export const AddProductModals = () => {
                             {
                                 imagesErrorMessage ?
                                     <>
-                                        <p>Errornya di images</p>
-                                        {imagesErrorMessage}
+                                        <p className='mx-3 mt-4 text-danger'>
+                                            {imagesErrorMessage}  !!
+                                        </p>
                                     </>
                                     :
                                     null

@@ -16,7 +16,7 @@ export const TransactionDetailModal = (props) => {
     const [imagesErrorMessage, setImagesErrorMessage] = useState('');
 
     const format = (money) => {
-        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(money);
         return formatMoney;
     };
 

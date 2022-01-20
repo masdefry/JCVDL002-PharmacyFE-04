@@ -22,7 +22,8 @@ export const AdminTransactionCard = (props) => {
     const [transId, setTransId] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const OnSend = (ID) => {
+    const OnSend = (e, ID) => {
+        e.preventDefault();
         try {
             if (!ID) throw { message: 'Theres no ID' };
 
@@ -49,7 +50,8 @@ export const AdminTransactionCard = (props) => {
         }
     };
 
-    const onReject = (ID) => {
+    const onReject = (e, ID) => {
+        e.preventDefault();
         try {
             if (!ID) throw { message: 'Theres no ID' };
 
@@ -77,7 +79,7 @@ export const AdminTransactionCard = (props) => {
     };
 
     const format = (money) => {
-        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(money);
         return formatMoney;
     };
 
@@ -120,19 +122,19 @@ export const AdminTransactionCard = (props) => {
                             {val.Status_Name === 'Request' ?
                                 <>
                                     <AdminTransactionDetailModal data={val} />
-                                    <button id="tr-reject-btn" className="mt-0" onClick={() => onReject(val.prescription_ID)}>Reject</button>
+                                    <button id="tr-reject-btn" className="mt-0" onClick={(e) => onReject(e, val.prescription_ID)}>Reject</button>
                                 </>
                                 :
                                 val.Status_Name === 'Belum Dibayar' ?
                                     <>
                                         <AdminTransactionDetailModal data={val} />
-                                        <button id="tr-reject-btn" className="mt-0" onClick={() => onReject(val.prescription_ID)} > Reject</button>
+                                        <button id="tr-reject-btn" className="mt-0" onClick={(e) => onReject(e, val.prescription_ID)} > Reject</button>
                                     </>
                                     :
                                     val.Status_Name === 'Dibayar' ?
                                         <>
                                             <AdminTransactionDetailModal data={val} />
-                                            <button id="tr-repeat-btn" className="mt-0" onClick={() => OnSend(val.prescription_ID)}>Kirim</button>
+                                            <button id="tr-repeat-btn" className="mt-0" onClick={(e,) => OnSend(e, val.prescription_ID)}>Kirim</button>
                                         </>
                                         :
                                         val.Status_Name === 'Dikirim' || val.Status_Name === 'Selesai' ?

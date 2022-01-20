@@ -42,11 +42,11 @@ const AdminPages = () => {
                 <div className='mini-admin-card shadow pt-2 px-0 col h-100 me-2'>
                     <div className='mini-admin px-2 row m-0'>
                         {page === 'product' ?
-                            <div className="product-card">
+                            <div className="admin-mini-card">
                                 <div className="product-header text-center mt-2 fs-5">
                                     <strong>Filter Products</strong>
                                 </div>
-                                <div className="product-card-body mt-3 mb-1">
+                                <div className="admin-mini-card-body mt-3 mb-1">
                                     <label
                                         className='mb-2'
                                         htmlFor="searchProductName">Product Name</label>
@@ -83,11 +83,11 @@ const AdminPages = () => {
                             </div>
                             :
                             page === 'transaction' ?
-                                <div className="product-card">
+                                <div className="admin-mini-card">
                                     <div className="product-header text-center mt-2 fs-5">
                                         <strong>Search User</strong>
                                     </div>
-                                    <div className="product-card-body mt-3 mb-1">
+                                    <div className="admin-mini-card-body mt-3 mb-1">
                                         <input
                                             onChange={(e) => setUserEmail(e.target.value)}
                                             name="searchProductName"

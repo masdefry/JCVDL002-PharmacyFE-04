@@ -37,7 +37,6 @@ import Doctor6 from "./Pages/LandingPage/Doctors/Doctor6";
 
 import Product from "./Pages/Product/Product";
 import ProductDetail from "./Pages/Product/ProductDetail";
-import CartComp from "./Components/Cart/Cart";
 
 //Components
 import { Navbar } from './Components/Navbar/Navbar';
@@ -112,7 +111,7 @@ function App() {
             path="/products/product-detail/:SKU"
             element={<ProductDetail />}
           />
-          <Route path="/cart" element={<CartComp />} />
+          {/* <Route path="/cart" element={<CartComp />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

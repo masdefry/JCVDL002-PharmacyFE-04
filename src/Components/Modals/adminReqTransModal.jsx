@@ -43,22 +43,22 @@ export const AdminReqTransactionDetailModal = (props) => {
             productList.map((val) => {
                 if (val.SKU === Number(productReq.product_SKU)) {
                     if (val.Category_ID === 'Tablet') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Kapsul') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 20) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Sirup') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 200) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Obat tetes') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Salep') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                     if (val.Category_ID === 'Serbuk') {
-                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty / 10) * val.Price) });
+                        setProductReq({ ...productReq, reqPrice: ((productReq.reqQty) * val.Price) });
                     }
                 }
             });
@@ -75,22 +75,22 @@ export const AdminReqTransactionDetailModal = (props) => {
             productList.map((val) => {
                 if (val.SKU === Number(productReq.product_SKU)) {
                     if (val.Category_ID === 'Tablet') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 20) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                     if (val.Category_ID === 'Kapsul') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 20) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                     if (val.Category_ID === 'Sirup') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 200) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                     if (val.Category_ID === 'Obat tetes') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                     if (val.Category_ID === 'Salep') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                     if (val.Category_ID === 'Serbuk') {
-                        setTotalPrice(prev => prev + ((productReq.reqQty / 10) * val.Price));
+                        setTotalPrice(prev => prev + ((productReq.reqQty) * val.Price));
                     }
                 }
             });
@@ -107,6 +107,22 @@ export const AdminReqTransactionDetailModal = (props) => {
             .catch(() => {
                 alert('fetchProduct gagal');
             });
+    };
+
+    const minTotal = (total, num) => {
+        return total - num;
+    };
+
+    const onDeleteReq = (e, index) => {
+        e.preventDefault();
+        console.log(index);
+        setReqProduct(reqProduct => reqProduct.filter((product, i) => i !== index));
+        // setTotalPrice(prev => prev - reqProduct[index].reqPrice);
+        const updated = [...reqProduct];
+        const reduceUpdate = updated.reduce(minTotal);
+        setTotalPrice(reduceUpdate);
+
+        console.log(reqProduct);
     };
 
     const onSetTotalCost = (orderID) => {
@@ -142,7 +158,7 @@ export const AdminReqTransactionDetailModal = (props) => {
     };
 
     const format = (money) => {
-        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(money);
         return formatMoney;
     };
 
@@ -156,7 +172,7 @@ export const AdminReqTransactionDetailModal = (props) => {
 
     console.log('data buat detail modal' + props.data);
 
-    if (adminReqOrder === undefined) {
+    if (adminReqOrder === undefined || adminReqOrder.length < 1) {
         return (
             <div className="outer-verif">
                 <div className="verif-container d-flex my-5 justify-content-lg-center">
@@ -231,18 +247,36 @@ export const AdminReqTransactionDetailModal = (props) => {
                                             {
                                                 reqProduct.length > 0 ?
                                                     <div className="req-product-list px-1 pt-2">
-                                                        {reqProduct.map((val, index) => {
-                                                            return (
-                                                                <div className="inner-req-product-list d-flex pb-2">
-                                                                    <p className="me-4 mb-0">{index + 1}.</p>
-                                                                    <p className="w-25 mb-0">{val.product_Name}</p>
-                                                                    <p className="w-25 mb-0">Quantity: {val.reqQty}</p>
-                                                                    <p className="mb-0">Price: {format(val.reqPrice)}</p>
-                                                                </div>
+                                                        <table className='table m-0'>
+                                                            <thead className='thead-light text-center'>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Name</th>
+                                                                    <th>Price</th>
+                                                                    <th>Qty</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>{reqProduct.map((val, index) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td>{index + 1}</td>
+                                                                        <td>{val.product_Name}</td>
+                                                                        <td>{format(val.reqPrice)}</td>
+                                                                        <td>{val.reqQty}</td>
+                                                                        <td><button id="tr-reject-btn" className="d-flex mx-auto"
+                                                                            onClick={(e) => onDeleteReq(e, index)}>Delete</button></td>
+                                                                    </tr>
+                                                                );
+                                                            })}</tbody>
+                                                            <tfoot>
+                                                                <td colSpan={4}></td>
+                                                                <td className="text-center">
+                                                                    Total Price: {format(totalPrice)}
+                                                                </td>
+                                                            </tfoot>
+                                                        </table>
 
-                                                            );
-                                                        })}
-                                                        <p className="mb-0 d-flex ms-auto">Total Price: {format(totalPrice)}</p>
                                                     </div>
                                                     :
                                                     null

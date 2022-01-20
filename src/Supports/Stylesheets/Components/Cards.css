@@ -74,7 +74,7 @@
 
 #tr-reject-btn {
 	border-radius: 5px;
-	background-color: #d37d7d;
+	background-color: #ff4747;
 	border: none;
 	padding: 0.5rem 1.3rem;
 	margin-right: 0.5rem;
@@ -82,10 +82,6 @@
 	color: white;
 	font-size: 0.9rem;
 	transition: ease-in-out all 0.25s;
-}
-
-#tr-reject-btn:hover {
-	background-color: #a03838;
 }
 
 .tr-status {
@@ -258,15 +254,11 @@
 	background-color: #7dd0d3;
 }
 
-.req-product-list {
-	background-color: #ccfdff;
-}
-
 .input-req-product {
 	padding: 0.2rem 1rem;
 	border-radius: 5px;
 	border-style: none;
 	color: white;
-	background-color: #3897a0;
+	background-color: #7dd0d3;
 	font-weight: bolder;
 }

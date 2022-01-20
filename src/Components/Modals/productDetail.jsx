@@ -8,7 +8,7 @@ export const ProductDetailModal = (props) => {
     const [openModal, setOpenModal] = useState(false);
 
     const format = (money) => {
-        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(money);
+        let formatMoney = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(money);
         return formatMoney;
     };
 
