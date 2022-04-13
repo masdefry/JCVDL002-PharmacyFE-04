@@ -1,28 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import '../../Supports/Stylesheets/Pages/Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { UserTransaction } from '../../Components/Profile/userTransaction/userTransaction';
+import { OnGoingTransaction } from '../../Components/Profile/userTransaction/onGoingTransaction';
 import { UserProfile } from '../../Components/Profile/userProfile';
-import { AdminManage } from '../../Components/Profile/adminManage';
 import { SettingsComp } from '../../Components/Profile/SettingsComp';
+import { AddressComp } from '../../Components/Profile/AddressComp';
 import { keepLogin, profileDetail } from '../../Redux/Actions/userActions';
+import { fetchUserPrescriptionOrder } from '../../Redux/Actions/userActions';
 
 import PPlaceholder from '../../Supports/Assets/Profile/Profile-placeholder.svg';
 import Transaction from '../../Supports/Assets/Profile/transaction-profile.svg';
 import Arrow from '../../Supports/Assets/Profile/arrow.svg';
 import Admin from '../../Supports/Assets/Profile/activity-profile.svg';
 import Settings from '../../Supports/Assets/Profile/cog.svg';
-import { Route, Routes } from 'react-router-dom';
+import address from '../../Supports/Assets/Profile/address-slim.svg';
 
 const Profile = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const userProfile = useSelector((state) => state.userDetailReducer);
 	const { userDetail } = userProfile;
 	console.log('data user' + JSON.stringify(userDetail));
 
 	const [page, setPage] = useState('profile');
+	const [transactionPage, setTransactionPage] = useState('ongoing');
+
+	const token = localStorage.getItem('userInfoToken');
+
+	useEffect(() => {
+		if (token && userDetail) {
+			navigate('/profile');
+		} else if (!token && userDetail === undefined) {
+			navigate('/login');
+		}
+		dispatch(fetchUserPrescriptionOrder());
+		dispatch(profileDetail());
+		dispatch(keepLogin);
+
+	}, []);
+
+	if (!userDetail || userDetail === undefined) {
+		return (
+			<div className="loading d-flex mx-auto my-5">
+				<h1>Loading . . .</h1>
+			</div>
+		);
+	}
 
 	return (
 		<div className='profile-container container'>
@@ -44,15 +71,51 @@ const Profile = () => {
 					</div>
 					<div className='button-container '>
 						<button
-							className='trans-button row px-1 mx-0 my-3 p-0'
+							className={page === 'address' ? 'trans-button row px-1 mx-0 mt-3 mb-2 p-0' : 'trans-button row px-1 mx-0 my-3 p-0'}
+							align='center'
+							onClick={() => setPage('address')}>
+							<img src={address} className='tr-wallet col' />
+							<span className='col'>
+								<strong>Alamat</strong>
+							</span>
+							<img src={Arrow} className='tr-arrow col my-auto' />
+						</button>
+						<button
+							className={page === 'transaction' ? 'trans-button row px-1 mx-0 mt-3 mb-2 p-0' : 'trans-button row px-1 mx-0 my-3 p-0'}
 							align='center'
 							onClick={() => setPage('transaction')}>
 							<img src={Transaction} className='tr-wallet col' />
 							<span className='col'>
-								<strong>Transaction</strong>
+								<strong>Transaksi</strong>
 							</span>
 							<img src={Arrow} className='tr-arrow col my-auto' />
 						</button>
+						{page === 'transaction' ?
+							<div className="inner-transaction" id='inner-trans'>
+								<button
+									className='inner-trans-button row pt-2 ps-4 pe-3 mx-0 my-2 p-0'
+									id='inner-trans-btn'
+									align='center'
+									onClick={() => setTransactionPage('ongoing')}>
+									<span className='col'>
+										<p>Produk</p>
+									</span>
+									<img src={Arrow} className='tr-arrow col my-auto' />
+								</button>
+								<button
+									className='inner-trans-button row pb-2 ps-4 pe-3 mx-0 my-2 p-0'
+									id='inner-trans-btn'
+									align='center'
+									onClick={() => setTransactionPage('all')}>
+									<span className='col'>
+										<p>Resep Dokter</p>
+									</span>
+									<img src={Arrow} className='tr-arrow col my-auto' />
+								</button>
+							</div>
+							:
+							null
+						}
 						{userDetail.role === 'admin' ?
 							<Link to='/admin' className='admin-button row px-1 mx-0 mt-3 p-0'>
 								<img src={Admin} className='tr-wallet col' />
@@ -87,25 +150,24 @@ const Profile = () => {
 								<UserProfile profiledata={{ userDetail }} />
 							</div>
 						</div>
-					) : page === 'transaction' ? (
+					) : page === 'transaction' && transactionPage === 'ongoing' ? (
+						<div className='profile-card border'>
+							<OnGoingTransaction />
+						</div>
+					) : page === 'transaction' && transactionPage === 'all' ? (
 						<div className='profile-card border'>
 							<UserTransaction />
-						</div>
-					) : page === 'admin' && userDetail.role ? (
-						<div className='profile-card border'>
-							<AdminManage />
 						</div>
 					) : page === 'settings' ? (
 						<div className="profile-card border">
 							<SettingsComp />
 						</div>
+					) : page === 'address' ? (
+						<div className="profile-card border">
+							<AddressComp />
+						</div>
 					)
 						: null}
-					{/* <Routes>
-						<Route path='/transaction' element={<Home />} />
-						<Route path='/admin' element={<Home />} />
-						<Route path='/settings' element={<Home />} />
-						</Routes> */}
 				</div>
 			</div>
 		</div>

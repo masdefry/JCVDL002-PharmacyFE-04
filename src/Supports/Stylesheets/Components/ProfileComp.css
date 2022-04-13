@@ -43,24 +43,22 @@
 	max-width: 15rem;
 }
 
-.addBtn {
-	width: 100%;
-	margin-left: auto;
+.product-submit-btn {
+	border-radius: 5px;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	font-size: 16px;
+	background-color: #3897a0;
 }
 
-.transaction-body button {
-	margin-top: 4rem;
-	padding: 0.5rem 2rem;
+.dy button {
 	border-radius: 5px;
 	border: 2px solid #3897a0;
 	color: white;
 	font-weight: 600;
 	background-color: #3897a0;
 	max-width: 15rem;
-}
-.transaction-body {
-	padding: 3rem;
-	text-align: center;
 }
 
 .profile-detail-container {
@@ -82,8 +80,17 @@
 	font-size: 2.5rem;
 }
 
+.more-container p {
+	font-weight: 200;
+	font-size: 0.8rem;
+	margin-bottom: 0.4rem;
+}
+
 .profile-filler p {
-	margin-left: 1rem;
+	margin-left: 0.1rem;
+	font-weight: 500;
+	font-size: 1.2rem;
+	margin-bottom: 0;
 }
 
 .image-name h5 {
@@ -95,10 +102,12 @@
 	display: block;
 	max-width: 12rem;
 	margin: 0 auto;
+	border-radius: 50%;
 }
-
+.container3 {
+	margin-top: 12rem;
+}
 .container3 button {
-	margin-top: 4rem;
 	padding: 0.5rem 2rem;
 	border-radius: 5px;
 	border: 2px solid #7dd0d3;
@@ -121,4 +130,57 @@
 .settings-header {
 	background-color: white;
 	border-radius: 20px 20px 0 0;
+}
+
+.transaction-header {
+	text-align: center;
+	padding: 1rem;
+	font-weight: 700;
+	font-size: 1.5rem;
+	background-color: white;
+	border-radius: 20px 20px 0 0;
+}
+
+.transaction-header p {
+	margin: 0;
+}
+
+.address-header {
+	text-align: center;
+	padding: 0.8rem 1rem;
+	font-weight: 700;
+	font-size: 1.5rem;
+	background-color: white;
+	border-radius: 20px 20px 0 0;
+}
+
+.address-header p {
+	margin: 0;
+}
+
+.add-address-btn {
+	border-radius: 6px;
+	padding: 0.4rem 0.8rem;
+	border: 2px solid #3897a0;
+	color: white;
+	font-weight: 600;
+	background-color: #3897a0;
+}
+
+.edit-profile-img img {
+	max-width: 15rem;
+	border-radius: 50%;
+	margin-left: 0.2rem;
+}
+
+.select-img-btn {
+	border-radius: 10px;
+	border: 4px solid #7dd0d3;
+	color: #7dd0d3;
+	background-color: white;
+	font-weight: bolder;
+}
+
+.no-address {
+	width: 10rem;
 }

@@ -15,7 +15,7 @@ import Get from '../../Supports/Assets/Socmed/Getiton.svg';
 export const Footer = () => {
 	return (
 		<div className='Footer px-5 mx-auto mb-5'>
-			<div className='Footer-Content px-5'>
+			<div className='Footer-Content'>
 				<div className='footer-img px-5 py-4'>
 					<img src={LogoSehat} alt='' />
 				</div>

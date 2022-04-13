@@ -10,6 +10,7 @@
 }
 
 .mini-profile img {
+	border-radius: 50%;
 	width: 7rem;
 }
 
@@ -51,11 +52,18 @@
 	border-radius: 20px;
 }
 
-.admin-button {
-	color: black;
-	font-weight: 400;
-}
-
 .admin-button:hover {
 	color: black;
+}
+
+.inner-transaction p {
+	margin: 0;
+	margin-left: 2rem;
+	font-weight: 600;
+	font-style: italic;
+	font-size: 0.9rem;
+}
+
+#inner-trans {
+	background-color: #f1f1f1;
 }

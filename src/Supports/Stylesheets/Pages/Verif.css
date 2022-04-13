@@ -1,0 +1,13 @@
+.verif-success img {
+	width: 25rem;
+}
+
+.verif-login {
+	margin-top: 0.5rem;
+	padding: 0.3rem 2rem;
+	font-weight: bolder;
+	border-radius: 10px;
+	background-color: #3897a0;
+	border: 2px solid #3897a0;
+	color: white;
+}

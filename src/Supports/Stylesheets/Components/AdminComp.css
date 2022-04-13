@@ -1,0 +1,32 @@
+.search-user img {
+	max-width: 15rem;
+	margin-bottom: 2rem;
+}
+
+.search-user {
+	padding: 6rem 0 3rem;
+	background-color: #f0f9fa;
+	border-radius: 0 0 15px 15px;
+	font-size: 2rem;
+	font-weight: bolder;
+	color: gray;
+}
+
+.editbtn {
+	font-weight: bolder;
+	border: none;
+	color: white;
+	background-color: #7dd0d3;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+}
+
+.productdel {
+	font-weight: bolder;
+	border: none;
+	color: white;
+	background-color: #ff4747;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	margin-left: 1rem;
+}

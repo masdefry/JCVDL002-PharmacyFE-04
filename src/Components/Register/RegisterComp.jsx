@@ -70,8 +70,8 @@ export const RegisterComp = () => {
 							: `Enter a valid email!`}
 				</div>
 			</div>
-			<div class='form-group my-2'>
-				<label className='mb-2' for='Password'>
+			<div className='form-group my-2'>
+				<label className='mb-2' htmlFor='Password'>
 					Password
 				</label>
 				<input
@@ -89,8 +89,8 @@ export const RegisterComp = () => {
 							: `Password can't be less than 8 character`}
 				</div>
 			</div>
-			<div class='form-group my-2'>
-				<label className='mb-2' for='confirmPassword'>
+			<div className='form-group my-2'>
+				<label className='mb-2' htmlFor='confirmPassword'>
 					Confirm Password
 				</label>
 				<input

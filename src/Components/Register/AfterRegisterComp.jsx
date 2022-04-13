@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { userProfileUpdate } from '../../Redux/Actions/userActions';
 
 export const AfterRegisterComp = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const CompleteData = useSelector;
 
@@ -11,10 +15,12 @@ export const AfterRegisterComp = () => {
     const [phone, setPhone] = useState('');
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
+    const [name, setName] = useState('');
 
     const submitHandler = (e) => {
         e.preventDefault();
-
+        dispatch(userProfileUpdate(name, gender, birthDate, phone, weight, height));
+        navigate('/');
     };
 
     return (
@@ -29,13 +35,13 @@ export const AfterRegisterComp = () => {
                     className="form-control"
                 >
                     <option value="" hidden>Jenis Kelamin</option>
-                    <option value="man">Laki laki</option>
-                    <option value="woman">Perempuan</option>
+                    <option value="Laki-Laki">Laki laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </select>
             </div>
             <div className='form-group my-3'>
                 <label className='mb-2' htmlFor='birthDate'>
-                    Birthday
+                    Tanggal Lahir
                 </label>
                 <input
                     type='date'
@@ -44,11 +50,11 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setBirthDate(e.target.value)}
                 />
             </div>
-            <label className='form-label mt-2' for='Phone'>
-                Phone
+            <label className='form-label mt-3' htmlFor='Phone'>
+                No Telp
             </label>
-            <div class='input-group mb-3'>
-                <span class="input-group-text" id="Phone">+62</span>
+            <div className='input-group mb-4'>
+                <span className="input-group-text" id="Phone">+62</span>
                 <input
                     type='text'
                     className='form-control'
@@ -58,10 +64,10 @@ export const AfterRegisterComp = () => {
                     onChange={(e) => setPhone(0 + e.target.value)}
                 />
             </div>
-            <label className='mt-2 mb-1' for='Weight'>
+            <label className='form-label mt-3' htmlFor='Weight'>
                 Berat
             </label>
-            <div class='input-group mb-3'>
+            <div className='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'
@@ -69,12 +75,12 @@ export const AfterRegisterComp = () => {
                     placeholder='Berat badan'
                     onChange={(e) => setWeight(e.target.value)}
                 />
-                <span class="input-group-text" id="Weight">Kg</span>
+                <span className="input-group-text" id="Weight">Kg</span>
             </div>
-            <label className='mt-2 mb-1' for='Height'>
+            <label className='form-label mt-3' htmlFor='Height'>
                 Tinggi
             </label>
-            <div class='input-group mb-3'>
+            <div className='input-group mb-4'>
                 <input
                     type='number'
                     className='form-control'
@@ -82,9 +88,9 @@ export const AfterRegisterComp = () => {
                     placeholder='Tinggi badan'
                     onChange={(e) => setHeight(e.target.value)}
                 />
-                <span class="input-group-text" id="Height">Cm</span>
+                <span className="input-group-text" id="Height">Cm</span>
             </div>
-            <button className='submit-btn btn-lg mt-5' type='submit'>
+            <button onClick={submitHandler} className='submit-btn btn-lg mt-5' type='submit'>
                 Tambah Data
             </button>
         </form>

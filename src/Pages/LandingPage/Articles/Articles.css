@@ -1,0 +1,36 @@
+.article-container {
+  margin: auto;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.article-title h1 {
+  font-size: 1.5rem;
+  font-weight: 650;
+  font-style: normal;
+  color: rgb(54, 69, 79);
+  line-height: 1.375;
+}
+
+.article-image img {
+  width: 40rem;
+  border-radius: 15px;
+  margin: 2rem 0.5rem;
+}
+.article-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-style: normal;
+  color: rgb(77, 85, 91);
+  line-height: 30px;
+}
+
+.article-content p {
+  font-size: 1rem;
+  font-style: normal;
+  color: rgb(77, 85, 91);
+  line-height: 30px;
+}
